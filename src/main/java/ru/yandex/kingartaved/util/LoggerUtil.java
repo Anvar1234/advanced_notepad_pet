@@ -5,10 +5,14 @@ import java.io.InputStream;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
+    // TODO: добавить в коде проверки if (logger.isLoggable(Level.FINE)).
 public class LoggerUtil {
 
     static {
         loadLogConfiguration();
+    }
+    private LoggerUtil() {
+        throw new UnsupportedOperationException("Utility class");
     }
 
     private static void loadLogConfiguration() {
@@ -26,6 +30,6 @@ public class LoggerUtil {
         if (className == null || className.trim().isEmpty()) {
             throw new IllegalArgumentException("Class name cannot be null or empty");
         }
-        return Logger.getLogger(className); // TODO: добавить в коде проверки if (logger.isLoggable(Level.FINE)).
+        return Logger.getLogger(className);
     }
 }
