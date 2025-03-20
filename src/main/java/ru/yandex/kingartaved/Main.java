@@ -1,7 +1,10 @@
 package ru.yandex.kingartaved;
 
+import ru.yandex.kingartaved.data.model.TextNote;
+
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello, World!");
+        TextNote textNote = new TextNote.TextNoteBuilder().build();
+        System.out.println(textNote);
     }
 }
