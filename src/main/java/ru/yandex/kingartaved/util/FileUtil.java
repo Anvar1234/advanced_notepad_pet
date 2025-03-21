@@ -24,15 +24,14 @@ public final class FileUtil {
             // Проверяем, существует ли файл
             if (Files.exists(filePath)) {
                 logger.info(String.format("File \"%s\" already exist.", filePath.getFileName()));
-                return; // Файл уже существует, ничего не делаем
+                return;
             }
 
             // Создаем файл
             Files.createFile(filePath);
             logger.info(String.format("File \"%s\" created.", filePath.getFileName()));
         } catch (IOException e) {
-            // Обработка исключения (можно выбросить RuntimeException или обработать иначе)
-            throw new RuntimeException("Failed to create file: " + e.getMessage(), e);
+            logger.warning("Failed to create file: " + filePath + ". Error: " + e.getMessage());
         }
     }
 
