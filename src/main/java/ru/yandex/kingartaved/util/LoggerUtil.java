@@ -1,18 +1,20 @@
 package ru.yandex.kingartaved.util;
 
+import ru.yandex.kingartaved.exception.constant.ErrorMessage;
+
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
     // TODO: добавить в коде проверки if (logger.isLoggable(Level.FINE)).
-public class LoggerUtil {
+public final class LoggerUtil {
 
     static {
         loadLogConfiguration();
     }
     private LoggerUtil() {
-        throw new UnsupportedOperationException("Utility class");
+        throw new UnsupportedOperationException(ErrorMessage.UTILITY_CLASS.getMessage());
     }
 
     private static void loadLogConfiguration() {

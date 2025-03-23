@@ -2,8 +2,8 @@ package ru.yandex.kingartaved.config;
 
 public class AppConfig {
     // Путь к пакету для формирования маппера
-    public static final String MAPPERS_PACKAGE = "ru.yandex.kingartaved.data.mapper.client_mapper_impl";
-    public static final String ENTITY_CLASSES_PACKAGE = "ru.yandex.kingartaved.data.model.client.client_impl";
+    public static final String MAPPERS_PACKAGE = "ru.yandex.kingartaved.data.mapper.impl";
+    public static final String ENTITY_CLASSES_PACKAGE = "ru.yandex.kingartaved.data.model";
     public static final String MAPPER_SUFFIX = "Mapper";
 
     // Пути к файлам базы данных

@@ -1,6 +1,7 @@
 package ru.yandex.kingartaved.util;
 
 import ru.yandex.kingartaved.config.AppConfig;
+import ru.yandex.kingartaved.exception.constant.ErrorMessage;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -15,7 +16,7 @@ public final class FileUtil {
     private static final Logger logger = LoggerUtil.log(FileUtil.class.getName());
 
     private FileUtil() {
-        throw new UnsupportedOperationException("Utility class");
+        throw new UnsupportedOperationException(ErrorMessage.UTILITY_CLASS.getMessage());
     }
 
     public static void createFile(Path filePath) {
