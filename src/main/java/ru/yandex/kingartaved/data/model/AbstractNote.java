@@ -14,7 +14,7 @@ public abstract class AbstractNote {
     // TODO: В будущем можно добавить автора, если будет работать с несколькими пользователями, типа общие заметки.
     private UUID id;
     private String title; // nullable
-    private LocalDateTime createdDateTime;
+    private LocalDateTime createdDateTime = LocalDateTime.now();
     private LocalDateTime changedDateTime;
     private LocalDateTime remainderDate; // nullable. Планируемая дата и время выполнения, напоминание выводится *условно* за час до времени.
     private boolean isPinned; //Закреп или не закреп. Заметки с закреп отображаются наверху списка и сортируются меж собой, а незакреп сортируются уже между собой.
@@ -131,7 +131,7 @@ public abstract class AbstractNote {
             return self();
         }
 
-        public T addTag(String tag) {
+        public T addTag(String tag) { // TODO: возможно удалить.
             this.tags.add(tag);
             return self();
         }

@@ -45,7 +45,7 @@ public final class PackageScanner {
             // Сканируем директорию
             File directory = new File(resource.getFile());
             if (!directory.exists() || !directory.isDirectory()) {
-                String errorMessage = ErrorMessage.FILE_NOT_FOUND.getMessage() + ": " + packageName; //TODO возможно заменить енам на просто строку.
+                String errorMessage = ErrorMessage.FILE_NOT_FOUND.getMessage() + ": " + directory; //TODO возможно заменить енам на просто строку.
                 logger.warning(errorMessage);
                 throw new IllegalArgumentException(errorMessage);
             }
@@ -62,7 +62,9 @@ public final class PackageScanner {
                 }
             }
         } catch (Exception e) {
-            throw new PackageScanningException("Ошибка при сканировании пакета: " + packageName, e);
+            String errorMessage = "Ошибка при сканировании пакета: " + packageName;
+            logger.severe(errorMessage);
+            throw new PackageScanningException(errorMessage, e);
         }
         return Collections.unmodifiableList(classes); // Возвращаем неизменяемый список
     }

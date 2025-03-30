@@ -21,7 +21,7 @@ import static ru.yandex.kingartaved.util.ClassGetter.getClassByNameFromList;
 public class NoteMapperFactory {
     private static final Logger logger = LoggerUtil.log(NoteMapperFactory.class.getName());
     /**
-     * Карта для хранения соответствий между классами сущностей и их мапперами.
+     * Мапа для хранения соответствий между классами сущностей и их мапперами.
      */
     private static final Map<Class<? extends AbstractNote>, NoteMapper<?, ?>> mappers = new HashMap<>();
 
@@ -81,7 +81,7 @@ public class NoteMapperFactory {
      * @param clazz Класс для проверки маппер ли он и допустимый ли.
      * @return true, если класс является маппером; false в противном случае.
      */
-    private static boolean isValidMapperClass(Class<?> clazz) {
+    private static boolean isValidMapperClass(Class<?> clazz) { //TODO: возможно перенести в утильную валидацию.
         return NoteMapper.class.isAssignableFrom(clazz) && clazz.getSimpleName().endsWith(AppConfig.MAPPER_SUFFIX);
     }
 

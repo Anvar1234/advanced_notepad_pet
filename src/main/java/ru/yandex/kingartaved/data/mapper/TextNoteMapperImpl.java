@@ -4,7 +4,7 @@ import ru.yandex.kingartaved.data.model.TextNote;
 import ru.yandex.kingartaved.dto.TextNoteDto;
 
 public class TextNoteMapperImpl implements NoteMapper<TextNote, TextNoteDto> {
-    public TextNoteDto entityToDto(TextNote textNote) {
+    public TextNoteDto mapEntityToDto(TextNote textNote) {
         TextNoteDto textNoteDto = new TextNoteDto();
         textNoteDto.setId(textNote.getId());
         textNoteDto.setTitle(textNote.getTitle());
@@ -21,7 +21,7 @@ public class TextNoteMapperImpl implements NoteMapper<TextNote, TextNoteDto> {
         return textNoteDto;
     }
 
-    public TextNote dtoToEntity(TextNoteDto noteDto) {
+    public TextNote mapDtoToEntity(TextNoteDto noteDto) {
         TextNote textNote = new TextNote.TextNoteBuilder()
                 .setId(noteDto.getId())
                 .setTitle(noteDto.getTitle())

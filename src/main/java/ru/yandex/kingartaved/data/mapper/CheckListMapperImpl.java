@@ -4,7 +4,7 @@ import ru.yandex.kingartaved.data.model.CheckList;
 import ru.yandex.kingartaved.dto.CheckListDto;
 
 public class CheckListMapperImpl implements NoteMapper<CheckList, CheckListDto> {
-    public CheckListDto entityToDto(CheckList checkList) {
+    public CheckListDto mapEntityToDto(CheckList checkList) {
         CheckListDto checkListDto = new CheckListDto();
         checkListDto.setId(checkList.getId());
         checkListDto.setTitle(checkList.getTitle());
@@ -21,7 +21,7 @@ public class CheckListMapperImpl implements NoteMapper<CheckList, CheckListDto> 
         return checkListDto;
     }
 
-    public CheckList dtoToEntity(CheckListDto checkListDto) {
+    public CheckList mapDtoToEntity(CheckListDto checkListDto) {
         CheckList checkList = new CheckList.CheckListBuilder()
                 .setId(checkListDto.getId())
                 .setTitle(checkListDto.getTitle())
