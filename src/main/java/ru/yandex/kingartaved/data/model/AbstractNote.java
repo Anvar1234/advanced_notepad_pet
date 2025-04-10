@@ -26,9 +26,9 @@ public abstract class AbstractNote {
     protected AbstractNote(AbstractNoteBuilder<?> abstractNoteBuilder) {
         this.id = abstractNoteBuilder.id;
         this.title = abstractNoteBuilder.title;
-        this.createdDateTime = abstractNoteBuilder.createdDateTime;
-        this.changedDateTime = abstractNoteBuilder.changedDateTime;
-        this.remainderDate = abstractNoteBuilder.remainderDate;
+        this.createdDateTime = abstractNoteBuilder.createdAt;
+        this.changedDateTime = abstractNoteBuilder.changedAt;
+        this.remainderDate = abstractNoteBuilder.remindAt;
         this.isPinned = abstractNoteBuilder.isPinned;
         this.priority = abstractNoteBuilder.priority;
         this.tags = abstractNoteBuilder.tags;
@@ -81,9 +81,9 @@ public abstract class AbstractNote {
     public abstract static class AbstractNoteBuilder<T extends AbstractNoteBuilder<T>> {
         private UUID id = UUID.randomUUID(); // Генерация ID по умолчанию
         private String title; // nullable
-        private LocalDateTime createdDateTime = LocalDateTime.now(); // Текущее время по умолчанию
-        private LocalDateTime changedDateTime = LocalDateTime.now(); // Текущее время по умолчанию
-        private LocalDateTime remainderDate; // nullable
+        private LocalDateTime createdAt = LocalDateTime.now(); // Текущее время по умолчанию
+        private LocalDateTime changedAt = LocalDateTime.now(); // Текущее время по умолчанию
+        private LocalDateTime remindAt; // nullable
         private boolean isPinned = false; // По умолчанию не закреплено
         private NotePriorityEnum priority = NotePriorityEnum.BASE; // По умолчанию LOW
         private Set<String> tags = new HashSet<>(); // Пустой набор по умолчанию
@@ -101,18 +101,18 @@ public abstract class AbstractNote {
             return self();
         }
 
-        public T setCreatedDateTime(LocalDateTime createdDateTime) {
-            this.createdDateTime = createdDateTime;
+        public T setCreatedAt(LocalDateTime createdAt) {
+            this.createdAt = createdAt;
             return self();
         }
 
-        public T setChangedDateTime(LocalDateTime changedDateTime) {
-            this.changedDateTime = changedDateTime;
+        public T setChangedAt(LocalDateTime changedAt) {
+            this.changedAt = changedAt;
             return self();
         }
 
-        public T setRemainderDate(LocalDateTime remainderDate) {
-            this.remainderDate = remainderDate;
+        public T setRemindAt(LocalDateTime remindAt) {
+            this.remindAt = remindAt;
             return self();
         }
 

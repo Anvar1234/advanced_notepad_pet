@@ -6,7 +6,6 @@ import ru.yandex.kingartaved.data.constant.NoteTypeEnum;
 import ru.yandex.kingartaved.data.model.TextNote;
 
 import java.time.LocalDateTime;
-import java.util.ServiceLoader;
 import java.util.Set;
 import java.util.UUID;
 
@@ -36,9 +35,9 @@ public class TextNoteSerializer implements NoteSerializer<TextNote> {
         return new TextNote.TextNoteBuilder()
                 .setId(UUID.fromString(parts[0]))                 // id
                 .setTitle(parts[1])                                  // title
-                .setCreatedDateTime(LocalDateTime.parse(parts[2]))          // createdAt
-                .setChangedDateTime(LocalDateTime.parse(parts[3]))  // changedAt
-                .setRemainderDate(parts[4].isEmpty() ? null : LocalDateTime.parse(parts[4])) // deadline
+                .setCreatedAt(LocalDateTime.parse(parts[2]))          // createdAt
+                .setChangedAt(LocalDateTime.parse(parts[3]))  // changedAt
+                .setRemindAt(parts[4].isEmpty() ? null : LocalDateTime.parse(parts[4])) // deadline
                 .setPinned(Boolean.parseBoolean(parts[5])) // isPinned
                 .setPriority(NotePriorityEnum.valueOf(parts[6])) // priority
                 .setTags(Set.of(parts[7].split(","))) // tags
