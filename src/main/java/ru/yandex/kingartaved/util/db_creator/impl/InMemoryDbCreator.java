@@ -19,10 +19,10 @@ public final class InMemoryDbCreator<T extends AbstractNote> implements DbCreato
         this.pathToDb = pathToDb;
     }
 
-    public List<T> createDatabase() {
-        FileUtil.createFile(pathToDb);
-        List<String> uploaded = FileUtil.readAll(pathToDb);
-
-
-    }
+//    public List<T> createDatabase() {
+//        FileUtil.createFile(pathToDb);
+//        List<String> uploaded = FileUtil.readAll(pathToDb);
+//
+//
+//    }
 }

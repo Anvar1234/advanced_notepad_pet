@@ -1,0 +1,14 @@
+апр. 11, 2025 12:32:51 AM ru.yandex.kingartaved.util.validator.GeneralValidator validateParts
+SEVERE: Ошибка при валидации строки: f47ac10b-58cc-4372-a567-0e02b2c3d479|Заметка 1|2023-10-01T12:34:56|2023-10-01T15:34:56|2023-10-05T12:34:56|true  |HIGH|ACTIVE|TEXT_NOTE|Это содержимое текстовой заметки номер 1
+java.lang.IllegalArgumentException: Поле 'pinned' (index 5) должно быть true/false, но пришло: true  
+	at ru.yandex.kingartaved.util.validator.GeneralValidator.requireBoolean(GeneralValidator.java:103)
+	at ru.yandex.kingartaved.util.validator.GeneralValidator.validateParts(GeneralValidator.java:40)
+	at ru.yandex.kingartaved.util.validator.GeneralValidator.main(GeneralValidator.java:131)
+
+апр. 11, 2025 12:33:21 AM ru.yandex.kingartaved.util.validator.GeneralValidator validateParts
+SEVERE: Ошибка при валидации строки: f47ac10b-58cc-4372-a567-0e02b2c3d479|Заметка 1|2023-10-01T12:34:56|2023-10-01T15:34:56|2023-10-05T12:34:56|true  |HIGH|ACTIVE|TEXT_NOTE|Это содержимое текстовой заметки номер 1
+java.lang.IllegalArgumentException: Поле 'pinned' (index 5) должно быть true/false, но пришло: true  
+	at ru.yandex.kingartaved.util.validator.GeneralValidator.requireBoolean(GeneralValidator.java:104)
+	at ru.yandex.kingartaved.util.validator.GeneralValidator.validateParts(GeneralValidator.java:41)
+	at ru.yandex.kingartaved.util.validator.GeneralValidator.main(GeneralValidator.java:133)
+
