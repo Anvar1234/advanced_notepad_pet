@@ -21,7 +21,7 @@ public class TextNoteSerializer implements NoteSerializer<TextNote> {
                 note.getRemainderDate() != null ? note.getRemainderDate().toString() : "",
                 String.valueOf(note.isPinned()),
                 note.getPriority().name(),
-                String.join(",", note.getTags()),
+//                String.join(",", note.getTags()),
                 note.getStatus().name(),
                 note.getType().name(),
                 note.getContent()
@@ -40,7 +40,7 @@ public class TextNoteSerializer implements NoteSerializer<TextNote> {
                 .setRemindAt(parts[4].isEmpty() ? null : LocalDateTime.parse(parts[4])) // deadline
                 .setPinned(Boolean.parseBoolean(parts[5])) // isPinned
                 .setPriority(NotePriorityEnum.valueOf(parts[6])) // priority
-                .setTags(Set.of(parts[7].split(","))) // tags
+//                .setTags(Set.of(parts[7].split(","))) // tags
                 .setStatus(NoteStatusEnum.valueOf(parts[8])) // status
                 .setType(NoteTypeEnum.valueOf(parts[9])) // type
                 .setContent(parts[10]) // content
