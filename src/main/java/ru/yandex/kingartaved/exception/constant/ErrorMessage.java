@@ -12,6 +12,8 @@ public enum ErrorMessage {
 
     UTILITY_CLASS("Утилитный класс"),
 
+    INVALID_LINE("Невалидная строка"),
+
 
 
     BAD_REQUEST("Неверный запрос"),

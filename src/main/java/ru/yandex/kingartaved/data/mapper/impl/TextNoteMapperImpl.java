@@ -1,5 +1,6 @@
-package ru.yandex.kingartaved.data.mapper;
+package ru.yandex.kingartaved.data.mapper.impl;
 
+import ru.yandex.kingartaved.data.mapper.NoteMapper;
 import ru.yandex.kingartaved.data.model.TextNote;
 import ru.yandex.kingartaved.dto.TextNoteDto;
 

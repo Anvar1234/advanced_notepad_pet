@@ -1,5 +1,6 @@
 package ru.yandex.kingartaved.dto;
 
+//TODO: имплементировать интерфейс Serializible?
 public class TextNoteDto extends AbstractNoteDto {
     private String content;
 
