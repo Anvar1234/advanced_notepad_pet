@@ -10,10 +10,10 @@ import java.util.UUID;
 /**
  * Репозиторий работает с сущностями из БД (БД - это список или мапа, заполняется маппированными сущностями из строк файла txt на данном этапе).
  */
-public interface NoteRepository {
-    Optional<AbstractNote> findById(UUID id); // TODO: репозиторий пусть работает со строками, сервис же преобразует в сущность и обратно и возвращает в репозиторий.
-    List<AbstractNote> findAll();
-    AbstractNote save(AbstractNote note);
+public interface NoteRepository<T extends AbstractNote> {
+    Optional<T> findById(UUID id);
+    List<T> findAll();
+    void save(T note);
     void delete(UUID id);
-    void update(Path filePath, List<AbstractNote> data);
+    void update(Path filePath, List<T> data);
 }

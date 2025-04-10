@@ -5,30 +5,30 @@ import ru.yandex.kingartaved.data.constant.NoteTypeEnum;
 import java.util.List;
 
 public class CheckList extends AbstractNote {
-    private List<CheckListItem> checkListItems;
+    private List<CheckListItem> content;
 
     // Приватный конструктор
-    private CheckList(CheckListNoteBuilder builder) {
+    private CheckList(CheckListBuilder builder) {
         super(builder);
-        this.checkListItems = builder.checkListItems;
+        this.content = builder.content;
     }
 
     // Геттер для checkListItems
-    public List<CheckListItem> getCheckListItems() {
-        return checkListItems;
+    public List<CheckListItem> getContent() {
+        return content;
     }
 
     // Builder для CheckListNote
-    public static class CheckListNoteBuilder extends AbstractNote.NoteBuilder<CheckListNoteBuilder> {
-        private List<CheckListItem> checkListItems;
+    public static class CheckListBuilder extends AbstractNoteBuilder<CheckListBuilder> {
+        private List<CheckListItem> content;
 
-        public CheckListNoteBuilder setCheckListItems(List<CheckListItem> checkListItems) {
-            this.checkListItems = checkListItems;
+        public CheckListBuilder setContent(List<CheckListItem> content) {
+            this.content = content;
             return this;
         }
 
         @Override
-        protected CheckListNoteBuilder self() {
+        protected CheckListBuilder self() {
             return this;
         }
 
@@ -42,7 +42,7 @@ public class CheckList extends AbstractNote {
     @Override
     public String toString() {
         return super.toString() + " CheckList{" +
-                "checkListItems=" + checkListItems +
+                "checkListItems=" + content +
                 '}';
     }
 }

@@ -17,7 +17,7 @@ public class TextNote extends AbstractNote {
     }
 
     // Builder для TextNote
-    public static class TextNoteBuilder extends AbstractNote.NoteBuilder<TextNoteBuilder> {
+    public static class TextNoteBuilder extends AbstractNoteBuilder<TextNoteBuilder> {
         private String content;
 
         public TextNoteBuilder setContent(String content) {
