@@ -30,9 +30,8 @@ public class CommonPartsValidator {
             }
             requireBoolean(parts, 5, "pinned");
             requireEnum(parts, 6, "priority", NotePriorityEnum.class);
-            requireNotBlank(parts, 7, "tags");
-            requireEnum(parts, 8, "status", NoteStatusEnum.class);
-            requireEnum(parts, 9, "type", NoteTypeEnum.class);
+            requireEnum(parts, 7, "status", NoteStatusEnum.class);
+            requireEnum(parts, 8, "type", NoteTypeEnum.class);
             return true;
         } catch (IllegalArgumentException e) {
             logger.log(Level.SEVERE, "Ошибка при валидации строки: " + Arrays.toString(parts), e);
