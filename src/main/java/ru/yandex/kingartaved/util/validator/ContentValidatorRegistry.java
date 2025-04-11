@@ -21,3 +21,4 @@ public class ContentValidatorRegistry {
         return Optional.ofNullable(validators.get(type));
     }
 }
+
