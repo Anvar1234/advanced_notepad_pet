@@ -1,11 +1,12 @@
-апр. 11, 2025 10:46:03 PM ru.yandex.kingartaved.util.validator.DbLineValidator validateParts
-SEVERE: Ошибка при валидации строки: f47ac10b-58cc-4372-a567-0e02b2c3d479|Заметка 1|2023-10-01T12:34:56|2023-10-01T15:34:56|null|true|HIGH|ACTIVE|TEXT_NOTE|
-java.lang.IllegalArgumentException: Поле 'content' (index 9) содержит невалидную строку: ""
-	at ru.yandex.kingartaved.util.validator.DbLineValidator.requireContent(DbLineValidator.java:170)
-	at ru.yandex.kingartaved.util.validator.DbLineValidator.validateParts(DbLineValidator.java:67)
-	at ru.yandex.kingartaved.util.validator.DbLineValidator.main(DbLineValidator.java:187)
-
-апр. 11, 2025 10:46:03 PM ru.yandex.kingartaved.util.validator.DbLineValidator validateParts
-SEVERE: Неверное количество полей, ожидалось: 10, фактическое количество: 9
-апр. 11, 2025 11:37:31 PM ru.yandex.kingartaved.util.validator.DbLineValidator validateParts
-SEVERE: Ошибка при валидации строки: f47ac10b-58cc-4372-a567-0e02b2c3d479|Заметка 1|2023-10-01T12:34:56|2023-10-01T15:34:56|null|true|HIGH|ACTIVE|TEXT_NOTE|null, java.lang.IllegalArgumentException: Поле с индексом 9 содержит null
+апр. 11, 2025 11:55:04 PM ru.yandex.kingartaved.util.validator.DbLineValidator validateParts
+SEVERE: Ошибка при валидации строки:
+ f47ac10b-58cc-4372-a567-0e02b2c3d479|Заметка 1|2023-10-01T12:34:56|2023-10-01T15:34:56|null|true|HIGH|ACTIVE|TEXT_NOTE|
+ java.lang.IllegalArgumentException: Поле 'content' (index 9) содержит невалидную строку: ""
+апр. 11, 2025 11:55:04 PM ru.yandex.kingartaved.util.validator.DbLineValidator validateParts
+SEVERE: Ошибка при валидации строки:
+ f47ac10b-58cc-4372-a567-0e02b2c3d479|Заметка 1|2023-10-01T12:34:56|2023-10-01T15:34:56|null|true|HIGH|ACTIVE|TEXT_NOTE
+ java.lang.IllegalArgumentException: Неверное количество полей после split: ожидалось: 10, пришло: 9
+апр. 12, 2025 12:27:28 PM ru.yandex.kingartaved.util.validator.DbLineValidator validateParts
+SEVERE: Ошибка при валидации строки:
+ f47ac10b-58cc-4372-a567-0e02b2c3d479|Заметка 1|2023-10-01T12:34:56|2023-10-01T15:34:56|null|true|HIGH|ACTIVE|TEXT_NOTE|null
+ java.lang.IllegalArgumentException: Поле с индексом 9 содержит null
