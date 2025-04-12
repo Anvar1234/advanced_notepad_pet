@@ -19,19 +19,19 @@ public abstract class AbstractNote {
     private LocalDateTime remainderDate; // nullable. Планируемая дата и время выполнения, напоминание выводится *условно* за час до времени.
     private boolean isPinned; //Закреп или не закреп. Заметки с закреп отображаются наверху списка и сортируются меж собой, а незакреп сортируются уже между собой.
     private NotePriorityEnum priority; // просто возможность сортировки.
-    private Set<String> tags; // Для категоризации и поиска.
+//    private Set<String> tags; // Для категоризации и поиска.
     private NoteStatusEnum status; //ACTIVE, COMPLETED, POSTPONED, ARCHIVED - активные - это созданные и возвращенные из завершенных или архива, обычные заметки. Отложенные - убираются из списка, но периодически возвращаются в список активных и напоминают о себе и выводятся в список исходя из поля ремайндер - для null - условно раз в день (датавремя изменения статуса плюс один день), для не null - в указанное время. Завершенные - те которые завершены, отображаются внизу списка; пользователь может удалить ее или убрать в архив. Архив - если завершенная задача сохраняется в архивном разделе (отдельном списке) и убирается из завершенных.
     private NoteTypeEnum type; // Тип - список или просто заметка. TODO: потом можно сделать этот класс абстр, и 2 наследника - типа список и просто заметка.
 
     protected AbstractNote(AbstractNoteBuilder<?> abstractNoteBuilder) {
         this.id = abstractNoteBuilder.id;
         this.title = abstractNoteBuilder.title;
-        this.createdDateTime = abstractNoteBuilder.createdDateTime;
-        this.changedDateTime = abstractNoteBuilder.changedDateTime;
-        this.remainderDate = abstractNoteBuilder.remainderDate;
+        this.createdDateTime = abstractNoteBuilder.createdAt;
+        this.changedDateTime = abstractNoteBuilder.changedAt;
+        this.remainderDate = abstractNoteBuilder.remindAt;
         this.isPinned = abstractNoteBuilder.isPinned;
         this.priority = abstractNoteBuilder.priority;
-        this.tags = abstractNoteBuilder.tags;
+//        this.tags = abstractNoteBuilder.tags;
         this.status = abstractNoteBuilder.status;
         this.type = abstractNoteBuilder.type;
     }
@@ -65,9 +65,9 @@ public abstract class AbstractNote {
         return priority;
     }
 
-    public Set<String> getTags() {
-        return tags;
-    }
+//    public Set<String> getTags() {
+//        return tags;
+//    }
 
     public NoteStatusEnum getStatus() {
         return status;
@@ -81,12 +81,12 @@ public abstract class AbstractNote {
     public abstract static class AbstractNoteBuilder<T extends AbstractNoteBuilder<T>> {
         private UUID id = UUID.randomUUID(); // Генерация ID по умолчанию
         private String title; // nullable
-        private LocalDateTime createdDateTime = LocalDateTime.now(); // Текущее время по умолчанию
-        private LocalDateTime changedDateTime = LocalDateTime.now(); // Текущее время по умолчанию
-        private LocalDateTime remainderDate; // nullable
+        private LocalDateTime createdAt = LocalDateTime.now(); // Текущее время по умолчанию
+        private LocalDateTime changedAt = LocalDateTime.now(); // Текущее время по умолчанию
+        private LocalDateTime remindAt; // nullable
         private boolean isPinned = false; // По умолчанию не закреплено
         private NotePriorityEnum priority = NotePriorityEnum.BASE; // По умолчанию LOW
-        private Set<String> tags = new HashSet<>(); // Пустой набор по умолчанию
+//        private Set<String> tags = new HashSet<>(); // Пустой набор по умолчанию
         private NoteStatusEnum status = NoteStatusEnum.ACTIVE; // По умолчанию ACTIVE
         private NoteTypeEnum type ; // Установка в наследниках.
 
@@ -101,18 +101,18 @@ public abstract class AbstractNote {
             return self();
         }
 
-        public T setCreatedDateTime(LocalDateTime createdDateTime) {
-            this.createdDateTime = createdDateTime;
+        public T setCreatedAt(LocalDateTime createdAt) {
+            this.createdAt = createdAt;
             return self();
         }
 
-        public T setChangedDateTime(LocalDateTime changedDateTime) {
-            this.changedDateTime = changedDateTime;
+        public T setChangedAt(LocalDateTime changedAt) {
+            this.changedAt = changedAt;
             return self();
         }
 
-        public T setRemainderDate(LocalDateTime remainderDate) {
-            this.remainderDate = remainderDate;
+        public T setRemindAt(LocalDateTime remindAt) {
+            this.remindAt = remindAt;
             return self();
         }
 
@@ -126,15 +126,15 @@ public abstract class AbstractNote {
             return self();
         }
 
-        public T setTags(Set<String> tags) {
-            this.tags = tags;
-            return self();
-        }
-
-        public T addTag(String tag) { // TODO: возможно удалить.
-            this.tags.add(tag);
-            return self();
-        }
+//        public T setTags(Set<String> tags) {
+//            this.tags = tags;
+//            return self();
+//        }
+//
+//        public T addTag(String tag) { // TODO: возможно удалить.
+//            this.tags.add(tag);
+//            return self();
+//        }
 
         public T setStatus(NoteStatusEnum status) {
             this.status = status;
@@ -163,7 +163,7 @@ public abstract class AbstractNote {
                 ", remainderDate=" + remainderDate +
                 ", isPinned=" + isPinned +
                 ", priority=" + priority +
-                ", tags=" + tags +
+//                ", tags=" + tags +
                 ", status=" + status +
                 ", type=" + type.getNoteType() +
                 '}';

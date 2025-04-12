@@ -1,0 +1,12 @@
+апр. 12, 2025 12:27:28 PM ru.yandex.kingartaved.util.validator.DbLineValidator validateParts
+SEVERE: Ошибка при валидации строки:
+ a1b2c3d4-e5f6-7890-abcd-ef1234567890||2023-10-10T18:45:22|2023-10-10T20:45:22|2023-10-15T18:45:22|true|HIGH|POSTPONED|TEXT_NOTE|333Текстовая заметка с отложенным статусом
+ java.lang.IllegalArgumentException: Поле 'title' (index 1) не может быть пустым
+апр. 12, 2025 12:27:28 PM ru.yandex.kingartaved.util.validator.DbLineValidator validateParts
+SEVERE: Ошибка при валидации строки:
+ f47ac10b-58cc-4372-a567-0e02b2c3d479|Заметка 1|2023-10-01T12:34:56|2023-10-01T15:34:56|null|true|HIGH|ACTIVE|TEXT_NOTE|
+ java.lang.IllegalArgumentException: Поле 'content' (index 9) содержит невалидную строку: ""
+апр. 12, 2025 12:27:28 PM ru.yandex.kingartaved.util.validator.DbLineValidator validateParts
+SEVERE: Ошибка при валидации строки:
+ f47ac10b-58cc-4372-a567-0e02b2c3d479|Заметка 1|2023-10-01T12:34:56|2023-10-01T15:34:56|null|true|HIGH|ACTIVE|TEXT_NOTE
+ java.lang.IllegalArgumentException: Неверное количество полей после split: ожидалось: 10, пришло: 9

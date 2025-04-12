@@ -1,6 +1,0 @@
-мар. 21, 2025 1:46:55 AM ru.yandex.kingartaved.util.FileUtil createFile
-INFO: File "check_list_db.txt" already exist.
-мар. 21, 2025 2:03:41 AM ru.yandex.kingartaved.util.FileUtil createFile
-INFO: File "text_note_db.txt" already exist.
-мар. 21, 2025 2:03:42 AM ru.yandex.kingartaved.util.FileUtil readAll
-INFO: Data successfully read from file: src\main\resources\text_note_db.txt

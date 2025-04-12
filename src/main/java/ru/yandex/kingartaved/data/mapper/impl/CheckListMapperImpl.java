@@ -14,7 +14,7 @@ public class CheckListMapperImpl implements NoteMapper<CheckList, CheckListDto> 
         checkListDto.setRemainderDate(checkList.getRemainderDate());
         checkListDto.setPinned(checkList.isPinned());
         checkListDto.setPriority(checkList.getPriority());
-        checkListDto.setTags(checkList.getTags());
+//        checkListDto.setTags(checkList.getTags());
         checkListDto.setStatus(checkList.getStatus());
         checkListDto.setType(checkList.getType());
         checkListDto.setContent(checkList.getContent());
@@ -23,20 +23,18 @@ public class CheckListMapperImpl implements NoteMapper<CheckList, CheckListDto> 
     }
 
     public CheckList mapDtoToEntity(CheckListDto checkListDto) {
-        CheckList checkList = new CheckList.CheckListBuilder()
+        return new CheckList.CheckListBuilder()
                 .setId(checkListDto.getId())
                 .setTitle(checkListDto.getTitle())
-                .setCreatedDateTime(checkListDto.getCreatedDateTime())
-                .setChangedDateTime(checkListDto.getChangedDateTime())
-                .setRemainderDate(checkListDto.getRemainderDate())
+                .setCreatedAt(checkListDto.getCreatedDateTime())
+                .setChangedAt(checkListDto.getChangedDateTime())
+                .setRemindAt(checkListDto.getRemainderDate())
                 .setPinned(checkListDto.isPinned())
                 .setPriority(checkListDto.getPriority())
-                .setTags(checkListDto.getTags())
+//                .setTags(checkListDto.getTags())
                 .setStatus(checkListDto.getStatus())
                 .setType(checkListDto.getType())
                 .setContent(checkListDto.getContent())
                 .build();
-
-        return checkList;
     }
 }
