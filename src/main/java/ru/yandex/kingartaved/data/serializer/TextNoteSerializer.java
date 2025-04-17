@@ -3,7 +3,6 @@ package ru.yandex.kingartaved.data.serializer;
 import ru.yandex.kingartaved.data.constant.NotePriorityEnum;
 import ru.yandex.kingartaved.data.constant.NoteStatusEnum;
 import ru.yandex.kingartaved.data.constant.NoteTypeEnum;
-import ru.yandex.kingartaved.data.model.TextNote;
 import ru.yandex.kingartaved.validation.db_line_validator.DbLineValidator;
 
 import java.time.LocalDateTime;

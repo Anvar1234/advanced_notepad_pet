@@ -1,7 +1,5 @@
 package ru.yandex.kingartaved.util.db_creator.impl;
 
-import ru.yandex.kingartaved.data.model.AbstractNote;
-import ru.yandex.kingartaved.util.FileUtil;
 import ru.yandex.kingartaved.util.db_creator.DbCreator;
 
 import java.nio.file.Path;

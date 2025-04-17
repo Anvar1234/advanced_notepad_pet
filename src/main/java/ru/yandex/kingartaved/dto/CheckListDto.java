@@ -1,18 +1,18 @@
 package ru.yandex.kingartaved.dto;
 
-import ru.yandex.kingartaved.data.model.CheckListItem;
+import ru.yandex.kingartaved.data.model.ChecklistItem;
 
 import java.util.List;
 
 public class CheckListDto extends AbstractNoteDto {
 
-    private List<CheckListItem> content;
+    private List<ChecklistItem> content;
 
-    public List<CheckListItem> getContent() {
+    public List<ChecklistItem> getContent() {
         return content;
     }
 
-    public void setContent(List<CheckListItem> content) {
+    public void setContent(List<ChecklistItem> content) {
         this.content = content;
     }
 }

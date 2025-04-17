@@ -1,20 +1,16 @@
 package ru.yandex.kingartaved.data.model;
 
-public class CheckListItem {
+public class ChecklistItem {
     private String text;
     private boolean isCompleted;
 
-    public CheckListItem(String text) {
+    public ChecklistItem(String text) {
         this.text = text;
         this.isCompleted = false;
     }
 
     public String getText() {
         return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
     }
 
     public boolean isCompleted() {
