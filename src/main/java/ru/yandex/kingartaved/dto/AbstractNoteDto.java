@@ -16,7 +16,6 @@ public abstract class AbstractNoteDto {
     private LocalDateTime remainderDate;
     private boolean isPinned;
     private NotePriorityEnum priority;
-    private Set<String> tags;
     private NoteStatusEnum status;
     private NoteTypeEnum type;
 
@@ -74,14 +73,6 @@ public abstract class AbstractNoteDto {
 
     public void setPriority(NotePriorityEnum priority) {
         this.priority = priority;
-    }
-
-    public Set<String> getTags() {
-        return tags;
-    }
-
-    public void setTags(Set<String> tags) {
-        this.tags = tags;
     }
 
     public NoteStatusEnum getStatus() {

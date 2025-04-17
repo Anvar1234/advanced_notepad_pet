@@ -4,21 +4,35 @@ import ru.yandex.kingartaved.data.constant.NotePriorityEnum;
 import ru.yandex.kingartaved.data.constant.NoteStatusEnum;
 import ru.yandex.kingartaved.data.constant.NoteTypeEnum;
 import ru.yandex.kingartaved.data.model.TextNote;
+import ru.yandex.kingartaved.validation.db_line_validator.DbLineValidator;
 
 import java.time.LocalDateTime;
-import java.util.Set;
 import java.util.UUID;
 
 public class TextNoteSerializer implements NoteSerializer<TextNote> {
     //TODO: добавить валидацию перед (де-)сериализацией.
+    private TextNoteSerializer instance;
+    private final DbLineValidator validator;
+
+    private TextNoteSerializer(DbLineValidator validator) {
+        this.validator = validator;
+    }
+
+    public TextNoteSerializer getInstance(DbLineValidator validator) { //TODO: это не singletone - удалить или изменить.
+        if (instance == null) {
+            return new TextNoteSerializer(validator);
+        }
+        return this;
+    }
+
     @Override
     public String serialize(TextNote note) {
         return String.join("|",
                 note.getId().toString(),
                 note.getTitle(),
-                note.getCreatedDateTime().toString(),
-                note.getChangedDateTime().toString(),
-                note.getRemainderDate() != null ? note.getRemainderDate().toString() : "",
+                note.getCreatedAt().toString(),
+                note.getUpdatedAt().toString(),
+                note.getRemindAt() != null ? note.getRemindAt().toString() : "",
                 String.valueOf(note.isPinned()),
                 note.getPriority().name(),
 //                String.join(",", note.getTags()),
@@ -30,6 +44,9 @@ public class TextNoteSerializer implements NoteSerializer<TextNote> {
 
     @Override
     public TextNote deserialize(String line) {
+
+        validator.validate(line);
+
         String[] parts = line.split("\\|", -1);  // -1 сохраняет пустые значения
 
         return new TextNote.TextNoteBuilder()

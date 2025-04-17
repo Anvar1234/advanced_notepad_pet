@@ -24,14 +24,14 @@ public final class LoggerUtil {
             }
             LogManager.getLogManager().readConfiguration(in);
         } catch (Exception e) {
-            Logger.getAnonymousLogger().severe("Failed to load log configuration: " + e.getMessage());
+            System.err.println("Failed to load log configuration: " + e.getMessage());
         }
     }
 
-    public static Logger log(String className) {
-        if (className == null || className.trim().isEmpty()) {
-            throw new IllegalArgumentException("Class name cannot be null or empty");
+    public static Logger getLogger(Class<?> clazz) {
+        if (clazz == null) {
+            throw new IllegalArgumentException("Class cannot be null");
         }
-        return Logger.getLogger(className);
+        return Logger.getLogger(clazz.getName());
     }
 }

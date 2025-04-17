@@ -1,4 +1,4 @@
-package ru.yandex.kingartaved.util.validator;
+package ru.yandex.kingartaved.validation.db_line_validator;
 
 import ru.yandex.kingartaved.data.constant.NoteTypeEnum;
 

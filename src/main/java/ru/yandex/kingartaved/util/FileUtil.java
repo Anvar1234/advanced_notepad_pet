@@ -13,7 +13,7 @@ import java.util.logging.Logger;
 
 public final class FileUtil {
 
-    private static final Logger logger = LoggerUtil.log(FileUtil.class.getName());
+    private static final Logger logger = LoggerUtil.getLogger(FileUtil.class);
 
     private FileUtil() {
         throw new UnsupportedOperationException(ErrorMessage.UTILITY_CLASS.getMessage());

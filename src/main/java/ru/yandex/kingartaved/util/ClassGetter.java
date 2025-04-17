@@ -1,15 +1,13 @@
 package ru.yandex.kingartaved.util;
 
-import ru.yandex.kingartaved.data.mapper.NoteMapperFactory;
 import ru.yandex.kingartaved.exception.constant.ErrorMessage;
 
 import java.util.List;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public final class ClassGetter {
 
-    private static final Logger logger = LoggerUtil.log(ClassGetter.class.getName());
+    private static final Logger logger = LoggerUtil.getLogger(ClassGetter.class);
 
     private ClassGetter() {
         throw new UnsupportedOperationException(ErrorMessage.UTILITY_CLASS.getMessage());
