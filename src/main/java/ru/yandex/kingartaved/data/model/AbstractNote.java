@@ -5,18 +5,17 @@ import ru.yandex.kingartaved.data.constant.NoteStatusEnum;
 import ru.yandex.kingartaved.data.constant.NoteTypeEnum;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.UUID;
 
 
 public abstract class AbstractNote {
     // TODO: В будущем можно добавить автора, если будет работать с несколькими пользователями, типа общие заметки.
+    //TODO: это - метаданные:
     private UUID id;
     private String title; // nullable
-    private LocalDateTime createdDateTime = LocalDateTime.now();
-    private LocalDateTime changedDateTime;
-    private LocalDateTime remainderDate; // nullable. Планируемая дата и время выполнения, напоминание выводится *условно* за час до времени.
+    private LocalDateTime createdAt = LocalDateTime.now();
+    private LocalDateTime updatedAt;
+    private LocalDateTime remindAt; // nullable. Планируемая дата и время выполнения, напоминание выводится *условно* за час до времени.
     private boolean isPinned; //Закреп или не закреп. Заметки с закреп отображаются наверху списка и сортируются меж собой, а незакреп сортируются уже между собой.
     private NotePriorityEnum priority; // просто возможность сортировки.
 //    private Set<String> tags; // Для категоризации и поиска.
@@ -26,9 +25,9 @@ public abstract class AbstractNote {
     protected AbstractNote(AbstractNoteBuilder<?> abstractNoteBuilder) {
         this.id = abstractNoteBuilder.id;
         this.title = abstractNoteBuilder.title;
-        this.createdDateTime = abstractNoteBuilder.createdAt;
-        this.changedDateTime = abstractNoteBuilder.changedAt;
-        this.remainderDate = abstractNoteBuilder.remindAt;
+        this.createdAt = abstractNoteBuilder.createdAt;
+        this.updatedAt = abstractNoteBuilder.changedAt;
+        this.remindAt = abstractNoteBuilder.remindAt;
         this.isPinned = abstractNoteBuilder.isPinned;
         this.priority = abstractNoteBuilder.priority;
 //        this.tags = abstractNoteBuilder.tags;
@@ -36,7 +35,6 @@ public abstract class AbstractNote {
         this.type = abstractNoteBuilder.type;
     }
 
-    // Геттеры (опционально, если нужны)
     public UUID getId() {
         return id;
     }
@@ -45,16 +43,16 @@ public abstract class AbstractNote {
         return title;
     }
 
-    public LocalDateTime getCreatedDateTime() {
-        return createdDateTime;
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
 
-    public LocalDateTime getChangedDateTime() {
-        return changedDateTime;
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
     }
 
-    public LocalDateTime getRemainderDate() {
-        return remainderDate;
+    public LocalDateTime getRemindAt() {
+        return remindAt;
     }
 
     public boolean isPinned() {
@@ -158,9 +156,9 @@ public abstract class AbstractNote {
         return "Note{" +
                 "id=" + id +
                 ", name='" + title + '\'' +
-                ", createdDateTime=" + createdDateTime +
-                ", changedDateTime=" + changedDateTime +
-                ", remainderDate=" + remainderDate +
+                ", createdDateTime=" + createdAt +
+                ", changedDateTime=" + updatedAt +
+                ", remainderDate=" + remindAt +
                 ", isPinned=" + isPinned +
                 ", priority=" + priority +
 //                ", tags=" + tags +

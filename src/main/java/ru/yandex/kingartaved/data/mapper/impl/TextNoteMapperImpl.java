@@ -9,9 +9,9 @@ public class TextNoteMapperImpl implements NoteMapper<TextNote, TextNoteDto> {
         TextNoteDto textNoteDto = new TextNoteDto();
         textNoteDto.setId(textNote.getId());
         textNoteDto.setTitle(textNote.getTitle());
-        textNoteDto.setCreatedDateTime(textNote.getCreatedDateTime());
-        textNoteDto.setChangedDateTime(textNote.getChangedDateTime());
-        textNoteDto.setRemainderDate(textNote.getRemainderDate());
+        textNoteDto.setCreatedDateTime(textNote.getCreatedAt());
+        textNoteDto.setChangedDateTime(textNote.getUpdatedAt());
+        textNoteDto.setRemainderDate(textNote.getRemindAt());
         textNoteDto.setPinned(textNote.isPinned());
         textNoteDto.setPriority(textNote.getPriority());
 //        textNoteDto.setTags(textNote.getTags());

@@ -4,7 +4,6 @@ import ru.yandex.kingartaved.config.AppConfig;
 import ru.yandex.kingartaved.data.model.AbstractNote;
 import ru.yandex.kingartaved.dto.AbstractNoteDto;
 import ru.yandex.kingartaved.exception.MapperRegistrationException;
-import ru.yandex.kingartaved.exception.constant.ErrorMessage;
 import ru.yandex.kingartaved.util.LoggerUtil;
 import ru.yandex.kingartaved.util.PackageScanner;
 
@@ -19,7 +18,7 @@ import java.util.stream.Collectors;
 import static ru.yandex.kingartaved.util.ClassGetter.getClassByNameFromList;
 
 public class NoteMapperFactory {
-    private static final Logger logger = LoggerUtil.log(NoteMapperFactory.class.getName());
+    private static final Logger logger = LoggerUtil.getLogger(NoteMapperFactory.class);
     /**
      * Мапа для хранения соответствий между классами сущностей и их мапперами.
      */

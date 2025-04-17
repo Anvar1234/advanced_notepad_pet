@@ -12,7 +12,7 @@ import java.util.logging.Logger;
 
 public final class PackageScanner {
 
-    private static final Logger logger = LoggerUtil.log(PackageScanner.class.getName());
+    private static final Logger logger = LoggerUtil.getLogger(PackageScanner.class);
 
     private PackageScanner() {
         throw new UnsupportedOperationException(ErrorMessage.UTILITY_CLASS.getMessage());

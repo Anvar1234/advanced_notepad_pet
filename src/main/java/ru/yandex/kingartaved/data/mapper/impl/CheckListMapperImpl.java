@@ -9,9 +9,9 @@ public class CheckListMapperImpl implements NoteMapper<CheckList, CheckListDto> 
         CheckListDto checkListDto = new CheckListDto();
         checkListDto.setId(checkList.getId());
         checkListDto.setTitle(checkList.getTitle());
-        checkListDto.setCreatedDateTime(checkList.getCreatedDateTime());
-        checkListDto.setChangedDateTime(checkList.getChangedDateTime());
-        checkListDto.setRemainderDate(checkList.getRemainderDate());
+        checkListDto.setCreatedDateTime(checkList.getCreatedAt());
+        checkListDto.setChangedDateTime(checkList.getUpdatedAt());
+        checkListDto.setRemainderDate(checkList.getRemindAt());
         checkListDto.setPinned(checkList.isPinned());
         checkListDto.setPriority(checkList.getPriority());
 //        checkListDto.setTags(checkList.getTags());

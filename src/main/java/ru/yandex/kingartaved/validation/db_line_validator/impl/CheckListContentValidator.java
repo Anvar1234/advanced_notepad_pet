@@ -1,7 +1,7 @@
-package ru.yandex.kingartaved.util.validator.impl;
+package ru.yandex.kingartaved.validation.db_line_validator.impl;
 
 import ru.yandex.kingartaved.data.constant.NoteTypeEnum;
-import ru.yandex.kingartaved.util.validator.ContentValidator;
+import ru.yandex.kingartaved.validation.db_line_validator.ContentValidator;
 
 import java.util.Arrays;
 import java.util.List;
