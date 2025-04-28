@@ -34,7 +34,7 @@ public class Metadata {
         return new Builder();
     }
 
-    //TODO: переделать, некоторые поля должны быть инициализированы по умолчанию.
+    //TODO: переделать, некоторые поля должны быть инициализированы по умолчанию. Заняться.
     public static class Builder {
         private UUID id;
         private String title;
