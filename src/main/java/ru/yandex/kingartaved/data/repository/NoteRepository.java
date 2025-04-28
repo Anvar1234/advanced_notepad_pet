@@ -1,7 +1,5 @@
 package ru.yandex.kingartaved.data.repository;
 
-import ru.yandex.kingartaved.data.model.AbstractNote;
-
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Optional;

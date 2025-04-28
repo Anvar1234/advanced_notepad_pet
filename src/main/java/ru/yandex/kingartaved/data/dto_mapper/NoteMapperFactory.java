@@ -1,8 +1,6 @@
 package ru.yandex.kingartaved.data.mapper;
 
 import ru.yandex.kingartaved.config.AppConfig;
-import ru.yandex.kingartaved.data.model.AbstractNote;
-import ru.yandex.kingartaved.dto.AbstractNoteDto;
 import ru.yandex.kingartaved.exception.MapperRegistrationException;
 import ru.yandex.kingartaved.util.LoggerUtil;
 import ru.yandex.kingartaved.util.PackageScanner;
