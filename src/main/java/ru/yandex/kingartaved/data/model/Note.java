@@ -1,19 +1,19 @@
 package ru.yandex.kingartaved.data.model;
 
 public final class Note {
-    private final NoteMetadata metadata;
-    private final NoteContent content;
+    private final Metadata metadata;
+    private final Content content;
 
-    public Note(NoteMetadata metadata, NoteContent content) {
+    public Note(Metadata metadata, Content content) {
         this.metadata = metadata;
         this.content = content;
     }
 
-    public NoteMetadata getMetadata() {
+    public Metadata getMetadata() {
         return metadata;
     }
 
-    public NoteContent getContent() {
+    public Content getContent() {
         return content;
     }
 }

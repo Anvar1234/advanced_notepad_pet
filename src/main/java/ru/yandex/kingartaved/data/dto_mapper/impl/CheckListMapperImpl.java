@@ -1,6 +1,6 @@
-package ru.yandex.kingartaved.data.mapper.impl;
+package ru.yandex.kingartaved.data.dto_mapper.impl;
 
-import ru.yandex.kingartaved.data.mapper.NoteMapper;
+import ru.yandex.kingartaved.data.dto_mapper.NoteMapper;
 
 public class CheckListMapperImpl implements NoteMapper<CheckList, ChecklistDto> {
     public ChecklistDto mapEntityToDto(CheckList checkList) {

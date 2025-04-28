@@ -1,4 +1,4 @@
-package ru.yandex.kingartaved.data.model;
+package ru.yandex.kingartaved.dto;
 
 import ru.yandex.kingartaved.data.constant.NotePriorityEnum;
 import ru.yandex.kingartaved.data.constant.NoteStatusEnum;
@@ -7,7 +7,8 @@ import ru.yandex.kingartaved.data.constant.NoteTypeEnum;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-public class Metadata {
+//Так как нужно сеттить поля, то используем билдер, для построения иммутабельного объекта. TODO delete
+public final class MetadataDto {
     private final UUID id;
     private final String title;
     private final LocalDateTime createdAt;
@@ -18,7 +19,7 @@ public class Metadata {
     private final NoteStatusEnum status;
     private final NoteTypeEnum type;
 
-    private Metadata(Builder builder) {
+    private MetadataDto(Builder builder) {
         this.id = builder.id;
         this.title = builder.title;
         this.createdAt = builder.createdAt;
@@ -30,11 +31,10 @@ public class Metadata {
         this.type = builder.type;
     }
 
-    public Builder builder(){
+    public static Builder builder() {
         return new Builder();
     }
 
-    //TODO: переделать, некоторые поля должны быть инициализированы по умолчанию. Заняться.
     public static class Builder {
         private UUID id;
         private String title;
@@ -46,7 +46,8 @@ public class Metadata {
         private NoteStatusEnum status;
         private NoteTypeEnum type;
 
-        private Builder(){}
+        private Builder() {
+        }
 
         public Builder id(UUID id) {
             this.id = id;
@@ -93,8 +94,8 @@ public class Metadata {
             return this;
         }
 
-        public Metadata build() {
-            return new Metadata(this);
+        public MetadataDto build() {
+            return new MetadataDto(this);
         }
     }
 

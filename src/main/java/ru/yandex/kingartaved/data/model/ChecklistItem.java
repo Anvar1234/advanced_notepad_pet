@@ -2,22 +2,22 @@ package ru.yandex.kingartaved.data.model;
 
 public class ChecklistItem {
     private String text;
-    private boolean isCompleted;
+    private boolean isDone;
 
     public ChecklistItem(String text) {
         this.text = text;
-        this.isCompleted = false;
+        this.isDone = false;
     }
 
     public String getText() {
         return text;
     }
 
-    public boolean isCompleted() {
-        return isCompleted;
+    public boolean isDone() {
+        return isDone;
     }
 
-    public void setCompleted(boolean completed) {
-        isCompleted = completed;
+    public void setDone(boolean done) {
+        isDone = done;
     }
 }

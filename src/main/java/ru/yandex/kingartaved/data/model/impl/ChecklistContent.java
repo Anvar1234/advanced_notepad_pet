@@ -4,10 +4,9 @@ import ru.yandex.kingartaved.data.constant.NoteTypeEnum;
 import ru.yandex.kingartaved.data.model.ChecklistItem;
 import ru.yandex.kingartaved.data.model.Content;
 
-import java.util.Collections;
 import java.util.List;
 
-public class ChecklistContent implements Content {
+public final class ChecklistContent implements Content {
     private final List<ChecklistItem> items;
 
     public ChecklistContent(List<ChecklistItem> items) {
