@@ -1,4 +1,4 @@
-package ru.yandex.kingartaved.data.mapper;
+package ru.yandex.kingartaved.data.dto_mapper;
 
 import ru.yandex.kingartaved.data.model.Note;
 

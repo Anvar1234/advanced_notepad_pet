@@ -1,8 +1,7 @@
-package ru.yandex.kingartaved.data.mapper.impl;
+package ru.yandex.kingartaved.data.dto_mapper.impl;
 
-import ru.yandex.kingartaved.data.mapper.NoteMapper;
+import ru.yandex.kingartaved.data.dto_mapper.NoteMapper;
 import ru.yandex.kingartaved.data.model.Note;
-import ru.yandex.kingartaved.dto.TextNoteDto;
 
 public class TextNoteMapperImpl implements NoteMapper<TextNote, TextNoteDto> {
     public TextNoteDto mapEntityToDto(Note textNote) {

@@ -1,7 +1,7 @@
-package ru.yandex.kingartaved.data.model;
+package ru.yandex.kingartaved.dto;
 
 import ru.yandex.kingartaved.data.constant.NoteTypeEnum;
 
-public interface Content {
+public interface ContentDto {
     NoteTypeEnum getSupportedType();
 }
