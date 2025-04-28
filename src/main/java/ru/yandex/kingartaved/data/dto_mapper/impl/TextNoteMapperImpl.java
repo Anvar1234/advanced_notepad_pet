@@ -1,24 +1,25 @@
 package ru.yandex.kingartaved.data.mapper.impl;
 
 import ru.yandex.kingartaved.data.mapper.NoteMapper;
+import ru.yandex.kingartaved.data.model.Note;
 import ru.yandex.kingartaved.dto.TextNoteDto;
 
 public class TextNoteMapperImpl implements NoteMapper<TextNote, TextNoteDto> {
-    public TextNoteDto mapEntityToDto(TextNote textNote) {
-        TextNoteDto textNoteDto = new TextNoteDto();
-        textNoteDto.setId(textNote.getId());
-        textNoteDto.setTitle(textNote.getTitle());
-        textNoteDto.setCreatedDateTime(textNote.getCreatedAt());
-        textNoteDto.setChangedDateTime(textNote.getUpdatedAt());
-        textNoteDto.setRemainderDate(textNote.getRemindAt());
-        textNoteDto.setPinned(textNote.isPinned());
-        textNoteDto.setPriority(textNote.getPriority());
+    public TextNoteDto mapEntityToDto(Note textNote) {
+        TextNoteDto textNoteFlatDto = new TextNoteDto();
+        textNoteFlatDto.setId(textNote.getId());
+        textNoteFlatDto.setTitle(textNote.getTitle());
+        textNoteFlatDto.setCreatedDateTime(textNote.getCreatedAt());
+        textNoteFlatDto.setChangedDateTime(textNote.getUpdatedAt());
+        textNoteFlatDto.setRemainderDate(textNote.getRemindAt());
+        textNoteFlatDto.setPinned(textNote.isPinned());
+        textNoteFlatDto.setPriority(textNote.getPriority());
 //        textNoteDto.setTags(textNote.getTags());
-        textNoteDto.setStatus(textNote.getStatus());
-        textNoteDto.setType(textNote.getType());
-        textNoteDto.setContent(textNote.getContent());
+        textNoteFlatDto.setStatus(textNote.getStatus());
+        textNoteFlatDto.setType(textNote.getType());
+        textNoteFlatDto.setContentDto(textNote.getContent());
 
-        return textNoteDto;
+        return textNoteFlatDto;
     }
 
     public TextNote mapDtoToEntity(TextNoteDto noteDto) {
@@ -33,7 +34,7 @@ public class TextNoteMapperImpl implements NoteMapper<TextNote, TextNoteDto> {
 //                .setTags(noteDto.getTags())
                 .setStatus(noteDto.getStatus())
                 .setType(noteDto.getType())
-                .setContent(noteDto.getContent())
+                .setContent(noteDto.getContentDto())
                 .build();
 
         return textNote;

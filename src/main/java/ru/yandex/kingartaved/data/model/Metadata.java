@@ -7,7 +7,7 @@ import ru.yandex.kingartaved.data.constant.NoteTypeEnum;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-public class NoteMetadata {
+public class Metadata {
     private final UUID id;
     private final String title;
     private final LocalDateTime createdAt;
@@ -18,7 +18,7 @@ public class NoteMetadata {
     private final NoteStatusEnum status;
     private final NoteTypeEnum type;
 
-    private NoteMetadata(Builder builder) {
+    private Metadata(Builder builder) {
         this.id = builder.id;
         this.title = builder.title;
         this.createdAt = builder.createdAt;
@@ -30,6 +30,7 @@ public class NoteMetadata {
         this.type = builder.type;
     }
 
+    //TODO: переделать, некоторые поля должны быть инициализированы по умолчанию.
     public static class Builder {
         private UUID id;
         private String title;
@@ -86,8 +87,8 @@ public class NoteMetadata {
             return this;
         }
 
-        public NoteMetadata build() {
-            return new NoteMetadata(this);
+        public Metadata build() {
+            return new Metadata(this);
         }
     }
 

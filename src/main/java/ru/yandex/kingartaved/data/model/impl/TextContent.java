@@ -1,15 +1,21 @@
 package ru.yandex.kingartaved.data.model.impl;
 
-import ru.yandex.kingartaved.data.model.NoteContent;
+import ru.yandex.kingartaved.data.constant.NoteTypeEnum;
+import ru.yandex.kingartaved.data.model.Content;
 
-public class TextContent implements NoteContent {
+public class TextNoteContent implements Content<String> {
     private final String text;
 
-    public TextContent(String text) {
+    public TextNoteContent(String text) {
         this.text = text;
     }
 
-    public String getText() {
+    @Override
+    public NoteTypeEnum getSupportedType() {
+        return NoteTypeEnum.TEXT_NOTE;
+    }
+
+    public String getContent() {
         return text;
     }
 
