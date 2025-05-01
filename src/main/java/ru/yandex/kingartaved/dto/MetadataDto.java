@@ -13,7 +13,7 @@ public final class MetadataDto {
     private final String title;
     private final LocalDateTime createdAt;
     private final LocalDateTime remindAt;
-    private final String tags;
+    private final LocalDateTime updatedAt;
     private final boolean pinned;
     private final NotePriorityEnum priority;
     private final NoteStatusEnum status;
@@ -24,7 +24,7 @@ public final class MetadataDto {
         this.title = builder.title;
         this.createdAt = builder.createdAt;
         this.remindAt = builder.remindAt;
-        this.tags = builder.tags;
+        this.updatedAt = builder.updatedAt;
         this.pinned = builder.pinned;
         this.priority = builder.priority;
         this.status = builder.status;
@@ -40,7 +40,7 @@ public final class MetadataDto {
         private String title;
         private LocalDateTime createdAt;
         private LocalDateTime remindAt;
-        private String tags;
+        private LocalDateTime updatedAt;
         private boolean pinned;
         private NotePriorityEnum priority;
         private NoteStatusEnum status;
@@ -69,8 +69,8 @@ public final class MetadataDto {
             return this;
         }
 
-        public Builder tags(String tags) {
-            this.tags = tags;
+        public Builder updatedAt(LocalDateTime updatedAt) {
+            this.updatedAt = updatedAt;
             return this;
         }
 
@@ -115,8 +115,8 @@ public final class MetadataDto {
         return remindAt;
     }
 
-    public String getTags() {
-        return tags;
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
     }
 
     public boolean isPinned() {
