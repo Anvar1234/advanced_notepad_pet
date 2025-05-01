@@ -1,12 +1,12 @@
 package ru.yandex.kingartaved.data.model;
 
 public class ChecklistItem {
-    private String text;
-    private boolean isDone;
+    private final String text;
+    private final boolean isDone;
 
-    public ChecklistItem(String text) {
+    public ChecklistItem(String text, boolean isDone) {
         this.text = text;
-        this.isDone = false;
+        this.isDone = isDone;
     }
 
     public String getText() {
@@ -15,9 +15,5 @@ public class ChecklistItem {
 
     public boolean isDone() {
         return isDone;
-    }
-
-    public void setDone(boolean done) {
-        isDone = done;
     }
 }

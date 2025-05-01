@@ -30,11 +30,11 @@ public class Metadata {
         this.type = builder.type;
     }
 
-    public Builder builder(){
+    public static Builder builder(){
         return new Builder();
     }
 
-    //TODO: переделать, некоторые поля должны быть инициализированы по умолчанию. Заняться.
+    //TODO: переделать, некоторые поля должны быть инициализированы по умолчанию.
     public static class Builder {
         private UUID id;
         private String title;
