@@ -8,7 +8,7 @@ import java.util.List;
 
 public class CheckListContentValidator implements ContentValidator {
     @Override
-    public NoteTypeEnum getSupportedNoteType() {
+    public NoteTypeEnum getSupportedType() {
         return NoteTypeEnum.CHECKLIST;
     }
 

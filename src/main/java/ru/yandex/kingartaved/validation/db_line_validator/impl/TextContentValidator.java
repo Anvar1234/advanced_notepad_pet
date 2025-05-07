@@ -6,7 +6,7 @@ import ru.yandex.kingartaved.validation.db_line_validator.ContentValidator;
 public class TextContentValidator implements ContentValidator {
 
     @Override
-    public NoteTypeEnum getSupportedNoteType() {
+    public NoteTypeEnum getSupportedType() {
         return NoteTypeEnum.TEXT_NOTE;
     }
 
