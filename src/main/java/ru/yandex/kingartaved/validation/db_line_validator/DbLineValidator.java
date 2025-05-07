@@ -43,7 +43,7 @@ public class DbLineValidator {
      * 4. Удаление пробелов вокруг значений<p>
      * 5. Проверка значений полей<p>
      *
-     * @param lineFromDb Строка из БД в формате "id|title|createdAt|...|content".
+     * @param lineFromDb Строка из БД в формате "id|title|createdAt|...|contentDto".
      * @return true если строка валидна, false в противном случае (ошибки логируются).
      */
     public boolean validate(String lineFromDb) {
@@ -71,7 +71,7 @@ public class DbLineValidator {
             requireEnum(parts, 6, "priority", NotePriorityEnum.class);
             requireEnum(parts, 7, "status", NoteStatusEnum.class);
             requireEnum(parts, 8, "type", NoteTypeEnum.class);
-            requireContent(parts, 8, 9, "type", "content");
+            requireContent(parts, 8, 9, "type", "contentDto");
             return true;
         } catch (IllegalArgumentException e) {
             assert parts != null;
@@ -220,7 +220,7 @@ public class DbLineValidator {
 
     public static void main(String[] args) { //TODO: удалить.
         DbLineValidator dbLineValidator = new DbLineValidator(new ContentValidatorRegistry());
-        //remindDate == null, content equals "null"
+        //remindDate == null, contentDto equals "null"
         String vvod1 = "f47ac10b-58cc-4372-a567-0e02b2c3d479|Заметка 1|2023-10-01T12:34:56|2023-10-01T15:34:56|null|true|HIGH|ACTIVE|TEXT_NOTE|null";
         System.out.println(dbLineValidator.validate(vvod1));
         //лишние пробелы
@@ -229,7 +229,7 @@ public class DbLineValidator {
         //пустое значение title (isEmpty)
         String vvod3 = "a1b2c3d4-e5f6-7890-abcd-ef1234567890|     |2023-10-10T18:45:22|2023-10-10T20:45:22|2023-10-15T18:45:22|true|HIGH|POSTPONED|TEXT_NOTE|333Текстовая заметка с отложенным статусом";
         System.out.println(dbLineValidator.validate(vvod3));
-        //content is empty
+        //contentDto is empty
         String vvod4 = "f47ac10b-58cc-4372-a567-0e02b2c3d479|Заметка 4|2023-10-01T12:34:56|2023-10-01T15:34:56|null|true|HIGH|ACTIVE|TEXT_NOTE|";
         System.out.println(dbLineValidator.validate(vvod4));
         //количество полей меньше ожидаемого (убрал контент)

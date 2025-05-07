@@ -7,11 +7,11 @@ public enum ServiceCommandEnum {
     SET_REMIND("Установить напоминание"),
     SET_PINNED("Закрепить"),
     SET_STATUS("Изменить статус"),
-    ; //TODO: добавить поле description в Note, чтобы отображать краткое содержание поля content
+    ; //TODO: добавить поле description в Note, чтобы отображать краткое содержание поля contentDto
 
     /*
     create, add, read, readAll, update, delete.
-И есть специфичные для работы с полем «List<CheckListItem> content» у CheckList: addItem, removeItem, updateItem.
+И есть специфичные для работы с полем «List<CheckListItem> contentDto» у CheckList: addItem, removeItem, updateItem.
 
      */
     private final String description;

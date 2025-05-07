@@ -1,5 +1,4 @@
 package ru.yandex.kingartaved.dto;
 
-public record NoteDto(MetadataDto metadata, ContentDto content) {
-
+public record NoteDto(MetadataDto metadataDto, ContentDto contentDto) {
 }

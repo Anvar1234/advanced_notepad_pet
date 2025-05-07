@@ -3,7 +3,8 @@ package ru.yandex.kingartaved.data.constant;
 public enum NoteTypeEnum {
 
     TEXT_NOTE("Текстовая заметка"),
-    CHECKLIST("Чек-лист");
+    CHECKLIST("Чек-лист"),
+    AUDIO_NOTE("Звуковая заметка");
 
     private final String noteType;
 
