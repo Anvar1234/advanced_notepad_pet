@@ -11,7 +11,7 @@ public class TextContentValidator implements ContentValidator {
     }
 
     @Override
-    public boolean isValidContent(String value) {
-        return value != null && !value.trim().isEmpty();
+    public boolean isValidContent(String contentPart) {
+        return contentPart != null && !contentPart.trim().isEmpty();
     }
 }

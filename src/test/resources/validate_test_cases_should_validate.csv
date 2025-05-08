@@ -1,0 +1,17 @@
+description,lineFromCsv,expectedValid
+# Валидные случаи
+Валидная строка,"f47ac10b-58cc-4372-a567-0e02b2c3d479|Заметка 1|2023-10-01T12:34:56|2023-10-01T15:34:56|2023-11-01T15:34:56|true|HIGH|ACTIVE|TEXT_NOTE|Текст",true
+Валидная строка (remindAt == null),"f47ac10b-58cc-4372-a567-0e02b2c3d479|Заметка 2|2023-10-01T12:34:56|2023-10-01T15:34:56|null|true|HIGH|ACTIVE|TEXT_NOTE|Текст",true
+Валидная строка,"f47ac10b-58cc-4372-a567-0e02b2c3d479|Заметка 3|2023-10-01T12:34:56|2023-10-01T15:34:56|2023-12-01T15:34:56|true|BASE|ACTIVE|CHECKLIST|Пункт1:true;Пункт2:false",true
+# Невалидные случаи
+Невалидная строка (невалидный uuid),"invalid-uuid|Заметка 1|2023-10-01T12:34:56|2023-10-01T15:34:56|null|true|HIGH|ACTIVE|TEXT_NOTE|Текст",false
+Невалидная строка (content == null),"f47ac10b-58cc-4372-a567-0e02b2c3d479|Заметка 2|2023-10-01T12:34:56|2023-10-01T15:34:56|null|true|HIGH|ACTIVE|TEXT_NOTE|null",false
+Невалидная строка (пустой content),"f47ac10b-58cc-4372-a567-0e02b2c3d479|Заметка 3|2023-10-01T12:34:56|2023-10-01T15:34:56|null|true|HIGH|ACTIVE|TEXT_NOTE|",false
+Невалидная строка (невалидный content),"f47ac10b-58cc-4372-a567-0e02b2c3d479|Заметка 4|2023-10-01T12:34:56|2023-10-01T15:34:56|null|true|BASE|ACTIVE|CHECKLIST|Пункт1:yes;Пункт2:fall",false
+Невалидная строка (пустой createAt),"f47ac10b-58cc-4372-a567-0e02b2c3d479|Заметка 5||2023-10-01T15:34:56|2023-12-01T15:34:56|true|BASE|ACTIVE|CHECKLIST|Пункт1:true;Пункт2:false",false
+Невалидная строка (нет поля priority),"f47ac10b-58cc-4372-a567-0e02b2c3d479|Заметка 6|2023-10-01T12:34:56|2023-10-01T15:34:56|2023-12-01T15:34:56|true|ACTIVE|CHECKLIST|Пункт1:true;Пункт2:false",false
+Невалидная строка (некорректное значение NotePriorityEnum),"f47ac10b-58cc-4372-a567-0e02b2c3d479|Заметка 7|2023-10-01T12:34:56|2023-10-01T15:34:56|2023-12-01T15:34:56|true|BASES|ACTIVE|CHECKLIST|Пункт1:true;Пункт2:false",false
+Невалидная строка (status == null),"f47ac10b-58cc-4372-a567-0e02b2c3d479|Заметка 8|2023-10-01T12:34:56|2023-10-01T15:34:56|null|true|HIGH|null|TEXT_NOTE|Текст",false
+Невалидная строка (некорректное значение NoteTypeEnum),"f47ac10b-58cc-4372-a567-0e02b2c3d479|Заметка 8|2023-10-01T12:34:56|2023-10-01T15:34:56|null|true|HIGH|COMPLETED|TEXTNOTE|Текст",false
+
+

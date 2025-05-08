@@ -1,30 +1,28 @@
-апр. 15, 2025 2:14:23 PM ru.yandex.kingartaved.validation.db_line_validator.DbLineValidator validate
+мая 09, 2025 1:58:41 AM ru.yandex.kingartaved.validation.db_line_validator.DbLineValidator validate
 SEVERE: Ошибка при валидации строки:
- f47ac10b-58cc-4372-a567-0e02b2c3d479|Заметка 1|2023-10-01T12:34:56|2023-10-01T15:34:56|null|true|HIGH|ACTIVE|TEXT_NOTE|null
- java.lang.IllegalArgumentException: Поле с индексом 9 содержит null
-апр. 15, 2025 2:14:23 PM ru.yandex.kingartaved.validation.db_line_validator.DbLineValidator validate
+ f47ac10b-58cc-4372-a567-0e02b2c3d479|Заметка 5||2023-10-01T15:34:56|2023-12-01T15:34:56|true|BASE|ACTIVE|CHECKLIST|Пункт1:true;Пункт2:false
+ java.lang.IllegalArgumentException: Поле 'createdAt' (index 2) содержит недопустимую дату: ''
+мая 09, 2025 1:58:41 AM ru.yandex.kingartaved.validation.db_line_validator.DbLineValidator validate
 SEVERE: Ошибка при валидации строки:
- a1b2c3d4-e5f6-7890-abcd-ef1234567890||2023-10-10T18:45:22|2023-10-10T20:45:22|2023-10-15T18:45:22|true|HIGH|POSTPONED|TEXT_NOTE|333Текстовая заметка с отложенным статусом
- java.lang.IllegalArgumentException: Поле 'title' (index 1) не может быть пустым
-апр. 15, 2025 2:14:23 PM ru.yandex.kingartaved.validation.db_line_validator.DbLineValidator validate
-SEVERE: Ошибка при валидации строки:
- f47ac10b-58cc-4372-a567-0e02b2c3d479|Заметка 4|2023-10-01T12:34:56|2023-10-01T15:34:56|null|true|HIGH|ACTIVE|TEXT_NOTE|
- java.lang.IllegalArgumentException: Поле 'content' (index 9) содержит невалидную строку: ""
-апр. 15, 2025 2:14:23 PM ru.yandex.kingartaved.validation.db_line_validator.DbLineValidator validate
-SEVERE: Ошибка при валидации строки:
- f47ac10b-58cc-4372-a567-0e02b2c3d479|Заметка 5|2023-10-01T12:34:56|2023-10-01T15:34:56|null|true|HIGH|ACTIVE|TEXT_NOTE
+ f47ac10b-58cc-4372-a567-0e02b2c3d479|Заметка 6|2023-10-01T12:34:56|2023-10-01T15:34:56|2023-12-01T15:34:56|true|ACTIVE|CHECKLIST|Пункт1:true;Пункт2:false
  java.lang.IllegalArgumentException: Неверное количество полей после split: ожидалось: 10, пришло: 9
-апр. 15, 2025 2:14:23 PM ru.yandex.kingartaved.validation.db_line_validator.DbLineValidator validate
+мая 09, 2025 1:58:41 AM ru.yandex.kingartaved.validation.db_line_validator.DbLineValidator validate
 SEVERE: Ошибка при валидации строки:
- f47ac10b-58cc-4372-a567-0e02b2c3d479|Заметка 6|2023-10-01T12:34:56|2023-10-01T15:34:56|null|true|NORMAL|ACTIVE|TEXT_NOTE|dsdsf
- java.lang.IllegalArgumentException: Поле 'priority' (index 6) содержит недопустимое enum-значение (NORMAL) для перечисления NotePriorityEnum
-мая 02, 2025 6:25:44 PM ru.yandex.kingartaved.data.mapper.ContentMapperRegistryTest lambda$new$0
-INFO: Зарегистрирован маппер для заметок типа: CHECKLIST
-мая 02, 2025 6:25:44 PM ru.yandex.kingartaved.data.mapper.ContentMapperRegistryTest lambda$new$0
-INFO: Зарегистрирован маппер для заметок типа: TEXT_NOTE
-мая 06, 2025 2:42:16 PM ru.yandex.kingartaved.data.mapper.ContentMapperRegistry lambda$new$0
-INFO: Зарегистрирован маппер для заметок типа: CHECKLIST
-мая 06, 2025 2:42:16 PM ru.yandex.kingartaved.data.mapper.ContentMapperRegistry lambda$new$0
-INFO: Зарегистрирован маппер для заметок типа: TEXT_NOTE
-мая 06, 2025 2:55:30 PM ru.yandex.kingartaved.data.mapper.ContentMapperRegistry lambda$new$0
-INFO: Зарегистрирован маппер для заметок типа: CHECKLIST
+ f47ac10b-58cc-4372-a567-0e02b2c3d479|Заметка 7|2023-10-01T12:34:56|2023-10-01T15:34:56|2023-12-01T15:34:56|true|BASES|ACTIVE|CHECKLIST|Пункт1:true;Пункт2:false
+ java.lang.IllegalArgumentException: Поле 'priority' (index 6) содержит недопустимое enum-значение (BASES) для перечисления NotePriorityEnum
+мая 09, 2025 1:58:41 AM ru.yandex.kingartaved.validation.db_line_validator.DbLineValidator validate
+SEVERE: Ошибка при валидации строки:
+ f47ac10b-58cc-4372-a567-0e02b2c3d479|Заметка 8|2023-10-01T12:34:56|2023-10-01T15:34:56|null|true|HIGH|null|TEXT_NOTE|Текст
+ java.lang.IllegalArgumentException: Поле с индексом 7 содержит null
+мая 09, 2025 2:01:13 AM ru.yandex.kingartaved.validation.db_line_validator.ContentValidatorRegistry lambda$initialize$0
+INFO: Зарегистрирован валидатор для заметок типа: CHECKLIST
+мая 09, 2025 2:01:13 AM ru.yandex.kingartaved.validation.db_line_validator.ContentValidatorRegistry lambda$initialize$0
+INFO: Зарегистрирован валидатор для заметок типа: TEXT_NOTE
+мая 09, 2025 2:01:13 AM ru.yandex.kingartaved.validation.db_line_validator.DbLineValidator validate
+SEVERE: Ошибка при валидации строки:
+ invalid-uuid|Заметка 1|2023-10-01T12:34:56|2023-10-01T15:34:56|null|true|HIGH|ACTIVE|TEXT_NOTE|Текст
+ java.lang.IllegalArgumentException: Поле 'id' (index 0) содержит недопустимый UUID: invalid-uuid
+мая 09, 2025 2:01:13 AM ru.yandex.kingartaved.validation.db_line_validator.DbLineValidator validate
+SEVERE: Ошибка при валидации строки:
+ f47ac10b-58cc-4372-a567-0e02b2c3d479|Заметка 2|2023-10-01T12:34:56|2023-10-01T15:34:56|null|true|HIGH|ACTIVE|TEXT_NOTE|null
+ java.lang.IllegalArgumentException: Поле с индексом 9 содержит null
