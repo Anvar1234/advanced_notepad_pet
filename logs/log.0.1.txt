@@ -1,32 +1,28 @@
-мая 06, 2025 9:09:57 PM ru.yandex.kingartaved.data.mapper.ContentMapperRegistry lambda$new$0
-INFO: Зарегистрирован маппер для заметок типа: TEXT_NOTE
-мая 06, 2025 9:14:22 PM ru.yandex.kingartaved.data.mapper.ContentMapperRegistry lambda$new$0
-INFO: Зарегистрирован маппер для заметок типа: CHECKLIST
-мая 06, 2025 9:14:22 PM ru.yandex.kingartaved.data.mapper.ContentMapperRegistry lambda$new$0
-INFO: Зарегистрирован маппер для заметок типа: TEXT_NOTE
-мая 06, 2025 9:14:22 PM ru.yandex.kingartaved.data.mapper.ContentMapperRegistry getMapper
-WARNING: Не удалось найти маппер для типа заметки: AUDIO_NOTE. Доступные типы: [TEXT_NOTE, CHECKLIST]
-мая 06, 2025 9:20:53 PM ru.yandex.kingartaved.data.mapper.ContentMapperRegistry lambda$new$0
-INFO: Зарегистрирован маппер для заметок типа: CHECKLIST
-мая 06, 2025 9:20:53 PM ru.yandex.kingartaved.data.mapper.ContentMapperRegistry lambda$new$0
-INFO: Зарегистрирован маппер для заметок типа: TEXT_NOTE
-мая 06, 2025 9:20:53 PM ru.yandex.kingartaved.data.mapper.ContentMapperRegistry getMapper
-WARNING: Не удалось найти маппер для типа заметки: AUDIO_NOTE. Доступные типы: [TEXT_NOTE, CHECKLIST]
-мая 06, 2025 9:55:55 PM ru.yandex.kingartaved.data.mapper.ContentMapperRegistry lambda$new$0
-INFO: Зарегистрирован маппер для заметок типа: CHECKLIST
-мая 06, 2025 9:55:55 PM ru.yandex.kingartaved.data.mapper.ContentMapperRegistry lambda$new$0
-INFO: Зарегистрирован маппер для заметок типа: TEXT_NOTE
-мая 06, 2025 10:02:31 PM ru.yandex.kingartaved.data.mapper.ContentMapperRegistry lambda$new$0
-INFO: Зарегистрирован маппер для заметок типа: CHECKLIST
-мая 06, 2025 10:02:31 PM ru.yandex.kingartaved.data.mapper.ContentMapperRegistry lambda$new$0
-INFO: Зарегистрирован маппер для заметок типа: TEXT_NOTE
-мая 06, 2025 10:02:52 PM ru.yandex.kingartaved.data.mapper.ContentMapperRegistry lambda$new$0
-INFO: Зарегистрирован маппер для заметок типа: CHECKLIST
-мая 06, 2025 10:02:52 PM ru.yandex.kingartaved.data.mapper.ContentMapperRegistry lambda$new$0
-INFO: Зарегистрирован маппер для заметок типа: TEXT_NOTE
-мая 06, 2025 10:03:21 PM ru.yandex.kingartaved.data.mapper.ContentMapperRegistry lambda$new$0
-INFO: Зарегистрирован маппер для заметок типа: CHECKLIST
-мая 06, 2025 10:03:21 PM ru.yandex.kingartaved.data.mapper.ContentMapperRegistry lambda$new$0
-INFO: Зарегистрирован маппер для заметок типа: TEXT_NOTE
-мая 06, 2025 10:26:24 PM ru.yandex.kingartaved.data.mapper.ContentMapperRegistry lambda$new$0
-INFO: Зарегистрирован маппер для заметок типа: CHECKLIST
+мая 09, 2025 2:02:07 AM ru.yandex.kingartaved.validation.db_line_validator.ContentValidatorRegistry lambda$initialize$0
+INFO: Зарегистрирован валидатор для заметок типа: CHECKLIST
+мая 09, 2025 2:02:07 AM ru.yandex.kingartaved.validation.db_line_validator.ContentValidatorRegistry lambda$initialize$0
+INFO: Зарегистрирован валидатор для заметок типа: TEXT_NOTE
+мая 09, 2025 2:02:07 AM ru.yandex.kingartaved.validation.db_line_validator.DbLineValidator validate
+SEVERE: Ошибка при валидации строки:
+ invalid-uuid|Заметка 1|2023-10-01T12:34:56|2023-10-01T15:34:56|null|true|HIGH|ACTIVE|TEXT_NOTE|Текст
+ java.lang.IllegalArgumentException: Поле 'id' (index 0) содержит недопустимый UUID: invalid-uuid
+мая 09, 2025 2:02:07 AM ru.yandex.kingartaved.validation.db_line_validator.DbLineValidator validate
+SEVERE: Ошибка при валидации строки:
+ f47ac10b-58cc-4372-a567-0e02b2c3d479|Заметка 2|2023-10-01T12:34:56|2023-10-01T15:34:56|null|true|HIGH|ACTIVE|TEXT_NOTE|null
+ java.lang.IllegalArgumentException: Поле с индексом 9 содержит null
+мая 09, 2025 2:02:07 AM ru.yandex.kingartaved.validation.db_line_validator.DbLineValidator validate
+SEVERE: Ошибка при валидации строки:
+ f47ac10b-58cc-4372-a567-0e02b2c3d479|Заметка 3|2023-10-01T12:34:56|2023-10-01T15:34:56|null|true|HIGH|ACTIVE|TEXT_NOTE|
+ java.lang.IllegalArgumentException: Поле 'content' (index 9) содержит невалидную строку: ""
+мая 09, 2025 2:02:07 AM ru.yandex.kingartaved.validation.db_line_validator.DbLineValidator validate
+SEVERE: Ошибка при валидации строки:
+ f47ac10b-58cc-4372-a567-0e02b2c3d479|Заметка 4|2023-10-01T12:34:56|2023-10-01T15:34:56|null|true|BASE|ACTIVE|CHECKLIST|Пункт1:yes;Пункт2:fall
+ java.lang.IllegalArgumentException: Поле 'content' (index 9) содержит невалидную строку: "Пункт1:yes;Пункт2:fall"
+мая 09, 2025 2:02:07 AM ru.yandex.kingartaved.validation.db_line_validator.DbLineValidator validate
+SEVERE: Ошибка при валидации строки:
+ f47ac10b-58cc-4372-a567-0e02b2c3d479|Заметка 5||2023-10-01T15:34:56|2023-12-01T15:34:56|true|BASE|ACTIVE|CHECKLIST|Пункт1:true;Пункт2:false
+ java.lang.IllegalArgumentException: Поле 'createdAt' (index 2) содержит недопустимую дату: ''
+мая 09, 2025 2:02:07 AM ru.yandex.kingartaved.validation.db_line_validator.DbLineValidator validate
+SEVERE: Ошибка при валидации строки:
+ f47ac10b-58cc-4372-a567-0e02b2c3d479|Заметка 6|2023-10-01T12:34:56|2023-10-01T15:34:56|2023-12-01T15:34:56|true|ACTIVE|CHECKLIST|Пункт1:true;Пункт2:false
+ java.lang.IllegalArgumentException: Неверное количество полей после split: ожидалось: 10, пришло: 9

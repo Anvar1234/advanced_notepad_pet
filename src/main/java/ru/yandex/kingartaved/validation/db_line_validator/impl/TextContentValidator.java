@@ -6,12 +6,12 @@ import ru.yandex.kingartaved.validation.db_line_validator.ContentValidator;
 public class TextContentValidator implements ContentValidator {
 
     @Override
-    public NoteTypeEnum getSupportedNoteType() {
+    public NoteTypeEnum getSupportedType() {
         return NoteTypeEnum.TEXT_NOTE;
     }
 
     @Override
-    public boolean isValidContent(String value) {
-        return value != null && !value.trim().isEmpty();
+    public boolean isValidContent(String contentPart) {
+        return contentPart != null && !contentPart.trim().isEmpty();
     }
 }
