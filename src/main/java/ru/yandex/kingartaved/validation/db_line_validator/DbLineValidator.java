@@ -211,30 +211,4 @@ public class DbLineValidator {
             throw new IllegalArgumentException("Поле '" + contentLabel + "' (index " + contentIndex + ") содержит невалидную строку: \"" + parts[contentIndex] + "\"");
         }
     }
-
-    public static void main(String[] args) { //TODO: удалить.
-        DbLineValidator dbLineValidator = new DbLineValidator();
-        //remindDate == null, content equals "null"
-        String vvod1 = "f47ac10b-58cc-4372-a567-0e02b2c3d479|Заметка 1|2023-10-01T12:34:56|2023-10-01T15:34:56|null|true|HIGH|ACTIVE|TEXT_NOTE|null";
-        System.out.println(dbLineValidator.validate(vvod1));
-        //лишние пробелы
-        String vvod2 = "a1b2c3d4-e5f6-7890-abcd-ef1234567890|Заметка 2|2023-10-10T18:45:22|2023-10-10T20:45:22|2023-10-15T18:45:22|true|HIGH |POSTPONED|TEXT_NOTE|222Текстовая заметка с отложенным статусом";
-        System.out.println(dbLineValidator.validate(vvod2));
-        //пустое значение title (isEmpty)
-        String vvod3 = "a1b2c3d4-e5f6-7890-abcd-ef1234567890|     |2023-10-10T18:45:22|2023-10-10T20:45:22|2023-10-15T18:45:22|true|HIGH|POSTPONED|TEXT_NOTE|333Текстовая заметка с отложенным статусом";
-        System.out.println(dbLineValidator.validate(vvod3));
-        //content is empty
-        String vvod4 = "f47ac10b-58cc-4372-a567-0e02b2c3d479|Заметка 4|2023-10-01T12:34:56|2023-10-01T15:34:56|null|true|HIGH|ACTIVE|TEXT_NOTE|";
-        System.out.println(dbLineValidator.validate(vvod4));
-        //количество полей меньше ожидаемого (убрал контент)
-        String vvod5 = "f47ac10b-58cc-4372-a567-0e02b2c3d479|Заметка 5|2023-10-01T12:34:56|2023-10-01T15:34:56|null|true|HIGH|ACTIVE|TEXT_NOTE";
-        System.out.println(dbLineValidator.validate(vvod5));
-        //невалидное значение перечисления NotePriorityEnum
-        String vvod6 = "f47ac10b-58cc-4372-a567-0e02b2c3d479|Заметка 6|2023-10-01T12:34:56|2023-10-01T15:34:56|null|true|NORMAL|ACTIVE|TEXT_NOTE|dsdsf";
-        System.out.println(dbLineValidator.validate(vvod6));
-
-        //чек-лист
-        String vvod7 = "f47ac10b-58cc-4372-a567-0e02b2c3d479|Заметка 6|2023-10-01T12:34:56|2023-10-01T15:34:56|null|true|BASE|ACTIVE|CHECK_LIST|1dsdsf;2dsfsf; 3d";
-        System.out.println(dbLineValidator.validate(vvod7));
-    }
 }

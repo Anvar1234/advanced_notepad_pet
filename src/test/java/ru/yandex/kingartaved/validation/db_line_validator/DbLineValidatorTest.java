@@ -31,7 +31,7 @@ public class DbLineValidatorTest {
     @CsvFileSource(
             resources = "/validate_db_line_structure_test_cases_should_fail.csv",
             numLinesToSkip = 1)
-    @DisplayName("Проверка валидации некорректных строки из БД с лишними пробелами")
+    @DisplayName("Проверка валидации некорректных строк из БД с лишними пробелами")
     void validateDbLineStructure_shouldFail_whenExtraSpacesPresent(String lineFromCsv, String description) {
         //given
         String[] parts = lineFromCsv.split(DB_FIELD_DELIMITER);
