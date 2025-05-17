@@ -1,28 +1,32 @@
-РјР°СЏ 09, 2025 5:55:54 PM ru.yandex.kingartaved.data.mapper.ContentMapperRegistry lambda$initialize$0
-INFO: Р—Р°СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°РЅ РјР°РїРїРµСЂ РґР»СЏ Р·Р°РјРµС‚РѕРє С‚РёРїР°: TEXT_NOTE
-РјР°СЏ 09, 2025 5:55:54 PM ru.yandex.kingartaved.data.mapper.ContentMapperRegistry getMapper
-WARNING: РќРµ СѓРґР°Р»РѕСЃСЊ РЅР°Р№С‚Рё РјР°РїРїРµСЂ РґР»СЏ Р·Р°РјРµС‚РѕРє С‚РёРїР°: AUDIO_NOTE. Р”РѕСЃС‚СѓРїРЅС‹Рµ С‚РёРїС‹: [CHECKLIST, TEXT_NOTE]
-РјР°СЏ 09, 2025 5:56:11 PM ru.yandex.kingartaved.validation.db_line_validator.ContentValidatorRegistry lambda$initialize$0
-INFO: Р—Р°СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°РЅ РІР°Р»РёРґР°С‚РѕСЂ РґР»СЏ Р·Р°РјРµС‚РѕРє С‚РёРїР°: CHECKLIST
-РјР°СЏ 09, 2025 5:56:11 PM ru.yandex.kingartaved.validation.db_line_validator.ContentValidatorRegistry lambda$initialize$0
-INFO: Р—Р°СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°РЅ РІР°Р»РёРґР°С‚РѕСЂ РґР»СЏ Р·Р°РјРµС‚РѕРє С‚РёРїР°: TEXT_NOTE
-РјР°СЏ 09, 2025 5:56:11 PM ru.yandex.kingartaved.validation.db_line_validator.DbLineValidator validate
+мая 16, 2025 11:35:30 PM ru.yandex.kingartaved.validation.db_line_validator.DbLineValidator validate
+SEVERE: Ошибка при валидации строки:
+ f47ac10b-58cc-4372-a567-0e02b2c3d479|Заметка 5||2023-10-01T15:34:56|2023-12-01T15:34:56|true|BASE|ACTIVE|CHECKLIST|Пункт1:true;Пункт2:false
+ java.lang.IllegalArgumentException: Поле 'createdAt' (index 2) содержит недопустимую дату: ''
+мая 16, 2025 11:35:30 PM ru.yandex.kingartaved.validation.db_line_validator.DbLineValidator validate
+SEVERE: Ошибка при валидации строки:
+ f47ac10b-58cc-4372-a567-0e02b2c3d479|Заметка 6|2023-10-01T12:34:56|2023-10-01T15:34:56|2023-12-01T15:34:56|true|ACTIVE|CHECKLIST|Пункт1:true;Пункт2:false
+ java.lang.IllegalArgumentException: Неверное количество полей после split: ожидалось: 10, пришло: 9
+мая 16, 2025 11:35:30 PM ru.yandex.kingartaved.validation.db_line_validator.DbLineValidator validate
+SEVERE: Ошибка при валидации строки:
+ f47ac10b-58cc-4372-a567-0e02b2c3d479|Заметка 7|2023-10-01T12:34:56|2023-10-01T15:34:56|2023-12-01T15:34:56|true|BASES|ACTIVE|CHECKLIST|Пункт1:true;Пункт2:false
+ java.lang.IllegalArgumentException: Поле 'priority' (index 6) содержит недопустимое enum-значение (BASES) для перечисления NotePriorityEnum
+мая 16, 2025 11:35:30 PM ru.yandex.kingartaved.validation.db_line_validator.DbLineValidator validate
+SEVERE: Ошибка при валидации строки:
+ f47ac10b-58cc-4372-a567-0e02b2c3d479|Заметка 8|2023-10-01T12:34:56|2023-10-01T15:34:56|null|true|HIGH|null|TEXT_NOTE|Текст
+ java.lang.IllegalArgumentException: Поле с индексом 7 содержит null
+мая 16, 2025 11:35:30 PM ru.yandex.kingartaved.validation.db_line_validator.DbLineValidator validate
+SEVERE: Ошибка при валидации строки:
+ f47ac10b-58cc-4372-a567-0e02b2c3d479|Заметка 8|2023-10-01T12:34:56|2023-10-01T15:34:56|null|true|HIGH|COMPLETED|TEXTNOTE|Текст
+ java.lang.IllegalArgumentException: Поле 'type' (index 8) содержит недопустимое enum-значение (TEXTNOTE) для перечисления NoteTypeEnum
+РјР°СЏ 17, 2025 6:28:16 PM ru.yandex.kingartaved.validation.db_line_validator.DbLineValidator validate
 SEVERE: РћС€РёР±РєР° РїСЂРё РІР°Р»РёРґР°С†РёРё СЃС‚СЂРѕРєРё:
  invalid-uuid|Р—Р°РјРµС‚РєР° 1|2023-10-01T12:34:56|2023-10-01T15:34:56|null|true|HIGH|ACTIVE|TEXT_NOTE|РўРµРєСЃС‚
  java.lang.IllegalArgumentException: РџРѕР»Рµ 'id' (index 0) СЃРѕРґРµСЂР¶РёС‚ РЅРµРґРѕРїСѓСЃС‚РёРјС‹Р№ UUID: invalid-uuid
-РјР°СЏ 09, 2025 5:56:11 PM ru.yandex.kingartaved.validation.db_line_validator.DbLineValidator validate
+РјР°СЏ 17, 2025 6:28:16 PM ru.yandex.kingartaved.validation.db_line_validator.DbLineValidator validate
 SEVERE: РћС€РёР±РєР° РїСЂРё РІР°Р»РёРґР°С†РёРё СЃС‚СЂРѕРєРё:
  f47ac10b-58cc-4372-a567-0e02b2c3d479|Р—Р°РјРµС‚РєР° 2|2023-10-01T12:34:56|2023-10-01T15:34:56|null|true|HIGH|ACTIVE|TEXT_NOTE|null
  java.lang.IllegalArgumentException: РџРѕР»Рµ СЃ РёРЅРґРµРєСЃРѕРј 9 СЃРѕРґРµСЂР¶РёС‚ null
-РјР°СЏ 09, 2025 5:56:11 PM ru.yandex.kingartaved.validation.db_line_validator.DbLineValidator validate
-SEVERE: РћС€РёР±РєР° РїСЂРё РІР°Р»РёРґР°С†РёРё СЃС‚СЂРѕРєРё:
- f47ac10b-58cc-4372-a567-0e02b2c3d479|Р—Р°РјРµС‚РєР° 3|2023-10-01T12:34:56|2023-10-01T15:34:56|null|true|HIGH|ACTIVE|TEXT_NOTE|
- java.lang.IllegalArgumentException: РџРѕР»Рµ 'content' (index 9) СЃРѕРґРµСЂР¶РёС‚ РЅРµРІР°Р»РёРґРЅСѓСЋ СЃС‚СЂРѕРєСѓ: ""
-РјР°СЏ 09, 2025 5:56:11 PM ru.yandex.kingartaved.validation.db_line_validator.DbLineValidator validate
-SEVERE: РћС€РёР±РєР° РїСЂРё РІР°Р»РёРґР°С†РёРё СЃС‚СЂРѕРєРё:
- f47ac10b-58cc-4372-a567-0e02b2c3d479|Р—Р°РјРµС‚РєР° 4|2023-10-01T12:34:56|2023-10-01T15:34:56|null|true|BASE|ACTIVE|CHECKLIST|РџСѓРЅРєС‚1:yes;РџСѓРЅРєС‚2:fall
- java.lang.IllegalArgumentException: РџРѕР»Рµ 'content' (index 9) СЃРѕРґРµСЂР¶РёС‚ РЅРµРІР°Р»РёРґРЅСѓСЋ СЃС‚СЂРѕРєСѓ: "РџСѓРЅРєС‚1:yes;РџСѓРЅРєС‚2:fall"
-РјР°СЏ 09, 2025 5:56:11 PM ru.yandex.kingartaved.validation.db_line_validator.DbLineValidator validate
+РјР°СЏ 17, 2025 6:28:16 PM ru.yandex.kingartaved.validation.db_line_validator.DbLineValidator validate
 SEVERE: РћС€РёР±РєР° РїСЂРё РІР°Р»РёРґР°С†РёРё СЃС‚СЂРѕРєРё:
  f47ac10b-58cc-4372-a567-0e02b2c3d479|Р—Р°РјРµС‚РєР° 5||2023-10-01T15:34:56|2023-12-01T15:34:56|true|BASE|ACTIVE|CHECKLIST|РџСѓРЅРєС‚1:true;РџСѓРЅРєС‚2:false
  java.lang.IllegalArgumentException: РџРѕР»Рµ 'createdAt' (index 2) СЃРѕРґРµСЂР¶РёС‚ РЅРµРґРѕРїСѓСЃС‚РёРјСѓСЋ РґР°С‚Сѓ: ''
