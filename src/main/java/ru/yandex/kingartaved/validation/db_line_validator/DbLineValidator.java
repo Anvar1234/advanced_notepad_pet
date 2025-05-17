@@ -18,7 +18,12 @@ public class DbLineValidator {
     private static final Logger LOGGER = LoggerUtil.getLogger(DbLineValidator.class);
     private static final int EXPECTED_FIELDS_COUNT = 10;
     private static final String DB_FIELD_DELIMITER = "\\|";
-    private static final ContentValidatorRegistry CONTENT_VALIDATOR_REGISTRY = new ContentValidatorRegistry();
+    private final ContentValidatorRegistry contentValidatorRegistry;
+
+    public DbLineValidator(ContentValidatorRegistry contentValidatorRegistry) {
+        this.contentValidatorRegistry = contentValidatorRegistry;
+    }
+
 
     /**
      * Проверяет строку из БД на соответствие формату заметки.
@@ -205,7 +210,7 @@ public class DbLineValidator {
 
         NoteTypeEnum noteTypeEnum = Enum.valueOf(NoteTypeEnum.class, parts[noteTypeIndex]);
 
-        ContentValidator contentValidator = CONTENT_VALIDATOR_REGISTRY.getValidator(noteTypeEnum);
+        ContentValidator contentValidator = contentValidatorRegistry.getValidator(noteTypeEnum);
 
         if (!contentValidator.isValidContent(parts[contentIndex])) {
             throw new IllegalArgumentException("Поле '" + contentLabel + "' (index " + contentIndex + ") содержит невалидную строку: \"" + parts[contentIndex] + "\"");
