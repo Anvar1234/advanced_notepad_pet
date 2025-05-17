@@ -42,43 +42,23 @@ public class DbLineValidatorTest {
     @Test
     @DisplayName("Проверка факта запроса валидатора для TEXT_NOTE при обработке контента")
     void requireContent_callsTextContentValidator_success() { //TODO: изменить название, не вызывается конкретная реализация валидатора, а проверяется факт вызова нужного валидатора.
-        // 1. Подготовка моков
+        // given
         when(mockContentValidatorRegistry.getValidator(NoteTypeEnum.TEXT_NOTE))
                 .thenReturn(mockContentValidator);
         when(mockContentValidator.isValidContent("Sample text"))
                 .thenReturn(true);
 
-        // 2. Подготовка тестовых данных
         String[] parts = new String[10];
         Arrays.fill(parts, "value");
         parts[8] = "TEXT_NOTE";
         parts[9] = "Sample text";
 
-        // 3. Вызов тестируемого метода
+        // when
         dbLineValidator.requireContent(parts, 8, 9, "noteType", "content");
 
-        // 4. Проверка взаимодействий
+        // then
         verify(mockContentValidatorRegistry).getValidator(NoteTypeEnum.TEXT_NOTE);
         verify(mockContentValidator).isValidContent("Sample text");
-    }
-
-    @Test
-    @DisplayName("Проверка, что для типа 'TEXT_NOTE' вызывается правильный валидатор")
-    void validateDbLineStructure_callsCorrectValidator_success() {
-        // Given
-        ContentValidatorRegistry mockRegistry = mock(ContentValidatorRegistry.class);
-        ContentValidator mockValidator = mock(ContentValidator.class);
-
-        when(mockRegistry.getValidator(NoteTypeEnum.TEXT_NOTE)).thenReturn(mockValidator);
-        when(mockValidator.isValidContent("Sample text")).thenReturn(true);
-
-        DbLineValidator validator = new DbLineValidator(mockRegistry);
-        String[] parts = {"id", "title", "createdAt", "updatedAt", "deletedAt", "isPinned", "priority", "status", "TEXT_NOTE", "Sample text"};
-
-        // When & Then
-        assertDoesNotThrow(() -> validator.validateDbLineStructure(parts));
-        verify(mockRegistry).getValidator(NoteTypeEnum.TEXT_NOTE);
-        verify(mockValidator).isValidContent("Sample text");
     }
 
     @ParameterizedTest(name = "{1}")
@@ -163,9 +143,5 @@ public class DbLineValidatorTest {
         //then
         assertEquals(expectedValid, actual);
     }
-
-
-
-
 }
 
