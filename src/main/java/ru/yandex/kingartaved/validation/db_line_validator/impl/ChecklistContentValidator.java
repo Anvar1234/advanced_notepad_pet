@@ -7,7 +7,7 @@ import ru.yandex.kingartaved.validation.db_line_validator.ContentValidator;
 import java.util.Arrays;
 import java.util.List;
 
-public class CheckListContentValidator implements ContentValidator {
+public class ChecklistContentValidator implements ContentValidator {
 
     private static final int IS_DONE_INDEX = 1;
 
