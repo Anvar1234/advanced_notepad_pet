@@ -1,15 +1,14 @@
 package ru.yandex.kingartaved.config;
 
-public class AppConfig {
+public final class AppConfig { //TODO: сделать неизменяемым (конструктор)
     // Путь к пакету для формирования маппера
     public static final String MAPPERS_PACKAGE = "ru.yandex.kingartaved.data.mapper.impl";
     public static final String ENTITY_CLASSES_PACKAGE = "ru.yandex.kingartaved.data.model";
     public static final String MAPPER_SUFFIX = "Mapper";
 
-    // Пути к файлам базы данных
-    public static final String TEXT_NOTE_DB_TXT_FILE_PATH = "src/main/resources/text_note_db.txt";
-    public static final String CHECK_LIST_DB_TXT_FILE_PATH = "src/main/resources/check_list_db.txt";
-    public static final String DELIMITER = "|";
+    // Пути к файлам базы данных и сопутствующие константы
+    public static final String PATH_TO_DB_FILE = "src/main/resources/note_db.txt";
+    public static final String DB_FIELD_DELIMITER = "\\|";
 
     public static final String USER_DB_JSON_FILE = "users.json";
     public static final String ACCOUNT_DB_JSON_FILE = "accounts.json";

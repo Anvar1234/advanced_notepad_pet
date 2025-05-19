@@ -10,6 +10,10 @@ public enum ErrorMessage {
 
     FILE_NOT_FOUND("Файл не найден"),
 
+    FILE_CREATION_ERROR("Ошибка при создании файла"),
+
+    FILE_READING_ERROR("Ошибка при чтении файла"),
+
     UTILITY_CLASS("Утилитный класс"),
 
     INVALID_LINE("Невалидная строка"),

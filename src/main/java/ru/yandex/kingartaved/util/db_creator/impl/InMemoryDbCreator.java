@@ -9,16 +9,16 @@ import java.util.List;
 /**
  * TODO: возможно сделать синглтон, чтобы только одна БД текстНоте и одна Чеклист была создана.
  */
-public final class InMemoryDbCreator implements DbCreator {
+public final class InMemoryDbCreator { // implements DbCreator {
 
     private final Path pathToDb;
-    private List<Note> entities;
+    private List<Note> dataBase;
 
     public InMemoryDbCreator(Path pathToDb) {
         this.pathToDb = pathToDb;
     }
 
-//    public List<T> createDatabase() {
+//    public List<Note> createDatabase() {
 //        FileUtil.createFile(pathToDb);
 //        List<String> uploaded = FileUtil.readAll(pathToDb);
 //

@@ -1,5 +1,6 @@
 package ru.yandex.kingartaved.validation.db_line_validator;
 
+import ru.yandex.kingartaved.config.AppConfig;
 import ru.yandex.kingartaved.data.constant.NotePriorityEnum;
 import ru.yandex.kingartaved.data.constant.NoteStatusEnum;
 import ru.yandex.kingartaved.data.constant.NoteTypeEnum;
@@ -17,7 +18,7 @@ import java.util.logging.Logger;
 public class DbLineValidator {
     private static final Logger LOGGER = LoggerUtil.getLogger(DbLineValidator.class);
     private static final int EXPECTED_FIELDS_COUNT = 10;
-    private static final String DB_FIELD_DELIMITER = "\\|";
+    private static final String DB_FIELD_DELIMITER = AppConfig.DB_FIELD_DELIMITER;
     private final ContentValidatorRegistry contentValidatorRegistry;
 
     public DbLineValidator(ContentValidatorRegistry contentValidatorRegistry) {
