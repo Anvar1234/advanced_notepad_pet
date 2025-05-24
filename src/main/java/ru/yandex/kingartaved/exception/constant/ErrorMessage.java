@@ -14,9 +14,16 @@ public enum ErrorMessage {
 
     FILE_READING_ERROR("Ошибка при чтении файла"),
 
+    PATH_ERROR("Ошибка пути"),
+
     UTILITY_CLASS("Утилитный класс"),
 
-    INVALID_LINE("Невалидная строка"),
+    METADATA_VALIDATION_ERROR("Ошибка валидации метаданных"),
+
+    CONTENT_VALIDATION_ERROR("Ошибка валидации контента"),
+
+    DB_LINE_VALIDATION_ERROR("Ошибка при валидации строки"),
+
 
 
 

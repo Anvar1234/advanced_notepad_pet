@@ -1,5 +1,8 @@
 package ru.yandex.kingartaved.config;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public final class AppConfig { //TODO: сделать неизменяемым (конструктор)
     // Путь к пакету для формирования маппера
     public static final String MAPPERS_PACKAGE = "ru.yandex.kingartaved.data.mapper.impl";
@@ -9,6 +12,7 @@ public final class AppConfig { //TODO: сделать неизменяемым (
     // Пути к файлам базы данных и сопутствующие константы
     public static final String PATH_TO_DB_FILE = "src/main/resources/note_db.txt";
     public static final String DB_FIELD_DELIMITER = "\\|";
+
 
     public static final String USER_DB_JSON_FILE = "users.json";
     public static final String ACCOUNT_DB_JSON_FILE = "accounts.json";
