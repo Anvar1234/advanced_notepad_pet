@@ -1,2 +1,2 @@
-ru.yandex.kingartaved.validation.db_line_validator.impl.CheckListContentValidator
+ru.yandex.kingartaved.validation.db_line_validator.impl.ChecklistContentValidator
 ru.yandex.kingartaved.validation.db_line_validator.impl.TextContentValidator

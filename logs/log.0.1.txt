@@ -1,28 +1,32 @@
-мая 09, 2025 2:02:07 AM ru.yandex.kingartaved.validation.db_line_validator.ContentValidatorRegistry lambda$initialize$0
+мая 18, 2025 11:01:38 PM ru.yandex.kingartaved.util.FileUtil createFile
+INFO: File "text_note_db.txt" already exist.
+мая 18, 2025 11:01:38 PM ru.yandex.kingartaved.util.FileUtil readAll
+INFO: Data successfully read from file: src\main\resources\text_note_db.txt
+мая 19, 2025 12:48:38 PM ru.yandex.kingartaved.validation.db_line_validator.ContentValidatorRegistry lambda$initialize$0
 INFO: Зарегистрирован валидатор для заметок типа: CHECKLIST
-мая 09, 2025 2:02:07 AM ru.yandex.kingartaved.validation.db_line_validator.ContentValidatorRegistry lambda$initialize$0
+мая 19, 2025 12:48:38 PM ru.yandex.kingartaved.validation.db_line_validator.ContentValidatorRegistry lambda$initialize$0
 INFO: Зарегистрирован валидатор для заметок типа: TEXT_NOTE
-мая 09, 2025 2:02:07 AM ru.yandex.kingartaved.validation.db_line_validator.DbLineValidator validate
+мая 19, 2025 12:48:38 PM ru.yandex.kingartaved.validation.db_line_validator.DbLineValidator validate
 SEVERE: Ошибка при валидации строки:
  invalid-uuid|Заметка 1|2023-10-01T12:34:56|2023-10-01T15:34:56|null|true|HIGH|ACTIVE|TEXT_NOTE|Текст
  java.lang.IllegalArgumentException: Поле 'id' (index 0) содержит недопустимый UUID: invalid-uuid
-мая 09, 2025 2:02:07 AM ru.yandex.kingartaved.validation.db_line_validator.DbLineValidator validate
+мая 19, 2025 12:48:38 PM ru.yandex.kingartaved.validation.db_line_validator.DbLineValidator validate
 SEVERE: Ошибка при валидации строки:
  f47ac10b-58cc-4372-a567-0e02b2c3d479|Заметка 2|2023-10-01T12:34:56|2023-10-01T15:34:56|null|true|HIGH|ACTIVE|TEXT_NOTE|null
  java.lang.IllegalArgumentException: Поле с индексом 9 содержит null
-мая 09, 2025 2:02:07 AM ru.yandex.kingartaved.validation.db_line_validator.DbLineValidator validate
+мая 19, 2025 12:48:38 PM ru.yandex.kingartaved.validation.db_line_validator.DbLineValidator validate
 SEVERE: Ошибка при валидации строки:
  f47ac10b-58cc-4372-a567-0e02b2c3d479|Заметка 3|2023-10-01T12:34:56|2023-10-01T15:34:56|null|true|HIGH|ACTIVE|TEXT_NOTE|
  java.lang.IllegalArgumentException: Поле 'content' (index 9) содержит невалидную строку: ""
-мая 09, 2025 2:02:07 AM ru.yandex.kingartaved.validation.db_line_validator.DbLineValidator validate
+мая 19, 2025 12:48:38 PM ru.yandex.kingartaved.validation.db_line_validator.DbLineValidator validate
 SEVERE: Ошибка при валидации строки:
  f47ac10b-58cc-4372-a567-0e02b2c3d479|Заметка 4|2023-10-01T12:34:56|2023-10-01T15:34:56|null|true|BASE|ACTIVE|CHECKLIST|Пункт1:yes;Пункт2:fall
  java.lang.IllegalArgumentException: Поле 'content' (index 9) содержит невалидную строку: "Пункт1:yes;Пункт2:fall"
-мая 09, 2025 2:02:07 AM ru.yandex.kingartaved.validation.db_line_validator.DbLineValidator validate
+мая 19, 2025 12:48:38 PM ru.yandex.kingartaved.validation.db_line_validator.DbLineValidator validate
 SEVERE: Ошибка при валидации строки:
  f47ac10b-58cc-4372-a567-0e02b2c3d479|Заметка 5||2023-10-01T15:34:56|2023-12-01T15:34:56|true|BASE|ACTIVE|CHECKLIST|Пункт1:true;Пункт2:false
  java.lang.IllegalArgumentException: Поле 'createdAt' (index 2) содержит недопустимую дату: ''
-мая 09, 2025 2:02:07 AM ru.yandex.kingartaved.validation.db_line_validator.DbLineValidator validate
+мая 19, 2025 12:48:38 PM ru.yandex.kingartaved.validation.db_line_validator.DbLineValidator validate
 SEVERE: Ошибка при валидации строки:
  f47ac10b-58cc-4372-a567-0e02b2c3d479|Заметка 6|2023-10-01T12:34:56|2023-10-01T15:34:56|2023-12-01T15:34:56|true|ACTIVE|CHECKLIST|Пункт1:true;Пункт2:false
  java.lang.IllegalArgumentException: Неверное количество полей после split: ожидалось: 10, пришло: 9

@@ -7,7 +7,7 @@ import ru.yandex.kingartaved.data.constant.NoteTypeEnum;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-public class Metadata {
+public final class Metadata {
     private final UUID id;
     private final String title;
     private final LocalDateTime createdAt;

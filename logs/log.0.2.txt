@@ -1,28 +1,28 @@
-мая 09, 2025 2:01:13 AM ru.yandex.kingartaved.validation.db_line_validator.DbLineValidator validate
+мая 17, 2025 6:42:56 PM ru.yandex.kingartaved.validation.db_line_validator.DbLineValidator validate
 SEVERE: Ошибка при валидации строки:
  f47ac10b-58cc-4372-a567-0e02b2c3d479|Заметка 3|2023-10-01T12:34:56|2023-10-01T15:34:56|null|true|HIGH|ACTIVE|TEXT_NOTE|
  java.lang.IllegalArgumentException: Поле 'content' (index 9) содержит невалидную строку: ""
-мая 09, 2025 2:01:13 AM ru.yandex.kingartaved.validation.db_line_validator.DbLineValidator validate
+мая 17, 2025 6:42:56 PM ru.yandex.kingartaved.validation.db_line_validator.DbLineValidator validate
 SEVERE: Ошибка при валидации строки:
  f47ac10b-58cc-4372-a567-0e02b2c3d479|Заметка 4|2023-10-01T12:34:56|2023-10-01T15:34:56|null|true|BASE|ACTIVE|CHECKLIST|Пункт1:yes;Пункт2:fall
  java.lang.IllegalArgumentException: Поле 'content' (index 9) содержит невалидную строку: "Пункт1:yes;Пункт2:fall"
-мая 09, 2025 2:01:13 AM ru.yandex.kingartaved.validation.db_line_validator.DbLineValidator validate
+мая 17, 2025 6:42:56 PM ru.yandex.kingartaved.validation.db_line_validator.DbLineValidator validate
 SEVERE: Ошибка при валидации строки:
  f47ac10b-58cc-4372-a567-0e02b2c3d479|Заметка 5||2023-10-01T15:34:56|2023-12-01T15:34:56|true|BASE|ACTIVE|CHECKLIST|Пункт1:true;Пункт2:false
  java.lang.IllegalArgumentException: Поле 'createdAt' (index 2) содержит недопустимую дату: ''
-мая 09, 2025 2:01:13 AM ru.yandex.kingartaved.validation.db_line_validator.DbLineValidator validate
+мая 17, 2025 6:42:56 PM ru.yandex.kingartaved.validation.db_line_validator.DbLineValidator validate
 SEVERE: Ошибка при валидации строки:
  f47ac10b-58cc-4372-a567-0e02b2c3d479|Заметка 6|2023-10-01T12:34:56|2023-10-01T15:34:56|2023-12-01T15:34:56|true|ACTIVE|CHECKLIST|Пункт1:true;Пункт2:false
  java.lang.IllegalArgumentException: Неверное количество полей после split: ожидалось: 10, пришло: 9
-мая 09, 2025 2:01:13 AM ru.yandex.kingartaved.validation.db_line_validator.DbLineValidator validate
+мая 17, 2025 6:42:56 PM ru.yandex.kingartaved.validation.db_line_validator.DbLineValidator validate
 SEVERE: Ошибка при валидации строки:
  f47ac10b-58cc-4372-a567-0e02b2c3d479|Заметка 7|2023-10-01T12:34:56|2023-10-01T15:34:56|2023-12-01T15:34:56|true|BASES|ACTIVE|CHECKLIST|Пункт1:true;Пункт2:false
  java.lang.IllegalArgumentException: Поле 'priority' (index 6) содержит недопустимое enum-значение (BASES) для перечисления NotePriorityEnum
-мая 09, 2025 2:01:13 AM ru.yandex.kingartaved.validation.db_line_validator.DbLineValidator validate
+мая 17, 2025 6:42:56 PM ru.yandex.kingartaved.validation.db_line_validator.DbLineValidator validate
 SEVERE: Ошибка при валидации строки:
  f47ac10b-58cc-4372-a567-0e02b2c3d479|Заметка 8|2023-10-01T12:34:56|2023-10-01T15:34:56|null|true|HIGH|null|TEXT_NOTE|Текст
  java.lang.IllegalArgumentException: Поле с индексом 7 содержит null
-мая 09, 2025 2:01:13 AM ru.yandex.kingartaved.validation.db_line_validator.DbLineValidator validate
+мая 17, 2025 6:42:56 PM ru.yandex.kingartaved.validation.db_line_validator.DbLineValidator validate
 SEVERE: Ошибка при валидации строки:
  f47ac10b-58cc-4372-a567-0e02b2c3d479|Заметка 8|2023-10-01T12:34:56|2023-10-01T15:34:56|null|true|HIGH|COMPLETED|TEXTNOTE|Текст
  java.lang.IllegalArgumentException: Поле 'type' (index 8) содержит недопустимое enum-значение (TEXTNOTE) для перечисления NoteTypeEnum
