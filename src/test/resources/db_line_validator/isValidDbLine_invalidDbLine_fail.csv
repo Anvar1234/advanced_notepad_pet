@@ -1,0 +1,7 @@
+description,lineFromCsv,expectedValid
+# Невалидные случаи
+Меньше полей (нет UUID),"Заметка 1|2023-10-01T12:34:56|2023-10-01T15:34:56|2023-11-01T15:34:56|true|HIGH|ACTIVE|TEXT_NOTE|Текст",false
+Больше полей (перед UUID),"2|f47ac10b-58cc-4372-a567-0e02b2c3d479|Заметка 2|2023-10-01T12:34:56|2023-10-01T15:34:56|null|true|HIGH|ACTIVE|TEXT_NOTE|Текст",false
+Null строка,null,false
+Пустая строка,"",false
+Лишние пробелы (пустое поле UUID)," |Заметка 2|2023-10-01T12:34:56|2023-10-01T15:34:56|null|true|HIGH|ACTIVE|CHECKLIST|Пункт1:true;Пункт2:false",false

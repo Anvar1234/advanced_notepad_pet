@@ -21,7 +21,10 @@ public class TextContentValidator implements ContentValidator {
     public void validateContent(String contentPart) throws ContentValidationException {
         try {
             if (contentPart == null || contentPart.trim().isEmpty()) {
-                throw new IllegalArgumentException("Содержимое заметки типа " + getSupportedType() + " не может быть null или пустым");
+                throw new IllegalArgumentException("Поле контента заметки типа " + getSupportedType() + " не может быть null или пустым");
+            }
+            if ("null".equalsIgnoreCase(contentPart)) {
+                throw new IllegalArgumentException("Поле контента заметки типа " + getSupportedType() + " содержит строку 'null'");
             }
         } catch (IllegalArgumentException e) {
             String errorMessage = ErrorMessage.CONTENT_VALIDATION_ERROR.getMessage() + ": '" + contentPart + "'\nПричина: " + e.getMessage();

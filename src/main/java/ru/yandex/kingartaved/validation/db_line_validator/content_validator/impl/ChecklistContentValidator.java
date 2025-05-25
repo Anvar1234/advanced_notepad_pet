@@ -28,6 +28,10 @@ public class ChecklistContentValidator implements ContentValidator {
                 throw new IllegalArgumentException("Содержимое заметки типа " + getSupportedType() + " не может быть null или пустым");
             }
 
+            if ("null".equalsIgnoreCase(contentPart)) {
+                throw new IllegalArgumentException("Поле контента заметки типа " + getSupportedType() + " содержит строку 'null'");
+            }
+
             List<ChecklistItem> items = parseChecklistItems(contentPart);
             if (items.isEmpty()) {
                 throw new IllegalArgumentException("Список задач не содержит элементов");

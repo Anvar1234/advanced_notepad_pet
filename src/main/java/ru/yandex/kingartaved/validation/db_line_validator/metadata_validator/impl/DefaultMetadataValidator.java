@@ -22,6 +22,8 @@ public class DefaultMetadataValidator implements MetadataValidator {
     @Override
     public void validateMetadata(String[] parts) throws MetadataValidationException {
         try {
+            validateNoNullPartsValues(parts, REMIND_AT.getIndex());
+
             validateUuid(parts, ID.getIndex(), ID.getFieldName());
             validateNotEmpty(parts, TITLE.getIndex(), TITLE.getFieldName());
             validateDate(parts, CREATED_AT.getIndex(), CREATED_AT.getFieldName());
@@ -89,6 +91,40 @@ public class DefaultMetadataValidator implements MetadataValidator {
         } catch (Exception e) {
             throw new IllegalArgumentException("Поле '" + label + "' (index " + index + ") содержит недопустимое enum-значение (" + parts[index] + ") для перечисления " + enumClass.getSimpleName(), e);
         }
+    }
+
+    /**
+     * Проверяет, что ни один из элементов массива (кроме исключённых индексов) не равен строке "null" (без учёта регистра).
+     *
+     * @param parts           Массив строк для проверки (не может быть null).
+     * @param excludedIndexes Индексы элементов, которые следует игнорировать (например, 2, 4).
+     * @return true если все проверяемые элементы не содержат "null".
+     * @throws NullPointerException если массив равен null.
+     * @see #contains(int[], int)
+     */
+    void validateNoNullPartsValues(String[] parts, int... excludedIndexes) {
+        for (int i = 0; i < parts.length; i++) {
+            if (contains(excludedIndexes, i)) continue; // TODO: Пропускаем исключённые индексы
+            if ("null".equalsIgnoreCase(parts[i])) {
+                throw new IllegalArgumentException("Поле с индексом " + i + " содержит null");
+            }
+        }
+    }
+
+    /**
+     * Проверяет наличие значения в массиве исключаемых из проверки целых чисел.
+     *
+     * @param excludedIndexes Массив целых чисел для проверки (например, [4] или [2, 4]).
+     * @param inputIndex      Искомое значение (например, индекс поля i).
+     * @return true, если значение найдено в массиве.
+     */
+    private boolean contains(int[] excludedIndexes, int inputIndex) {
+        for (int item : excludedIndexes) {
+            if (item == inputIndex) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }

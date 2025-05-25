@@ -1,7 +1,5 @@
 package ru.yandex.kingartaved.validation.db_line_validator.impl;
 
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -112,7 +110,7 @@ public class CustomFormatDbLineValidatorTest {
             resources = "/db_line_validator/validateDbLineStructure_extraSpacesPresent_failed.csv",
             numLinesToSkip = 1)
     @DisplayName("Проверка валидации некорректных строк из БД с лишними пробелами")
-    void isValidDbLineDbLineStructure_extraSpacesPresent_failed(String lineFromCsv, String description) {
+    void validateDbLineStructure_extraSpacesPresent_failed(String lineFromCsv, String description) {
         //given
         String[] parts = lineFromCsv.split(DB_FIELD_DELIMITER);
 
@@ -131,7 +129,7 @@ public class CustomFormatDbLineValidatorTest {
             "f47ac10b-58cc-4372-a567-0e02b2c3d479|Заметка 2|2023-10-01T12:34:56|2023-10-01T15:34:56|null|true|BASE|ACTIVE|CHECKLIST|1dsdsf:true;2dsfsf:false; 3d:false,CHECKLIST"
     })
     @DisplayName("Проверка структурной целостности корректных строк из БД")
-    void validateDbLineStructure_correctLine_success(String lineFromCsv, String noteType) {
+    void validateDbLineStructure_correctLine_success(String lineFromCsv, String noteType) throws ContentValidationException, MetadataValidationException {
         //given
         String[] parts = lineFromCsv.split(DB_FIELD_DELIMITER);
 
@@ -143,27 +141,20 @@ public class CustomFormatDbLineValidatorTest {
     }
 
 
-
     //todo: разделить метод на два, сначала тестим метаданные, потом контент. csv нужно тоже два, видимо.
+//    verify(mockContentValidatorRegistry, times(2)).getValidator(NoteTypeEnum.TEXT_NOTE);
+//    verify(mockContentValidator, times(2)).validateContent("Sample text");
+//    verify(mockMetadataValidator, times(2)).validateMetadata(any());
 
     @ParameterizedTest(name = "{0}")
     @CsvFileSource(
-            resources = "/db_line_validator/validate_validAndInvalidContent_cases.csv",
+            resources = "/db_line_validator/isValidDbLine_validAndInvalidDbLines_cases.csv",
             numLinesToSkip = 1)
-    @DisplayName("Комплексная проверка валидации строки")
-    void isValidDbLine_validAndInvalidContent_cases(String description, String lineFromCsv, boolean expectedValid) throws MetadataValidationException, ContentValidationException { //todo переделать (примерно как ниже в комментах) этот метод после того как контент валидатор переделаю, моки не настроены
+    @DisplayName("Проверка только структурной целостности строки при валидации")
+    void isValidDbLine_validAndInvalidDbLine_cases(String description, String lineFromCsv, boolean expectedValid) {
 
         // given
         // lineFromCsv - валидная или невалидная строка из CSV
-
-        if (!expectedValid) {
-            doThrow(new MetadataValidationException("Невалидная инфа в метадате", null))
-                    .when(mockMetadataValidator)
-                            .validateMetadata(any());
-            doThrow(new ContentValidationException("Невалидный контент", null))
-                    .when(mockContentValidator)
-                    .validateContent(any());
-        }
 
         //when
         boolean actual = customFormatDbLineValidator.isValidDbLine(lineFromCsv);
@@ -171,44 +162,6 @@ public class CustomFormatDbLineValidatorTest {
         //then
         assertEquals(expectedValid, actual);
     }
+
 }
 
-//@BeforeEach
-//void setUp() {
-//    // Настраиваем моки:
-//    when(mockContentValidatorRegistry.getValidator(any(NoteTypeEnum.class)))
-//            .thenReturn(mockContentValidator);
-//
-//    when(mockContentValidator.isValidContent(anyString()))
-//            .thenReturn(true); // По умолчанию считаем контент валидным
-//
-//    // Важно: мокируем успешную проверку метаданных по умолчанию
-//    when(mockMetadataValidator.validateMetadata(any(String[].class)))
-//            .thenReturn(true);
-//}
-//
-//@ParameterizedTest(name = "{0}")
-//@CsvFileSource(
-//        resources = "/db_line_validator/validate_validAndInvalidContent_cases.csv",
-//        numLinesToSkip = 1
-//)
-//@DisplayName("Комплексная проверка валидации строки")
-//void validate_validAndInvalidContent_cases(
-//        String description,
-//        String lineFromCsv,
-//        boolean expectedValid
-//) {
-//    // given: Настраиваем моки для конкретных случаев
-//    if (!expectedValid) {
-//        // Для невалидных строк заставляем validateMetadata бросать исключение
-//        when(mockMetadataValidator.validateMetadata(any(String[].class)))
-//                .thenThrow(new IllegalArgumentException("Invalid metadata"));
-//    }
-//
-//    // when
-//    boolean actual = customFormatDbLineValidator.validate(lineFromCsv);
-//
-//    // then
-//    assertEquals(expectedValid, actual, description);
-//}
-//}
