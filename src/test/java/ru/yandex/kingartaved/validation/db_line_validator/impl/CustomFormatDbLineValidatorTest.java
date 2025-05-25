@@ -13,6 +13,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
+import ru.yandex.kingartaved.config.FieldIndex;
 import ru.yandex.kingartaved.data.constant.NoteTypeEnum;
 import ru.yandex.kingartaved.config.ContentValidatorRegistry;
 import ru.yandex.kingartaved.exception.ContentValidationException;
@@ -110,12 +111,12 @@ public class CustomFormatDbLineValidatorTest {
             resources = "/db_line_validator/validateDbLineStructure_extraSpacesPresent_failed.csv",
             numLinesToSkip = 1)
     @DisplayName("Проверка валидации некорректных строк из БД с лишними пробелами")
-    void validateDbLineStructure_extraSpacesPresent_failed(String lineFromCsv, String description) {
+    void validateLineStructure_extraSpacesPresent_failed(String lineFromCsv, String description) {
         //given
         String[] parts = lineFromCsv.split(DB_FIELD_DELIMITER);
 
         //when
-        Executable actual = () -> customFormatDbLineValidator.validateDbLineStructure(parts);
+        Executable actual = () -> customFormatDbLineValidator.validateLineStructure(parts, FieldIndex.REMIND_AT.getIndex());
 
         //then
         assertThrows(IllegalArgumentException.class, actual, description + " , строка должна быть невалидна");
@@ -126,31 +127,25 @@ public class CustomFormatDbLineValidatorTest {
             // Корректная строка из БД для заметок типа TEXT_NOTE
             "f47ac10b-58cc-4372-a567-0e02b2c3d479|Заметка 1|2023-10-01T12:34:56|2023-10-01T15:34:56|null|true|HIGH|ACTIVE|TEXT_NOTE|Содержимое,TEXT_NOTE",
             // Корректная строка из БД для заметок типа CHECKLIST
-            "f47ac10b-58cc-4372-a567-0e02b2c3d479|Заметка 2|2023-10-01T12:34:56|2023-10-01T15:34:56|null|true|BASE|ACTIVE|CHECKLIST|1dsdsf:true;2dsfsf:false; 3d:false,CHECKLIST"
+            "f47ac10b-58cc-4372-a567-0e02b2c3d479|Заметка 2|2023-10-01T12:34:56|2023-10-01T15:34:56|null|true|BASE|ACTIVE|CHECKLIST|1задача:true;задача2:false;3:false,CHECKLIST"
     })
     @DisplayName("Проверка структурной целостности корректных строк из БД")
-    void validateDbLineStructure_correctLine_success(String lineFromCsv, String noteType) throws ContentValidationException, MetadataValidationException {
+    void validateLineStructure_success(String lineFromCsv, String noteType) throws ContentValidationException, MetadataValidationException {
         //given
         String[] parts = lineFromCsv.split(DB_FIELD_DELIMITER);
 
         //when
-        Executable actual = () -> customFormatDbLineValidator.validateDbLineStructure(parts);
+        Executable actual = () -> customFormatDbLineValidator.validateLineStructure(parts, FieldIndex.REMIND_AT.getIndex());
 
         //then
         assertDoesNotThrow(actual, "Для " + noteType + " строка должна быть валидна");
     }
 
-
-    //todo: разделить метод на два, сначала тестим метаданные, потом контент. csv нужно тоже два, видимо.
-//    verify(mockContentValidatorRegistry, times(2)).getValidator(NoteTypeEnum.TEXT_NOTE);
-//    verify(mockContentValidator, times(2)).validateContent("Sample text");
-//    verify(mockMetadataValidator, times(2)).validateMetadata(any());
-
     @ParameterizedTest(name = "{0}")
     @CsvFileSource(
             resources = "/db_line_validator/isValidDbLine_validAndInvalidDbLines_cases.csv",
             numLinesToSkip = 1)
-    @DisplayName("Проверка только структурной целостности строки при валидации")
+    @DisplayName("Проверка структурной целостности строк")
     void isValidDbLine_validAndInvalidDbLine_cases(String description, String lineFromCsv, boolean expectedValid) {
 
         // given

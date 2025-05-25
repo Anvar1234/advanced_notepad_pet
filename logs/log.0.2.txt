@@ -1,10 +1,10 @@
-мая 25, 2025 3:31:36 PM ru.yandex.kingartaved.validation.db_line_validator.impl.CustomFormatDbLineValidator isValidDbLine
+мая 26, 2025 2:26:24 AM ru.yandex.kingartaved.validation.db_line_validator.impl.CustomFormatDbLineValidator isValidDbLine
 SEVERE: Ошибка при валидации строки: '
-Причина: Строка не может быть null или пустой
-java.lang.IllegalArgumentException: Строка не может быть null или пустой
-	at ru.yandex.kingartaved.validation.db_line_validator.impl.CustomFormatDbLineValidator.validateLineNotEmpty(CustomFormatDbLineValidator.java:87)
-	at ru.yandex.kingartaved.validation.db_line_validator.impl.CustomFormatDbLineValidator.isValidDbLine(CustomFormatDbLineValidator.java:61)
-	at ru.yandex.kingartaved.validation.db_line_validator.impl.CustomFormatDbLineValidatorTest.isValidDbLine_validAndInvalidDbLine_cases(CustomFormatDbLineValidatorTest.java:160)
+Причина: Строка из БД не должна быть null или пустой
+java.lang.IllegalArgumentException: Строка из БД не должна быть null или пустой
+	at ru.yandex.kingartaved.validation.db_line_validator.impl.CustomFormatDbLineValidator.validateLineNotEmpty(CustomFormatDbLineValidator.java:84)
+	at ru.yandex.kingartaved.validation.db_line_validator.impl.CustomFormatDbLineValidator.isValidDbLine(CustomFormatDbLineValidator.java:63)
+	at ru.yandex.kingartaved.validation.db_line_validator.impl.CustomFormatDbLineValidatorTest.isValidDbLine_validAndInvalidDbLine_cases(CustomFormatDbLineValidatorTest.java:155)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
