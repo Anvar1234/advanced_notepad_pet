@@ -1,6 +1,6 @@
-lineFromCsv,description,expectedValid
+lineFromCsv,description
 "f47ac10b-58cc-4372-a567-0e02b2c3d479 |Заметка 1|2023-10-01T12:34:56|2023-10-01T15:34:56|null|true|HIGH|ACTIVE|TEXT_NOTE|Содержимое","Лишний пробел в первом поле UUID (TEXT_NOTE)"
-"f47ac10b-58cc-4372-a567-0e02b2c3d479|Заметка 1|2023-10-01T12:34:56|2023-10-01T15:34:56|null|true| HIGH|ACTIVE|TEXT_NOTE|Содержимое","Лишний пробел в поле priority (TEXT_NOTE)",false
+"f47ac10b-58cc-4372-a567-0e02b2c3d479|Заметка 1|2023-10-01T12:34:56|2023-10-01T15:34:56|null|true| HIGH|ACTIVE|TEXT_NOTE|Содержимое","Лишний пробел в поле priority (TEXT_NOTE)"
 "f47ac10b-58cc-4372-a567-0e02b2c3d479|Заметка 1|2023-10-01T12:34:56|2023-10-01T15:34:56|null|true|HIGH|ACTIVE|TEXT_NOTE| Содержимое ","Лишние пробелы в последнем поле content (TEXT_NOTE)"
 " f47ac10b-58cc-4372-a567-0e02b2c3d479 |Заметка 2|2023-10-01T12:34:56|2023-10-01T15:34:56|null|true|BASE|ACTIVE|CHECKLIST|1dsdsf;2dsfsf; 3d","Лишние пробелы в первом поле UUID (CHECKLIST)"
 "f47ac10b-58cc-4372-a567-0e02b2c3d479| Заметка 2|2023-10-01T12:34:56|2023-10-01T15:34:56|null|true|BASE|ACTIVE|CHECKLIST|1dsdsf;2dsfsf; 3d","Лишний пробел в поле title (CHECKLIST)"

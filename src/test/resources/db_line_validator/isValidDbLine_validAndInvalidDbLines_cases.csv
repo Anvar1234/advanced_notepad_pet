@@ -1,0 +1,20 @@
+description,lineFromCsv,expectedValid
+# Валидные случаи
+Валидная строка,"f47ac10b-58cc-4372-a567-0e02b2c3d479|Заметка 1|2023-10-01T12:34:56|2023-10-01T15:34:56|2023-11-01T15:34:56|true|HIGH|ACTIVE|TEXT_NOTE|Текст",true
+Валидная строка (remindAt == null),"f47ac10b-58cc-4372-a567-0e02b2c3d479|Заметка 2|2023-10-01T12:34:56|2023-10-01T15:34:56|null|true|HIGH|ACTIVE|TEXT_NOTE|Текст",true
+Валидная строка,"f47ac10b-58cc-4372-a567-0e02b2c3d479|Заметка 3|2023-10-01T12:34:56|2023-10-01T15:34:56|2023-12-01T15:34:56|true|BASE|ACTIVE|CHECKLIST|Пункт1:true;Пункт2:false",true
+Валидная строка (remindAt == null),"f47ac10b-58cc-4372-a567-0e02b2c3d479|Заметка 2|2023-10-01T12:34:56|2023-10-01T15:34:56|null|true|HIGH|ACTIVE|CHECKLIST|Пункт1:true;Пункт2:false",true
+# Невалидные случаи
+Невалидная строка (TextNote content == null),"f47ac10b-58cc-4372-a567-0e02b2c3d479|Заметка 2|2023-10-01T12:34:56|2023-10-01T15:34:56|null|true|HIGH|ACTIVE|TEXT_NOTE|null",false
+Невалидная строка (пустой TextNote content),"f47ac10b-58cc-4372-a567-0e02b2c3d479|Заметка 3|2023-10-01T12:34:56|2023-10-01T15:34:56|null|true|HIGH|ACTIVE|TEXT_NOTE|",false
+Невалидная строка (невалидный Checklist content),"f47ac10b-58cc-4372-a567-0e02b2c3d479|Заметка 4|2023-10-01T12:34:56|2023-10-01T15:34:56|null|true|BASE|ACTIVE|CHECKLIST|Пункт1:yes;Пункт2:fall",false
+Невалидная строка (Checklist content == null),"f47ac10b-58cc-4372-a567-0e02b2c3d479|Заметка 2|2023-10-01T12:34:56|2023-10-01T15:34:56|null|true|HIGH|ACTIVE|CHECKLIST|null",false
+Невалидная строка (пустой Checklist content),"f47ac10b-58cc-4372-a567-0e02b2c3d479|Заметка 3|2023-10-01T12:34:56|2023-10-01T15:34:56|null|true|HIGH|ACTIVE|TEXT_NOTE|",false
+# Невалидные случаи структуры строки
+Меньше полей (нет UUID),"Заметка 1|2023-10-01T12:34:56|2023-10-01T15:34:56|2023-11-01T15:34:56|true|HIGH|ACTIVE|TEXT_NOTE|Текст",false
+Больше полей (перед UUID),"2|f47ac10b-58cc-4372-a567-0e02b2c3d479|Заметка 2|2023-10-01T12:34:56|2023-10-01T15:34:56|null|true|HIGH|ACTIVE|TEXT_NOTE|Текст",false
+Null строка,null,false
+Пустая строка,"",false
+Лишние пробелы (пустое поле UUID)," |Заметка 2|2023-10-01T12:34:56|2023-10-01T15:34:56|null|true|HIGH|ACTIVE|CHECKLIST|Пункт1:true;Пункт2:false",false
+
+

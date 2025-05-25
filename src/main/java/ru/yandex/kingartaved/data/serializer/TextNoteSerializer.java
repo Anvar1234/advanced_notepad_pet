@@ -1,13 +1,5 @@
 package ru.yandex.kingartaved.data.serializer;
 
-import ru.yandex.kingartaved.data.constant.NotePriorityEnum;
-import ru.yandex.kingartaved.data.constant.NoteStatusEnum;
-import ru.yandex.kingartaved.data.constant.NoteTypeEnum;
-import ru.yandex.kingartaved.validation.db_line_validator.DbLineValidator;
-
-import java.time.LocalDateTime;
-import java.util.UUID;
-
 public class TextNoteSerializer {//} implements NoteSerializer<TextNote> {
 //    //TODO: добавить валидацию перед (де-)сериализацией.
 //    private TextNoteSerializer instance;
