@@ -116,7 +116,7 @@ public class CustomFormatDbLineValidatorTest {
         String[] parts = lineFromCsv.split(DB_FIELD_DELIMITER);
 
         //when
-        Executable actual = () -> customFormatDbLineValidator.validateLineStructure(parts);
+        Executable actual = () -> customFormatDbLineValidator.validateLineStructure(parts, FieldIndex.REMIND_AT.getIndex());
 
         //then
         assertThrows(IllegalArgumentException.class, actual, description + " , строка должна быть невалидна");

@@ -1,4 +1,4 @@
-мая 26, 2025 2:23:47 AM ru.yandex.kingartaved.validation.db_line_validator.impl.CustomFormatDbLineValidator isValidDbLine
+мая 26, 2025 2:26:24 AM ru.yandex.kingartaved.validation.db_line_validator.impl.CustomFormatDbLineValidator isValidDbLine
 SEVERE: Ошибка при валидации строки: 2|f47ac10b-58cc-4372-a567-0e02b2c3d479|Заметка 2|2023-10-01T12:34:56|2023-10-01T15:34:56|null|true|HIGH|ACTIVE|TEXT_NOTE|Текст'
 Причина: Неверное количество полей после split: ожидалось: 10, пришло: 11
 java.lang.IllegalArgumentException: Неверное количество полей после split: ожидалось: 10, пришло: 11

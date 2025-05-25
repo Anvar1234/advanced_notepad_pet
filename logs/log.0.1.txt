@@ -1,4 +1,4 @@
-мая 26, 2025 2:23:47 AM ru.yandex.kingartaved.validation.db_line_validator.impl.CustomFormatDbLineValidator isValidDbLine
+мая 26, 2025 2:26:24 AM ru.yandex.kingartaved.validation.db_line_validator.impl.CustomFormatDbLineValidator isValidDbLine
 SEVERE: Ошибка при валидации строки:  |Заметка 2|2023-10-01T12:34:56|2023-10-01T15:34:56|null|true|HIGH|ACTIVE|CHECKLIST|Пункт1:true;Пункт2:false'
 Причина: Поле: 'id' с индексом: '0' не должно быть пустым
 java.lang.IllegalArgumentException: Поле: 'id' с индексом: '0' не должно быть пустым

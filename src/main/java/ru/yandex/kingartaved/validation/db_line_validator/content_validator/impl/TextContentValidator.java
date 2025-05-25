@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 
 public class TextContentValidator implements ContentValidator {
     private static final Logger LOGGER = LoggerUtil.getLogger(TextContentValidator.class);
+    private static final int MIN_TEXT_LENGTH = AppConfig.MIN_TEXT_LENGTH;
     private static final int MAX_TEXT_LENGTH = AppConfig.MAX_TEXT_LENGTH;
 
     @Override
@@ -23,8 +24,8 @@ public class TextContentValidator implements ContentValidator {
     public void validateContent(String contentPart) throws ContentValidationException {
         try {
             //Все базовые проверки уже выполнены в CustomFormatDbLineValidator
-            if(contentPart.length() < 1) {
-                throw new IllegalArgumentException("Текст слишком короткий. Минимальная длина: " + MAX_TEXT_LENGTH + " символов");
+            if(contentPart.length() < MIN_TEXT_LENGTH) {
+                throw new IllegalArgumentException("Текст слишком короткий. Минимальная длина: " + MIN_TEXT_LENGTH + " символов");
             }
             if (contentPart.length() > MAX_TEXT_LENGTH) {
                 throw new IllegalArgumentException("Текст слишком длинный. Максимальная длина: " + MAX_TEXT_LENGTH + " символов");
