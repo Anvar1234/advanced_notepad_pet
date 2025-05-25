@@ -13,6 +13,10 @@ public final class AppConfig { //TODO: сделать неизменяемым (
     public static final String PATH_TO_DB_FILE = "src/main/resources/note_db.txt";
     public static final String DB_FIELD_DELIMITER = "\\|";
 
+    // Требования к контенту
+    public static final int MIN_TEXT_LENGTH = 1;
+    public static final int MAX_TEXT_LENGTH = 10000;
+
 
     public static final String USER_DB_JSON_FILE = "users.json";
     public static final String ACCOUNT_DB_JSON_FILE = "accounts.json";

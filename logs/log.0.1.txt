@@ -1,10 +1,11 @@
-мая 25, 2025 3:31:36 PM ru.yandex.kingartaved.validation.db_line_validator.impl.CustomFormatDbLineValidator isValidDbLine
+мая 26, 2025 2:23:47 AM ru.yandex.kingartaved.validation.db_line_validator.impl.CustomFormatDbLineValidator isValidDbLine
 SEVERE: Ошибка при валидации строки:  |Заметка 2|2023-10-01T12:34:56|2023-10-01T15:34:56|null|true|HIGH|ACTIVE|CHECKLIST|Пункт1:true;Пункт2:false'
-Причина: Обнаружены лишние пробелы в поле с индексом: 0, содержание поля: ' '
-java.lang.IllegalArgumentException: Обнаружены лишние пробелы в поле с индексом: 0, содержание поля: ' '
-	at ru.yandex.kingartaved.validation.db_line_validator.impl.CustomFormatDbLineValidator.validateDbLineStructure(CustomFormatDbLineValidator.java:104)
-	at ru.yandex.kingartaved.validation.db_line_validator.impl.CustomFormatDbLineValidator.isValidDbLine(CustomFormatDbLineValidator.java:66)
-	at ru.yandex.kingartaved.validation.db_line_validator.impl.CustomFormatDbLineValidatorTest.isValidDbLine_validAndInvalidDbLine_cases(CustomFormatDbLineValidatorTest.java:160)
+Причина: Поле: 'id' с индексом: '0' не должно быть пустым
+java.lang.IllegalArgumentException: Поле: 'id' с индексом: '0' не должно быть пустым
+	at ru.yandex.kingartaved.validation.ValidationUtil.validateFieldNotEmpty(ValidationUtil.java:73)
+	at ru.yandex.kingartaved.validation.db_line_validator.impl.CustomFormatDbLineValidator.validateLineStructure(CustomFormatDbLineValidator.java:94)
+	at ru.yandex.kingartaved.validation.db_line_validator.impl.CustomFormatDbLineValidator.isValidDbLine(CustomFormatDbLineValidator.java:67)
+	at ru.yandex.kingartaved.validation.db_line_validator.impl.CustomFormatDbLineValidatorTest.isValidDbLine_validAndInvalidDbLine_cases(CustomFormatDbLineValidatorTest.java:155)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)

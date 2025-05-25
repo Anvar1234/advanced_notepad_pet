@@ -1,6 +1,7 @@
 package ru.yandex.kingartaved.validation.db_line_validator.impl;
 
 import ru.yandex.kingartaved.config.AppConfig;
+import ru.yandex.kingartaved.config.FieldIndex;
 import ru.yandex.kingartaved.data.constant.NoteTypeEnum;
 import ru.yandex.kingartaved.exception.ContentValidationException;
 import ru.yandex.kingartaved.exception.MetadataValidationException;
@@ -15,6 +16,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static ru.yandex.kingartaved.config.FieldIndex.*;
+import static ru.yandex.kingartaved.validation.ValidationUtil.*;
 
 /**
  * Валидатор строк из базы данных, проверяющий их соответствие формату заметок.
@@ -62,9 +64,7 @@ public class CustomFormatDbLineValidator implements DbLineValidator {
 
             parts = lineFromDb.split(DB_FIELD_DELIMITER, -1);
 
-            validatePartsCount(parts);
-            validateDbLineStructure(parts);
-
+            validateLineStructure(parts, REMIND_AT.getIndex());
             metadataValidator.validateMetadata(parts);
             validateNoteContent(parts);
 
@@ -78,39 +78,28 @@ public class CustomFormatDbLineValidator implements DbLineValidator {
 
     /**
      * Проверяет, что строка из БД не является null или пустой.
-     *
-     * @param lineFromDb строка для проверки
-     * @throws IllegalArgumentException если строка null или пустая (blank)
      */
     private void validateLineNotEmpty(String lineFromDb) {
         if (lineFromDb == null || lineFromDb.isBlank()) {
-            throw new IllegalArgumentException("Строка не может быть null или пустой");
+            throw new IllegalArgumentException("Строка из БД не должна быть null или пустой");
         }
     }
 
     /**
      * Проверяет структурную целостность строки из БД:
-     * <ul>
-     *      <li>количество полей после разделения соответствует {@link #EXPECTED_FIELDS_COUNT};
-     *      <li>отсутствие лишних пробелов вокруг разделителей (кроме исключений).
-     * </ul>
-     *
-     * @throws IllegalArgumentException если структура строки нарушена.
      */
-    void validateDbLineStructure(String[] parts, int... excludedIndexes) {// TODO: По окончании работ убрать excludedIndexes, если не понадобится.
+    void validateLineStructure(String[] parts, int... nullableIndexes) {// TODO: По окончании работ убрать nullableIndexes, если не понадобится.
+        validatePartsCount(parts);
         for (int i = 0; i < parts.length; i++) {
-            if (contains(excludedIndexes, i)) continue;
-            if (!parts[i].equals(parts[i].trim())) {
-                throw new IllegalArgumentException(String.format("Обнаружены лишние пробелы в поле с индексом: %d, содержание поля: '%s'", i, parts[i]));
-            }
+            validateFieldNotEmpty(parts[i], i, FieldIndex.values()[i].getFieldName());
+            validateFieldAfterTrim(parts[i], i, FieldIndex.values()[i].getFieldName());
+            if (contains(i, nullableIndexes)) continue;
+            validateFieldNotEqualsStringNull(parts[i], i, FieldIndex.values()[i].getFieldName());
         }
     }
 
     /**
      * Проверяет, что количество полей соответствует ожидаемому.
-     *
-     * @param parts массив полей для проверки
-     * @throws IllegalArgumentException если parts.length != {@link #EXPECTED_FIELDS_COUNT}
      */
     void validatePartsCount(String[] parts) {
         if (parts.length != EXPECTED_FIELDS_COUNT) {
@@ -119,29 +108,11 @@ public class CustomFormatDbLineValidator implements DbLineValidator {
     }
 
     /**
-     * Проверяет наличие значения в массиве исключаемых из проверки целых чисел.
-     *
-     * @param excludedIndexes Массив целых чисел для проверки (например, [4] или [2, 4]).
-     * @param inputIndex      Искомое значение (например, индекс поля i).
-     * @return true, если значение найдено в массиве.
-     */
-    private boolean contains(int[] excludedIndexes, int inputIndex) {
-        for (int item : excludedIndexes) {
-            if (item == inputIndex) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
      * Проверяет валидность содержимого заметки в зависимости от её типа.
      */
     void validateNoteContent(String[] parts) throws ContentValidationException {
-
         NoteTypeEnum noteTypeEnum = Enum.valueOf(NoteTypeEnum.class, parts[TYPE.getIndex()]);
         ContentValidator contentValidator = contentValidatorRegistry.getValidator(noteTypeEnum);
-
         contentValidator.validateContent(parts[CONTENT.getIndex()]);
     }
 }
