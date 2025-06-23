@@ -1,5 +1,6 @@
 package ru.yandex.kingartaved.validation.db_line_validator.metadata_validator.impl;
 
+import ru.yandex.kingartaved.config.AppConfig;
 import ru.yandex.kingartaved.data.constant.NotePriorityEnum;
 import ru.yandex.kingartaved.data.constant.NoteStatusEnum;
 import ru.yandex.kingartaved.data.constant.NoteTypeEnum;
@@ -13,29 +14,40 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static ru.yandex.kingartaved.config.FieldIndex.*;
-import static ru.yandex.kingartaved.validation.ValidationUtil.*;
+import static ru.yandex.kingartaved.validation.FieldValidationUtil.*;
 
-public class DefaultMetadataValidator implements MetadataValidator {
+public final class DefaultMetadataValidator implements MetadataValidator {
     private static final Logger LOGGER = LoggerUtil.getLogger(DefaultMetadataValidator.class);
+    private static final int MAX_TITLE_LENGTH = AppConfig.MAX_TITLE_LENGTH;
 
     @Override
     public void validateMetadata(String[] parts) throws MetadataValidationException {
         try {
-            validateUuid(parts[ID.getIndex()], ID.getIndex(), ID.getFieldName());
-            validateFieldNotEmpty(parts[TITLE.getIndex()], TITLE.getIndex(), TITLE.getFieldName());
-            validateDate(parts[CREATED_AT.getIndex()], CREATED_AT.getIndex(), CREATED_AT.getFieldName());
-            validateDate(parts[UPDATED_AT.getIndex()], UPDATED_AT.getIndex(), UPDATED_AT.getFieldName());
-            if (isFieldNotEqualsStringNull(parts[REMIND_AT.getIndex()])) {
-                validateDate(parts[REMIND_AT.getIndex()], REMIND_AT.getIndex(), REMIND_AT.getFieldName());
+            validateUuidField(parts[ID.getIndex()], ID.getIndex(), ID.getFieldName());
+            validateTitle(parts[TITLE.getIndex()]);
+            validateDateField(parts[CREATED_AT.getIndex()], CREATED_AT.getIndex(), CREATED_AT.getFieldName());
+            validateDateField(parts[UPDATED_AT.getIndex()], UPDATED_AT.getIndex(), UPDATED_AT.getFieldName());
+            if (isNotStringNull(parts[REMIND_AT.getIndex()])) {
+                validateDateField(parts[REMIND_AT.getIndex()], REMIND_AT.getIndex(), REMIND_AT.getFieldName());
             }
-            validateBoolean(parts[PINNED.getIndex()], PINNED.getIndex(), PINNED.getFieldName());
-            validateEnum(parts[PRIORITY.getIndex()], PRIORITY.getIndex(), PRIORITY.getFieldName(), NotePriorityEnum.class);
-            validateEnum(parts[STATUS.getIndex()], STATUS.getIndex(), STATUS.getFieldName(), NoteStatusEnum.class);
-            validateEnum(parts[TYPE.getIndex()], TYPE.getIndex(), TYPE.getFieldName(), NoteTypeEnum.class);
+            validateBooleanField(parts[PINNED.getIndex()], PINNED.getIndex(), PINNED.getFieldName());
+            validateEnumField(parts[PRIORITY.getIndex()], PRIORITY.getIndex(), PRIORITY.getFieldName(), NotePriorityEnum.class);
+            validateEnumField(parts[STATUS.getIndex()], STATUS.getIndex(), STATUS.getFieldName(), NoteStatusEnum.class);
+            validateEnumField(parts[TYPE.getIndex()], TYPE.getIndex(), TYPE.getFieldName(), NoteTypeEnum.class);
         } catch (IllegalArgumentException e) {
-            String errorMessage = ErrorMessage.METADATA_VALIDATION_ERROR.getMessage() + ": " + Arrays.toString(parts) + "\nПричина: " + e.getMessage();
-            LOGGER.log(Level.SEVERE, errorMessage, e);
-            throw new MetadataValidationException(ErrorMessage.METADATA_VALIDATION_ERROR.getMessage(), e);
+            String errorMessage = ErrorMessage.METADATA_VALIDATION_ERROR.getMessage();
+            String logMessage = errorMessage + " для массива полей: " +
+                    Arrays.toString(parts) +
+                    "\nПричина: " + e.getMessage();
+            LOGGER.log(Level.SEVERE, logMessage, e);
+            throw new MetadataValidationException(errorMessage, e);
+        }
+    }
+
+    private void validateTitle(String titlePart) {
+        if (titlePart.length() > MAX_TITLE_LENGTH) {
+            throw new IllegalArgumentException("Заголовок слишком длинный. " +
+                    "Максимальная длина: " + MAX_TITLE_LENGTH + " символов");
         }
     }
 }

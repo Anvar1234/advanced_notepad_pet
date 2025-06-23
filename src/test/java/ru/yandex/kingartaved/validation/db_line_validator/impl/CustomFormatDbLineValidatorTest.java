@@ -69,11 +69,13 @@ public class CustomFormatDbLineValidatorTest {
         parts[9] = "Sample text";
 
         // when
-        customFormatDbLineValidator.validateNoteContent(parts);
+        for (int i = 0; i < 2; i++) {
+            customFormatDbLineValidator.validateNoteContent(parts);
+        }
 
         // then
-        verify(mockContentValidatorRegistry).getValidator(NoteTypeEnum.TEXT_NOTE);
-        verify(mockContentValidator).validateContent("Sample text");
+        verify(mockContentValidatorRegistry, times(2)).getValidator(NoteTypeEnum.TEXT_NOTE);
+        verify(mockContentValidator, times(2)).validateContent("Sample text");
     }
 
     @ParameterizedTest

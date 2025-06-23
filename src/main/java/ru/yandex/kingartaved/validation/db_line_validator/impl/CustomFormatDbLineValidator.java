@@ -8,6 +8,8 @@ import ru.yandex.kingartaved.exception.MetadataValidationException;
 import ru.yandex.kingartaved.exception.constant.ErrorMessage;
 import ru.yandex.kingartaved.util.LoggerUtil;
 import ru.yandex.kingartaved.config.ContentValidatorRegistry;
+import ru.yandex.kingartaved.validation.DataValidationUtil;
+import ru.yandex.kingartaved.validation.FieldValidationUtil;
 import ru.yandex.kingartaved.validation.db_line_validator.DbLineValidator;
 import ru.yandex.kingartaved.validation.db_line_validator.content_validator.ContentValidator;
 import ru.yandex.kingartaved.validation.db_line_validator.metadata_validator.MetadataValidator;
@@ -16,10 +18,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static ru.yandex.kingartaved.config.FieldIndex.*;
-import static ru.yandex.kingartaved.validation.ValidationUtil.*;
+import static ru.yandex.kingartaved.validation.FieldValidationUtil.*;
 
 /**
- * Валидатор строк из базы данных, проверяющий их соответствие формату заметок.
+ * Валидатор структуры строк из базы данных.
+ * Проверяет соответствие строк кастомному формату заметок.
  * Осуществляет разбор строки по разделителю '|', проверку количества полей и их валидность.
  */
 
@@ -60,7 +63,7 @@ public class CustomFormatDbLineValidator implements DbLineValidator {
         String[] parts;
 
         try {
-            validateLineNotEmpty(lineFromDb);
+            validateLineNotNullAndNotBlank(lineFromDb);
 
             parts = lineFromDb.split(DB_FIELD_DELIMITER, -1);
 
@@ -79,8 +82,11 @@ public class CustomFormatDbLineValidator implements DbLineValidator {
     /**
      * Проверяет, что строка из БД не является null или пустой.
      */
-    private void validateLineNotEmpty(String lineFromDb) {
-        if (lineFromDb == null || lineFromDb.isBlank()) {
+    private void validateLineNotNullAndNotBlank(String value) {
+        try {
+            DataValidationUtil.validateNotNull(value);
+            DataValidationUtil.validateNotBlank(value);
+        } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException("Строка из БД не должна быть null или пустой");
         }
     }
@@ -89,23 +95,15 @@ public class CustomFormatDbLineValidator implements DbLineValidator {
      * Проверяет структурную целостность строки из БД:
      */
     void validateLineStructure(String[] parts, int... nullableIndexes) {// TODO: По окончании работ убрать nullableIndexes, если не понадобится.
-        validatePartsCount(parts);
+        FieldValidationUtil.validateFieldsCount(parts, EXPECTED_FIELDS_COUNT);
         for (int i = 0; i < parts.length; i++) {
-            validateFieldNotEmpty(parts[i], i, FieldIndex.values()[i].getFieldName());
-            validateFieldAfterTrim(parts[i], i, FieldIndex.values()[i].getFieldName());
-            if (contains(i, nullableIndexes)) continue;
+            validateFieldNotBlank(parts[i], i, FieldIndex.values()[i].getFieldName());
+            validateFieldTrimmed(parts[i], i, FieldIndex.values()[i].getFieldName());
+            if (DataValidationUtil.contains(i, nullableIndexes)) continue;
             validateFieldNotEqualsStringNull(parts[i], i, FieldIndex.values()[i].getFieldName());
         }
     }
 
-    /**
-     * Проверяет, что количество полей соответствует ожидаемому.
-     */
-    void validatePartsCount(String[] parts) {
-        if (parts.length != EXPECTED_FIELDS_COUNT) {
-            throw new IllegalArgumentException("Неверное количество полей после split: ожидалось: " + EXPECTED_FIELDS_COUNT + ", пришло: " + parts.length);
-        }
-    }
 
     /**
      * Проверяет валидность содержимого заметки в зависимости от её типа.
