@@ -1,11 +1,11 @@
-мая 26, 2025 2:26:24 AM ru.yandex.kingartaved.validation.db_line_validator.impl.CustomFormatDbLineValidator isValidDbLine
-SEVERE: Ошибка при валидации строки:  |Заметка 2|2023-10-01T12:34:56|2023-10-01T15:34:56|null|true|HIGH|ACTIVE|CHECKLIST|Пункт1:true;Пункт2:false'
+июн. 23, 2025 2:34:19 PM ru.yandex.kingartaved.validation.db_line_validator.impl.CustomFormatDbLineValidator isValidDbLine
+SEVERE: Ошибка при валидации строки БД:  |Заметка 2|2023-10-01T12:34:56|2023-10-01T15:34:56|null|true|HIGH|ACTIVE|CHECKLIST|Пункт1:true;Пункт2:false'
 Причина: Поле: 'id' с индексом: '0' не должно быть пустым
 java.lang.IllegalArgumentException: Поле: 'id' с индексом: '0' не должно быть пустым
-	at ru.yandex.kingartaved.validation.ValidationUtil.validateFieldNotEmpty(ValidationUtil.java:73)
-	at ru.yandex.kingartaved.validation.db_line_validator.impl.CustomFormatDbLineValidator.validateLineStructure(CustomFormatDbLineValidator.java:94)
-	at ru.yandex.kingartaved.validation.db_line_validator.impl.CustomFormatDbLineValidator.isValidDbLine(CustomFormatDbLineValidator.java:67)
-	at ru.yandex.kingartaved.validation.db_line_validator.impl.CustomFormatDbLineValidatorTest.isValidDbLine_validAndInvalidDbLine_cases(CustomFormatDbLineValidatorTest.java:155)
+	at ru.yandex.kingartaved.validation.FieldValidationUtil.validateFieldNotEmpty(FieldValidationUtil.java:79)
+	at ru.yandex.kingartaved.validation.db_line_validator.impl.CustomFormatDbLineValidator.validateLineStructure(CustomFormatDbLineValidator.java:99)
+	at ru.yandex.kingartaved.validation.db_line_validator.impl.CustomFormatDbLineValidator.isValidDbLine(CustomFormatDbLineValidator.java:69)
+	at ru.yandex.kingartaved.validation.db_line_validator.impl.CustomFormatDbLineValidatorTest.isValidDbLine_validAndInvalidDbLine_cases(CustomFormatDbLineValidatorTest.java:157)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)

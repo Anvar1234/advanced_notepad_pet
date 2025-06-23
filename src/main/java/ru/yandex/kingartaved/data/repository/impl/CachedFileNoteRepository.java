@@ -16,7 +16,6 @@ import java.util.logging.Logger;
 public class CachedFileNoteRepository implements NoteRepository {
     private static final Logger LOGGER = LoggerUtil.getLogger(CachedFileNoteRepository.class);
 
-    private static final Path PATH_TO_DB_FILE = Path.of(AppConfig.PATH_TO_DB_FILE);
     private final List<Note> notes = findAll();
 
     public CachedFileNoteRepository(DbConnector dbConnector) {

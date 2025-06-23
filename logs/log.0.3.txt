@@ -1,11 +1,11 @@
-мая 26, 2025 2:26:24 AM ru.yandex.kingartaved.validation.db_line_validator.impl.CustomFormatDbLineValidator isValidDbLine
-SEVERE: Ошибка при валидации строки: null'
+июн. 23, 2025 2:34:19 PM ru.yandex.kingartaved.validation.db_line_validator.impl.CustomFormatDbLineValidator isValidDbLine
+SEVERE: Ошибка при валидации строки БД: null'
 Причина: Неверное количество полей после split: ожидалось: 10, пришло: 1
 java.lang.IllegalArgumentException: Неверное количество полей после split: ожидалось: 10, пришло: 1
-	at ru.yandex.kingartaved.validation.db_line_validator.impl.CustomFormatDbLineValidator.validatePartsCount(CustomFormatDbLineValidator.java:106)
-	at ru.yandex.kingartaved.validation.db_line_validator.impl.CustomFormatDbLineValidator.validateLineStructure(CustomFormatDbLineValidator.java:92)
-	at ru.yandex.kingartaved.validation.db_line_validator.impl.CustomFormatDbLineValidator.isValidDbLine(CustomFormatDbLineValidator.java:67)
-	at ru.yandex.kingartaved.validation.db_line_validator.impl.CustomFormatDbLineValidatorTest.isValidDbLine_validAndInvalidDbLine_cases(CustomFormatDbLineValidatorTest.java:155)
+	at ru.yandex.kingartaved.validation.db_line_validator.impl.CustomFormatDbLineValidator.validatePartsCount(CustomFormatDbLineValidator.java:111)
+	at ru.yandex.kingartaved.validation.db_line_validator.impl.CustomFormatDbLineValidator.validateLineStructure(CustomFormatDbLineValidator.java:97)
+	at ru.yandex.kingartaved.validation.db_line_validator.impl.CustomFormatDbLineValidator.isValidDbLine(CustomFormatDbLineValidator.java:69)
+	at ru.yandex.kingartaved.validation.db_line_validator.impl.CustomFormatDbLineValidatorTest.isValidDbLine_validAndInvalidDbLine_cases(CustomFormatDbLineValidatorTest.java:157)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)

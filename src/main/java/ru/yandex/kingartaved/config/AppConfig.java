@@ -17,6 +17,10 @@ public final class AppConfig { //TODO: сделать неизменяемым (
     public static final int MIN_TEXT_LENGTH = 1;
     public static final int MAX_TEXT_LENGTH = 10000;
 
+    // Требования к заголовку (title)
+    public static final int MAX_TITLE_LENGTH = 30;
+
+
 
     public static final String USER_DB_JSON_FILE = "users.json";
     public static final String ACCOUNT_DB_JSON_FILE = "accounts.json";

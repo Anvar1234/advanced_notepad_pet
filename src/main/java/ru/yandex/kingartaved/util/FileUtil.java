@@ -34,9 +34,10 @@ public final class FileUtil {
             Files.createFile(filePath);
             LOGGER.info(String.format("Файл \"%s\" создан.", filePath.getFileName()));
         } catch (IOException e) {
-            String errorMessage = ErrorMessage.FILE_CREATION_ERROR.getMessage() + ": " + filePath + "\nПричина: " + e.getMessage();
-            LOGGER.log(Level.SEVERE, errorMessage, e);
-            throw new FileOperationException(errorMessage, e);
+            String errorMessage = ErrorMessage.FILE_CREATION_ERROR.getMessage();
+            String logMessage = errorMessage + ": " + filePath + "\nПричина: " + e.getMessage();
+            LOGGER.log(Level.SEVERE, logMessage, e);
+            throw new FileOperationException(errorMessage, e); //TODO: везде ниже выбрасывать именно это исключение, чтобы было понятно место возникновения .
         }
     }
 
@@ -46,8 +47,9 @@ public final class FileUtil {
             LOGGER.info("Информация успешно прочитана из файла: " + filePath); // Логируем успех
             return lines;
         } catch (IOException e) {
-            String errorMessage = ErrorMessage.FILE_READING_ERROR.getMessage() + ": " + filePath + "\nПричина: " + e.getMessage(); // Логируем ошибку
-            LOGGER.log(Level.SEVERE, errorMessage, e);
+            String errorMessage = ErrorMessage.FILE_READING_ERROR.getMessage();
+            String logMessage = errorMessage + ": " + filePath + "\nПричина: " + e.getMessage(); // Логируем ошибку
+            LOGGER.log(Level.SEVERE, logMessage, e);
             throw new FileOperationException(errorMessage, e);
         }
     }

@@ -4,5 +4,4 @@ import ru.yandex.kingartaved.exception.MetadataValidationException;
 
 public interface MetadataValidator {
     void validateMetadata(String[] parts) throws MetadataValidationException;
-
 }

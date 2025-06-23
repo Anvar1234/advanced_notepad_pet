@@ -22,8 +22,11 @@ public enum ErrorMessage {
 
     CONTENT_VALIDATION_ERROR("Ошибка валидации контента"),
 
-    DB_LINE_VALIDATION_ERROR("Ошибка при валидации строки"),
+    DB_LINE_VALIDATION_ERROR("Ошибка при валидации строки БД"),
 
+    FILE_CONNECTION_ERROR("Ошибка подключения к файлу"),
+
+    FILE_OPERATION_ERROR("Ошибка при работе с файлом"),
 
 
 

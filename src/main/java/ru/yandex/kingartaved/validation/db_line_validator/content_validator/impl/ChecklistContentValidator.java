@@ -1,20 +1,25 @@
 package ru.yandex.kingartaved.validation.db_line_validator.content_validator.impl;
 
+import ru.yandex.kingartaved.config.AppConfig;
 import ru.yandex.kingartaved.data.constant.NoteTypeEnum;
-import ru.yandex.kingartaved.data.model.ChecklistItem;
 import ru.yandex.kingartaved.exception.ContentValidationException;
-import ru.yandex.kingartaved.exception.constant.ErrorMessage;
 import ru.yandex.kingartaved.util.LoggerUtil;
+import ru.yandex.kingartaved.validation.DataValidationUtil;
+import ru.yandex.kingartaved.validation.FieldValidationUtil;
 import ru.yandex.kingartaved.validation.db_line_validator.content_validator.ContentValidator;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Валидатор семантики контента чек-листа.
+ */
+
 public class ChecklistContentValidator implements ContentValidator {
-    private static final Logger LOGGER = LoggerUtil.getLogger(ChecklistContentValidator.class);
-    private static final int IS_DONE_INDEX = 1;
+    private static final int EXPECTED_ITEM_FIELDS_COUNT = 2;
+    private static final int MIN_TEXT_LENGTH = AppConfig.MIN_TEXT_LENGTH;
+    private static final int MAX_TEXT_LENGTH = AppConfig.MAX_TEXT_LENGTH;
 
     @Override
     public NoteTypeEnum getSupportedType() {
@@ -22,52 +27,39 @@ public class ChecklistContentValidator implements ContentValidator {
     }
 
     @Override
-    public void validateContent(String contentPart) throws ContentValidationException {
+    public void validateContent(String contentPart) throws ContentValidationException { //заходит не пустая, не null, не равная строке 'null' часть.
         try {
-            if (contentPart == null || contentPart.trim().isEmpty()) {
-                throw new IllegalArgumentException("Содержимое заметки типа " + getSupportedType() + " не может быть null или пустым");
+            List<String> itemStrings = parseItemStrings(contentPart);
+
+            for (int i = 0; i < itemStrings.size(); i++) {
+                validateItemStructureAndContent(itemStrings.get(i), i);
             }
 
-            if ("null".equalsIgnoreCase(contentPart)) {
-                throw new IllegalArgumentException("Поле контента заметки типа " + getSupportedType() + " содержит строку 'null'");
-            }
-
-            List<ChecklistItem> items = parseChecklistItems(contentPart);
-            if (items.isEmpty()) {
-                throw new IllegalArgumentException("Список задач не содержит элементов");
-            }
         } catch (IllegalArgumentException e) {
-            String errorMessage = ErrorMessage.CONTENT_VALIDATION_ERROR.getMessage() + ": '" + contentPart + "'\nПричина: " + e.getMessage();
-            LOGGER.log(Level.SEVERE, errorMessage, e);
-            throw new ContentValidationException(errorMessage, e);
+            logAndThrowContentValidationException(contentPart, e);
         }
     }
 
-    private List<ChecklistItem> parseChecklistItems(String content) {
-        return Arrays.stream(content.split(";"))
-                .map(this::parseChecklistItem)
-                .toList();
+    protected List<String> parseItemStrings(String contentPart) {
+        return Arrays.stream(contentPart.split(";", -1)).toList();
     }
 
-    private ChecklistItem parseChecklistItem(String itemStr) {
-        String[] parts = itemStr.split(":");
+    private void validateItemStructureAndContent(String itemStr, int index) {
+        String[] itemParts = itemStr.split(":");
+        FieldValidationUtil.validateFieldsCount(itemParts, EXPECTED_ITEM_FIELDS_COUNT);
+        validateLineTrimmedAndNotBlank(itemParts);
 
-        if (parts.length != 2) {
-            throw new IllegalArgumentException("Неверный формат элемента чек-листа: " + itemStr);
-        }
+        String text = itemParts[0];
+        String isDoneStr = itemParts[1];
 
-        String text = parts[0].trim();
-        String isDoneStr = parts[1].trim();
-
-        validateBoolean(isDoneStr, "isDone");
-
-        boolean isDone = Boolean.parseBoolean(isDoneStr);
-        return new ChecklistItem(text, isDone);
+        DataValidationUtil.validateTextLength(text, MIN_TEXT_LENGTH, MAX_TEXT_LENGTH);
+        DataValidationUtil.validateBoolean(isDoneStr);
     }
 
-    private void validateBoolean(String part, String label) {
-        if (!"true".equalsIgnoreCase(part) && !"false".equalsIgnoreCase(part)) {
-            throw new IllegalArgumentException("Поле " + label + " должно быть true/false, но пришло: " + part);
+    void validateLineTrimmedAndNotBlank(String[] itemParts) {
+        for (String part : itemParts) {
+            DataValidationUtil.validateNotBlank(part);
+            DataValidationUtil.validateTrimmed(part);
         }
     }
 }
