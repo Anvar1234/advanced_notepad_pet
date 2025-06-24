@@ -52,7 +52,7 @@ public class ContentMapperRegistryTest {
     @DisplayName("Проверка выброса исключения при попытке получения маппера для неподдерживаемого типа заметки")
     void getMapper_shouldThrowExceptionForUnsupportedType() {
         // given
-        NoteTypeEnum unsupportedType = NoteTypeEnum.AUDIO_NOTE;
+        NoteTypeEnum unsupportedType = NoteTypeEnum.TEST_UNSUPPORTED_TYPE;
 
         // when
         Executable action = () -> registry.getMapper(unsupportedType);

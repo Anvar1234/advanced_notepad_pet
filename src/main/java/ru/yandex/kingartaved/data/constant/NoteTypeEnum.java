@@ -4,7 +4,9 @@ public enum NoteTypeEnum {
 
     TEXT_NOTE("Текстовая заметка"),
     CHECKLIST("Чек-лист"),
-    AUDIO_NOTE("Звуковая заметка");
+
+    // Временно для тестов
+    TEST_UNSUPPORTED_TYPE("Неподдерживаемый тип для тестов");
 
     private final String noteType;
 
