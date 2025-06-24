@@ -3,14 +3,12 @@ package ru.yandex.kingartaved.validation.db_line_validator.content_validator.imp
 import ru.yandex.kingartaved.config.AppConfig;
 import ru.yandex.kingartaved.data.constant.NoteTypeEnum;
 import ru.yandex.kingartaved.exception.ContentValidationException;
-import ru.yandex.kingartaved.util.LoggerUtil;
 import ru.yandex.kingartaved.validation.DataValidationUtil;
 import ru.yandex.kingartaved.validation.FieldValidationUtil;
 import ru.yandex.kingartaved.validation.db_line_validator.content_validator.ContentValidator;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.logging.Logger;
 
 /**
  * Валидатор семантики контента чек-листа.
@@ -31,8 +29,8 @@ public class ChecklistContentValidator implements ContentValidator {
         try {
             List<String> itemStrings = parseItemStrings(contentPart);
 
-            for (int i = 0; i < itemStrings.size(); i++) {
-                validateItemStructureAndContent(itemStrings.get(i), i);
+            for (String itemString : itemStrings) {
+                validateItemStructureAndContent(itemString);
             }
 
         } catch (IllegalArgumentException e) {
@@ -44,7 +42,7 @@ public class ChecklistContentValidator implements ContentValidator {
         return Arrays.stream(contentPart.split(";", -1)).toList();
     }
 
-    private void validateItemStructureAndContent(String itemStr, int index) {
+    protected void validateItemStructureAndContent(String itemStr) {
         String[] itemParts = itemStr.split(":");
         FieldValidationUtil.validateFieldsCount(itemParts, EXPECTED_ITEM_FIELDS_COUNT);
         validateLineTrimmedAndNotBlank(itemParts);
@@ -56,7 +54,7 @@ public class ChecklistContentValidator implements ContentValidator {
         DataValidationUtil.validateBoolean(isDoneStr);
     }
 
-    void validateLineTrimmedAndNotBlank(String[] itemParts) {
+    protected void validateLineTrimmedAndNotBlank(String[] itemParts) {
         for (String part : itemParts) {
             DataValidationUtil.validateNotBlank(part);
             DataValidationUtil.validateTrimmed(part);

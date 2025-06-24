@@ -15,10 +15,10 @@ public final class AppConfig { //TODO: сделать неизменяемым (
 
     // Требования к контенту
     public static final int MIN_TEXT_LENGTH = 1;
-    public static final int MAX_TEXT_LENGTH = 10000;
+    public static final int MAX_TEXT_LENGTH = 30;
 
     // Требования к заголовку (title)
-    public static final int MAX_TITLE_LENGTH = 30;
+    public static final int MAX_TITLE_LENGTH = 10;
 
 
 

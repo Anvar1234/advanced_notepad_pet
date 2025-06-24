@@ -44,11 +44,6 @@ public class CustomFormatDbLineValidatorTest {
     @InjectMocks
     private CustomFormatDbLineValidator customFormatDbLineValidator;
 
-//    @BeforeEach
-//    public void setUp() throws MetadataValidationException {
-//        doNothing().when(mockMetadataValidator).validateMetadata(any());
-//    }
-
     /**
      * Проверяет, что при обработке контента заметок типа TEXT_NOTE
      * происходит запрос валидатора именно для этого типа.
@@ -132,7 +127,7 @@ public class CustomFormatDbLineValidatorTest {
             "f47ac10b-58cc-4372-a567-0e02b2c3d479|Заметка 2|2023-10-01T12:34:56|2023-10-01T15:34:56|null|true|BASE|ACTIVE|CHECKLIST|1задача:true;задача2:false;3:false,CHECKLIST"
     })
     @DisplayName("Проверка структурной целостности корректных строк из БД")
-    void validateLineStructure_success(String lineFromCsv, String noteType) throws ContentValidationException, MetadataValidationException {
+    void validateLineStructure_success(String lineFromCsv, String noteType) {
         //given
         String[] parts = lineFromCsv.split(DB_FIELD_DELIMITER);
 
