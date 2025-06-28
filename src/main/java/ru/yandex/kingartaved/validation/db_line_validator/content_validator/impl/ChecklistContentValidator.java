@@ -50,7 +50,7 @@ public class ChecklistContentValidator implements ContentValidator {
         String text = itemParts[0];
         String isDoneStr = itemParts[1];
 
-        DataValidationUtil.validateTextLength(text, MIN_TEXT_LENGTH, MAX_TEXT_LENGTH);
+        DataValidationUtil.validateText(text, MIN_TEXT_LENGTH, MAX_TEXT_LENGTH);
         DataValidationUtil.validateBoolean(isDoneStr);
     }
 

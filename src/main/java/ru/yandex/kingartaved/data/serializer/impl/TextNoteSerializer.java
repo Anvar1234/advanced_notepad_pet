@@ -1,7 +1,41 @@
-package ru.yandex.kingartaved.data.serializer;
+package ru.yandex.kingartaved.data.serializer.impl;
 
-public class TextNoteSerializer {//} implements NoteSerializer<TextNote> {
-//    //TODO: добавить валидацию перед (де-)сериализацией.
+import ru.yandex.kingartaved.data.constant.NoteTypeEnum;
+import ru.yandex.kingartaved.data.model.Note;
+import ru.yandex.kingartaved.data.serializer.NoteSerializer;
+
+public class TextNoteSerializer implements NoteSerializer {//} implements NoteSerializer<TextNote> {
+   //TODO: добавить валидацию перед (де-)сериализацией.
+
+    @Override
+    public NoteTypeEnum getSupportedType() {
+        return NoteTypeEnum.TEXT_NOTE;
+    }
+
+    @Override
+    public String serialize(Note note) {
+        return "";
+    }
+
+    @Override
+    public Note deserialize(String str) {
+
+
+
+        Note note = new Note()
+
+
+        return null;
+    }
+
+
+
+
+
+
+
+
+
 //    private TextNoteSerializer instance;
 //    private final DbLineValidator validator;
 //

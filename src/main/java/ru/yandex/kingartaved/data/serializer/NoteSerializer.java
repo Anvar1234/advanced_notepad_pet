@@ -1,6 +1,10 @@
 package ru.yandex.kingartaved.data.serializer;
 
-public interface NoteSerializer{ //<T extends AbstractNote> {
-//    String serialize(T note);
-//    T deserialize(String str);
+import ru.yandex.kingartaved.data.constant.NoteTypeEnum;
+import ru.yandex.kingartaved.data.model.Note;
+
+public interface NoteSerializer { //<T extends AbstractNote> {
+    NoteTypeEnum getSupportedType();
+    String serialize(Note note);
+    Note deserialize(String str);
 }

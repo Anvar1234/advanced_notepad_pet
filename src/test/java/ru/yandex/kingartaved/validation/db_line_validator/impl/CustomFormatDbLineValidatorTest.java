@@ -15,9 +15,8 @@ import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 import ru.yandex.kingartaved.config.FieldIndex;
 import ru.yandex.kingartaved.data.constant.NoteTypeEnum;
-import ru.yandex.kingartaved.config.ContentValidatorRegistry;
+import ru.yandex.kingartaved.validation.db_line_validator.content_validator.ContentValidatorRegistry;
 import ru.yandex.kingartaved.exception.ContentValidationException;
-import ru.yandex.kingartaved.exception.MetadataValidationException;
 import ru.yandex.kingartaved.validation.db_line_validator.content_validator.ContentValidator;
 import ru.yandex.kingartaved.validation.db_line_validator.metadata_validator.MetadataValidator;
 

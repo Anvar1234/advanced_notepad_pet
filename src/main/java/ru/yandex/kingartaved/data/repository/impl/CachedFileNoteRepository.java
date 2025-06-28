@@ -1,13 +1,10 @@
 package ru.yandex.kingartaved.data.repository.impl;
 
-import ru.yandex.kingartaved.config.AppConfig;
 import ru.yandex.kingartaved.data.model.Note;
 import ru.yandex.kingartaved.data.repository.NoteRepository;
 import ru.yandex.kingartaved.data.repository.db_connector.DbConnector;
-import ru.yandex.kingartaved.util.FileUtil;
 import ru.yandex.kingartaved.util.LoggerUtil;
 
-import java.nio.file.Path;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -19,7 +16,7 @@ public class CachedFileNoteRepository implements NoteRepository {
     private final List<Note> notes = findAll();
 
     public CachedFileNoteRepository(DbConnector dbConnector) {
-        dbConnector.initializeFileStorage();
+        dbConnector.initializeStorage();
     }
 
     @Override

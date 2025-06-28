@@ -1,8 +1,7 @@
-package ru.yandex.kingartaved.config;
+package ru.yandex.kingartaved.validation.db_line_validator.content_validator;
 
 import ru.yandex.kingartaved.data.constant.NoteTypeEnum;
 import ru.yandex.kingartaved.util.LoggerUtil;
-import ru.yandex.kingartaved.validation.db_line_validator.content_validator.ContentValidator;
 
 import java.util.HashMap;
 import java.util.Map;

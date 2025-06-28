@@ -7,7 +7,7 @@ import ru.yandex.kingartaved.exception.ContentValidationException;
 import ru.yandex.kingartaved.exception.MetadataValidationException;
 import ru.yandex.kingartaved.exception.constant.ErrorMessage;
 import ru.yandex.kingartaved.util.LoggerUtil;
-import ru.yandex.kingartaved.config.ContentValidatorRegistry;
+import ru.yandex.kingartaved.validation.db_line_validator.content_validator.ContentValidatorRegistry;
 import ru.yandex.kingartaved.validation.DataValidationUtil;
 import ru.yandex.kingartaved.validation.FieldValidationUtil;
 import ru.yandex.kingartaved.validation.db_line_validator.DbLineValidator;
@@ -37,7 +37,6 @@ public class CustomFormatDbLineValidator implements DbLineValidator {
         this.contentValidatorRegistry = contentValidatorRegistry;
         this.metadataValidator = metadataValidator;
     }
-
 
     /**
      * Проверяет строку из БД на соответствие формату заметки.

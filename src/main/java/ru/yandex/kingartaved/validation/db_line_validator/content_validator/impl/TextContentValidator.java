@@ -27,7 +27,7 @@ public class TextContentValidator implements ContentValidator {
     public void validateContent(String contentPart) throws ContentValidationException {
         try {
             //Все базовые проверки уже выполнены в @link{CustomFormatDbLineValidator}
-            DataValidationUtil.validateTextLength(contentPart, MIN_TEXT_LENGTH, MAX_TEXT_LENGTH);
+            DataValidationUtil.validateText(contentPart, MIN_TEXT_LENGTH, MAX_TEXT_LENGTH);
         } catch (IllegalArgumentException e) {
             logAndThrowContentValidationException(contentPart, e);
         }
