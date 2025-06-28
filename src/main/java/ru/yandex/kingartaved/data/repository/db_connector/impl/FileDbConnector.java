@@ -22,7 +22,7 @@ public enum FileDbConnector implements DbConnector {
     private static final String STRING_PATH = AppConfig.PATH_TO_DB_FILE;
 
     @Override
-    public void initializeFileStorage() {
+    public void initializeStorage() {
         try {
             Path pathToDb = DataValidationUtil.validateAndGetPath(STRING_PATH);
             FileUtil.createFile(pathToDb);

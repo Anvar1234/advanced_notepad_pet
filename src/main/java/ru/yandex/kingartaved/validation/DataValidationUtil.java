@@ -80,6 +80,15 @@ public final class DataValidationUtil {
         }
     }
 
+    public static void validateText(String text, int minTextLength, int maxTextLength) {
+            if (text.length() < minTextLength) {
+                throw new IllegalArgumentException("Текст слишком короткий. Минимальная длина: " + minTextLength + " символов");
+            }
+            if (text.length() > maxTextLength) {
+                throw new IllegalArgumentException("Текст слишком длинный. Максимальная длина: " + maxTextLength + " символов");
+            }
+    }
+
     public static Path validateAndGetPath(String path) {
         try {
             validateNotNull(path);
@@ -89,15 +98,6 @@ public final class DataValidationUtil {
             String errorMessage = String.format("Путь: '%s' не валиден", path);
             throw new IllegalArgumentException(errorMessage, e);
         }
-    }
-
-    public static void validateTextLength(String text, int minTextLength, int maxTextLength) {
-            if (text.length() < minTextLength) {
-                throw new IllegalArgumentException("Текст слишком короткий. Минимальная длина: " + minTextLength + " символов");
-            }
-            if (text.length() > maxTextLength) {
-                throw new IllegalArgumentException("Текст слишком длинный. Максимальная длина: " + maxTextLength + " символов");
-            }
     }
 
     /**

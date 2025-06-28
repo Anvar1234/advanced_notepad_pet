@@ -28,31 +28,3 @@ public enum FieldIndex {
         return fieldName;
     }
 }
-
-//public enum NoteType { TODO: удалить
-//    TEXT_NOTE(TextNoteValidator, TextNoteMapper, TextNoteSerializator),
-//    CHECKLIST(ChecklistValidator, ChecklistMapper, ChecklistSerializator);
-//  ;
-//
-//    private final Validator validator;
-//    private final Mapper mapper;
-//    private final Serializator serializator;
-//
-//    NoteType(Validator validator, Mapper mapper, Serializator serializator) {
-//        this.validator = validator;
-//        this.mapper = mapper;
-//        this.serializator = serializator;
-//    }
-//
-//    public Validator getValidator() {
-//        return validator;
-//    }
-//
-//    public Mapper getMapper() {
-//        return mapper;
-//    }
-//
-//    public Serializator getSerializator() {
-//        return serializator;
-//    }
-//}

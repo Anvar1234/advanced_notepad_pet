@@ -23,7 +23,7 @@ public final class FileUtil {
 
     public static void createFile(Path filePath) {
 
-        try { //TODO: добавить выброс исключений вместо return во всех методах.
+        try {
             // Проверяем, существует ли файл
             if (Files.exists(filePath)) {
                 LOGGER.info(String.format("Файл \"%s\" уже существует.", filePath.getFileName()));
