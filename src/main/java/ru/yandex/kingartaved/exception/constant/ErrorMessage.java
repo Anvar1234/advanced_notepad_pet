@@ -24,7 +24,7 @@ public enum ErrorMessage {
 
     DB_LINE_VALIDATION_ERROR("Ошибка при валидации строки БД"),
 
-    FILE_CONNECTION_ERROR("Ошибка подключения к файлу"),
+    DB_CONNECTION_ERROR("Ошибка подключения к БД"),
 
     FILE_OPERATION_ERROR("Ошибка при работе с файлом"),
 

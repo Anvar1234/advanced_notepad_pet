@@ -2,9 +2,8 @@ package ru.yandex.kingartaved.data.repository.db_connector.impl;
 
 import ru.yandex.kingartaved.config.AppConfig;
 import ru.yandex.kingartaved.data.repository.db_connector.DbConnector;
-import ru.yandex.kingartaved.exception.FileConnectionException;
+import ru.yandex.kingartaved.exception.DbConnectionException;
 import ru.yandex.kingartaved.exception.FileOperationException;
-import ru.yandex.kingartaved.exception.ValidationException;
 import ru.yandex.kingartaved.exception.constant.ErrorMessage;
 import ru.yandex.kingartaved.util.FileUtil;
 import ru.yandex.kingartaved.util.LoggerUtil;
@@ -24,13 +23,14 @@ public enum FileDbConnector implements DbConnector {
     @Override
     public void initializeStorage() {
         try {
-            Path pathToDb = DataValidationUtil.validateAndGetPath(STRING_PATH);
+            DataValidationUtil.validatePath(STRING_PATH);
+            Path pathToDb = DataValidationUtil.getPath(STRING_PATH);
             FileUtil.createFile(pathToDb);
-        } catch (IllegalArgumentException | ValidationException | FileOperationException e) {
-            String errorMessage = ErrorMessage.FILE_CONNECTION_ERROR.getMessage();
+        } catch (IllegalArgumentException | FileOperationException e) {
+            String errorMessage = ErrorMessage.DB_CONNECTION_ERROR.getMessage();
             String logMessage = errorMessage + ": " + STRING_PATH + "\nПричина: " + e.getMessage();
             LOGGER.log(Level.SEVERE, logMessage, e);
-            throw new FileConnectionException(errorMessage, e);
+            throw new DbConnectionException(errorMessage, e);
         }
     }
 }
