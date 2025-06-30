@@ -1,5 +1,6 @@
 package ru.yandex.kingartaved.validation.db_line_validator.impl;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -15,6 +16,7 @@ import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 import ru.yandex.kingartaved.config.FieldIndex;
 import ru.yandex.kingartaved.data.constant.NoteTypeEnum;
+import ru.yandex.kingartaved.exception.ValidationException;
 import ru.yandex.kingartaved.validation.db_line_validator.content_validator.ContentValidatorRegistry;
 import ru.yandex.kingartaved.exception.ContentValidationException;
 import ru.yandex.kingartaved.validation.db_line_validator.content_validator.ContentValidator;
@@ -142,17 +144,20 @@ public class CustomFormatDbLineValidatorTest {
             resources = "/db_line_validator/isValidDbLine_validAndInvalidDbLines_cases.csv",
             numLinesToSkip = 1)
     @DisplayName("Проверка структурной целостности строк")
-    void isValidDbLine_validAndInvalidDbLine_cases(String description, String lineFromCsv, boolean expectedValid) {
+    void validateAndInvalidDbLine_cases(String description, String lineFromCsv, boolean expectedValid) {
 
         // given
         // lineFromCsv - валидная или невалидная строка из CSV
 
         //when
-        boolean actual = customFormatDbLineValidator.isValidDbLine(lineFromCsv);
+        Executable actual = () -> customFormatDbLineValidator.validateDbLine(lineFromCsv);
 
         //then
-        assertEquals(expectedValid, actual);
+        if (expectedValid) {
+            Assertions.assertDoesNotThrow(actual);
+        } else {
+            Assertions.assertThrows(ValidationException.class, actual);
+        }
     }
-
 }
 

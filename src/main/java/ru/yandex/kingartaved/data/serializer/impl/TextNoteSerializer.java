@@ -22,7 +22,7 @@ public class TextNoteSerializer implements NoteSerializer {//} implements NoteSe
 
 
 
-        Note note = new Note()
+//        Note note = new Note()
 
 
         return null;

@@ -12,8 +12,8 @@ public class NoteMapper {
     private static final ContentMapperRegistry REGISTRY = new ContentMapperRegistry();
 
     public static NoteDto mapEntityToDto(Note note) {
-        Metadata metadata = note.metadata();
-        Content content = note.content();
+        Metadata metadata = note.getMetadata();
+        Content content = note.getContent();
 
         MetadataDto metadataDto = MetadataMapper.mapEntityToDto(metadata);
         ContentDto contentDto = REGISTRY.getMapper(metadata.getType()).mapEntityToDto(content);

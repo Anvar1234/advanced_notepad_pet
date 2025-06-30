@@ -5,6 +5,7 @@ import ru.yandex.kingartaved.config.FieldIndex;
 import ru.yandex.kingartaved.data.constant.NoteTypeEnum;
 import ru.yandex.kingartaved.exception.ContentValidationException;
 import ru.yandex.kingartaved.exception.MetadataValidationException;
+import ru.yandex.kingartaved.exception.ValidationException;
 import ru.yandex.kingartaved.exception.constant.ErrorMessage;
 import ru.yandex.kingartaved.util.LoggerUtil;
 import ru.yandex.kingartaved.validation.db_line_validator.content_validator.ContentValidatorRegistry;
@@ -57,7 +58,7 @@ public class CustomFormatDbLineValidator implements DbLineValidator {
      * @return true если строка валидна, false в противном случае (ошибки логируются).
      */
     @Override
-    public boolean isValidDbLine(String lineFromDb) {
+    public void validateDbLine(String lineFromDb) {
 
         String[] parts;
 
@@ -69,12 +70,11 @@ public class CustomFormatDbLineValidator implements DbLineValidator {
             validateLineStructure(parts, REMIND_AT.getIndex());
             metadataValidator.validateMetadata(parts);
             validateNoteContent(parts);
-
-            return true;
         } catch (IllegalArgumentException | MetadataValidationException | ContentValidationException e) {
-            String errorMessage = ErrorMessage.DB_LINE_VALIDATION_ERROR.getMessage() + ": " + lineFromDb + "'\nПричина: " + e.getMessage();
-            LOGGER.log(Level.SEVERE, errorMessage, e);
-            return false;
+            String errorMessage = ErrorMessage.DB_LINE_VALIDATION_ERROR.getMessage();
+            String logMessage = errorMessage + ": " + lineFromDb + "'\nПричина: " + e.getMessage();
+            LOGGER.log(Level.SEVERE, logMessage, e);
+            throw new ValidationException(errorMessage, e);
         }
     }
 

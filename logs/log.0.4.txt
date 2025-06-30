@@ -1,11 +1,15 @@
-июн. 23, 2025 2:34:19 PM ru.yandex.kingartaved.validation.db_line_validator.impl.CustomFormatDbLineValidator isValidDbLine
+июн. 30, 2025 3:01:03 PM ru.yandex.kingartaved.validation.db_line_validator.impl.CustomFormatDbLineValidator validateDbLine
 SEVERE: Ошибка при валидации строки БД: 2|f47ac10b-58cc-4372-a567-0e02b2c3d479|Заметка 2|2023-10-01T12:34:56|2023-10-01T15:34:56|null|true|HIGH|ACTIVE|TEXT_NOTE|Текст'
 Причина: Неверное количество полей после split: ожидалось: 10, пришло: 11
 java.lang.IllegalArgumentException: Неверное количество полей после split: ожидалось: 10, пришло: 11
-	at ru.yandex.kingartaved.validation.db_line_validator.impl.CustomFormatDbLineValidator.validatePartsCount(CustomFormatDbLineValidator.java:111)
+	at ru.yandex.kingartaved.validation.FieldValidationUtil.validateFieldsCount(FieldValidationUtil.java:110)
 	at ru.yandex.kingartaved.validation.db_line_validator.impl.CustomFormatDbLineValidator.validateLineStructure(CustomFormatDbLineValidator.java:97)
-	at ru.yandex.kingartaved.validation.db_line_validator.impl.CustomFormatDbLineValidator.isValidDbLine(CustomFormatDbLineValidator.java:69)
-	at ru.yandex.kingartaved.validation.db_line_validator.impl.CustomFormatDbLineValidatorTest.isValidDbLine_validAndInvalidDbLine_cases(CustomFormatDbLineValidatorTest.java:157)
+	at ru.yandex.kingartaved.validation.db_line_validator.impl.CustomFormatDbLineValidator.validateDbLine(CustomFormatDbLineValidator.java:70)
+	at ru.yandex.kingartaved.validation.db_line_validator.impl.CustomFormatDbLineValidatorTest.lambda$validateAndInvalidDbLine_cases$3(CustomFormatDbLineValidatorTest.java:153)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:53)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:35)
+	at org.junit.jupiter.api.Assertions.assertThrows(Assertions.java:3128)
+	at ru.yandex.kingartaved.validation.db_line_validator.impl.CustomFormatDbLineValidatorTest.validateAndInvalidDbLine_cases(CustomFormatDbLineValidatorTest.java:159)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
