@@ -20,11 +20,4 @@ public final class Note {
         return content;
     }
 
-//    public void preview(ыва){ //TODO: превью в общем списке
-//
-//    }
-//
-//    public void render(ыа){ //TODO: как отображается при выборе
-//
-//    }
 }

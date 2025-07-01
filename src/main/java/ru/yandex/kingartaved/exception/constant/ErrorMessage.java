@@ -18,11 +18,13 @@ public enum ErrorMessage {
 
     UTILITY_CLASS("Утилитный класс"),
 
+    DB_LINE_SPLIT_ERROR("Ошибка разделения строки из БД"),
+
     METADATA_VALIDATION_ERROR("Ошибка валидации метаданных"),
 
     CONTENT_VALIDATION_ERROR("Ошибка валидации контента"),
 
-    DB_LINE_VALIDATION_ERROR("Ошибка при валидации строки БД"),
+    DB_LINE_VALIDATION_ERROR("Ошибка при валидации строки из БД"),
 
     DB_CONNECTION_ERROR("Ошибка подключения к БД"),
 

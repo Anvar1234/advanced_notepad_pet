@@ -3,16 +3,18 @@ package ru.yandex.kingartaved.data.serializer.impl;
 import ru.yandex.kingartaved.data.constant.NoteTypeEnum;
 import ru.yandex.kingartaved.data.model.Note;
 import ru.yandex.kingartaved.data.serializer.NoteSerializer;
+import ru.yandex.kingartaved.validation.db_line_validator.DbLineValidator;
 
-public class TextNoteSerializer implements NoteSerializer {//} implements NoteSerializer<TextNote> {
-   //TODO: добавить валидацию перед (де-)сериализацией.
+public class DefaultNoteSerializer implements NoteSerializer {//} implements NoteSerializer<TextNote> {
+    private final DbLineValidator dbLineValidator;
 
-    @Override
-    public NoteTypeEnum getSupportedType() {
-        return NoteTypeEnum.TEXT_NOTE;
+    public DefaultNoteSerializer(DbLineValidator dbLineValidator) {
+        this.dbLineValidator = dbLineValidator;
     }
 
-    @Override
+    //TODO: добавить валидацию перед (де-)сериализацией.
+
+        @Override
     public String serialize(Note note) {
         return "";
     }
@@ -22,7 +24,7 @@ public class TextNoteSerializer implements NoteSerializer {//} implements NoteSe
 
 
 
-//        Note note = new Note()
+        Note note = new Note()
 
 
         return null;
@@ -36,16 +38,16 @@ public class TextNoteSerializer implements NoteSerializer {//} implements NoteSe
 
 
 
-//    private TextNoteSerializer instance;
+//    private DefaultNoteSerializer instance;
 //    private final DbLineValidator validator;
 //
-//    private TextNoteSerializer(DbLineValidator validator) {
+//    private DefaultNoteSerializer(DbLineValidator validator) {
 //        this.validator = validator;
 //    }
 //
-//    public TextNoteSerializer getInstance(DbLineValidator validator) { //TODO: это не singletone - удалить или изменить.
+//    public DefaultNoteSerializer getInstance(DbLineValidator validator) { //TODO: это не singletone - удалить или изменить.
 //        if (instance == null) {
-//            return new TextNoteSerializer(validator);
+//            return new DefaultNoteSerializer(validator);
 //        }
 //        return this;
 //    }
