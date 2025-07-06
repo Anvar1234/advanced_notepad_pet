@@ -1,6 +1,7 @@
 package ru.yandex.kingartaved.validation.db_line_validator.content_validator.impl;
 
 import ru.yandex.kingartaved.config.AppConfig;
+import ru.yandex.kingartaved.config.FieldIndex;
 import ru.yandex.kingartaved.data.constant.NoteTypeEnum;
 import ru.yandex.kingartaved.exception.ContentValidationException;
 import ru.yandex.kingartaved.validation.DataValidationUtil;
@@ -25,21 +26,21 @@ public class ChecklistContentValidator implements ContentValidator {
     }
 
     @Override
-    public void validateContent(String contentPart) throws ContentValidationException { //заходит не пустая, не null, не равная строке 'null' часть.
+    public void validateContent(String[] parts) throws ContentValidationException { //заходит не пустая, не null, не равная строке 'null' часть.
         try {
-            List<String> itemStrings = parseItemStrings(contentPart);
+            List<String> itemStrings = parseItemStrings(parts[FieldIndex.CONTENT.getIndex()]);
 
             for (String itemString : itemStrings) {
                 validateItemStructureAndContent(itemString);
             }
 
         } catch (IllegalArgumentException e) {
-            logAndThrowContentValidationException(contentPart, e);
+            logAndThrowContentValidationException(parts[FieldIndex.CONTENT.getIndex()], e);
         }
     }
 
     protected List<String> parseItemStrings(String contentPart) {
-        return Arrays.stream(contentPart.split(";", -1)).toList();
+        return Arrays.stream(contentPart.split(";")).toList(); // TODO: Без "-1", т.к. не берем последний пустой элемент (который после последнего ";" в строке вида CHECKLIST|1задача:true;задача2:false;)
     }
 
     protected void validateItemStructureAndContent(String itemStr) {

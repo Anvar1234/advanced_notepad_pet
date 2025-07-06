@@ -1,6 +1,7 @@
 package ru.yandex.kingartaved.data.mapper;
 
 import ru.yandex.kingartaved.data.constant.NoteTypeEnum;
+import ru.yandex.kingartaved.data.mapper.content_mapper.ContentMapper;
 import ru.yandex.kingartaved.data.model.Content;
 import ru.yandex.kingartaved.dto.ContentDto;
 import ru.yandex.kingartaved.util.LoggerUtil;

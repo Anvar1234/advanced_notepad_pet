@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 public interface ContentValidator {
     NoteTypeEnum getSupportedType();
 
-    void validateContent(String value) throws ContentValidationException;
+    void validateContent(String[] parts) throws ContentValidationException;
 
     default Logger getLogger() {
         return LoggerUtil.getLogger(this.getClass());

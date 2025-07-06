@@ -1,14 +1,14 @@
-июн. 30, 2025 3:01:03 PM ru.yandex.kingartaved.validation.db_line_validator.impl.CustomFormatDbLineValidator validateDbLine
+июн. 30, 2025 3:01:03 PM ru.yandex.kingartaved.validation.db_line_validator.impl.DefaultDbLineValidator validateDbLine
 SEVERE: Ошибка при валидации строки БД: '
 Причина: Строка из БД не должна быть null или пустой
 java.lang.IllegalArgumentException: Строка из БД не должна быть null или пустой
-	at ru.yandex.kingartaved.validation.db_line_validator.impl.CustomFormatDbLineValidator.validateLineNotNullAndNotBlank(CustomFormatDbLineValidator.java:89)
-	at ru.yandex.kingartaved.validation.db_line_validator.impl.CustomFormatDbLineValidator.validateDbLine(CustomFormatDbLineValidator.java:66)
-	at ru.yandex.kingartaved.validation.db_line_validator.impl.CustomFormatDbLineValidatorTest.lambda$validateAndInvalidDbLine_cases$3(CustomFormatDbLineValidatorTest.java:153)
+	at ru.yandex.kingartaved.validation.db_line_validator.impl.DefaultDbLineValidator.validateLineNotNullAndNotBlank(CustomFormatDbLineValidator.java:89)
+	at ru.yandex.kingartaved.validation.db_line_validator.impl.DefaultDbLineValidator.validateDbLine(CustomFormatDbLineValidator.java:66)
+	at ru.yandex.kingartaved.validation.db_line_validator.impl.DefaultDbLineValidatorTest.lambda$validateAndInvalidDbLine_cases$3(CustomFormatDbLineValidatorTest.java:153)
 	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:53)
 	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:35)
 	at org.junit.jupiter.api.Assertions.assertThrows(Assertions.java:3128)
-	at ru.yandex.kingartaved.validation.db_line_validator.impl.CustomFormatDbLineValidatorTest.validateAndInvalidDbLine_cases(CustomFormatDbLineValidatorTest.java:159)
+	at ru.yandex.kingartaved.validation.db_line_validator.impl.DefaultDbLineValidatorTest.validateAndInvalidDbLine_cases(CustomFormatDbLineValidatorTest.java:159)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)

@@ -1,0 +1,4 @@
+июл. 06, 2025 9:49:28 PM ru.yandex.kingartaved.validation.db_line_validator.content_validator.ContentValidatorRegistry lambda$initialize$0
+INFO: Зарегистрирован валидатор для заметок типа: CHECKLIST
+июл. 06, 2025 9:49:28 PM ru.yandex.kingartaved.validation.db_line_validator.content_validator.ContentValidatorRegistry lambda$initialize$0
+INFO: Зарегистрирован валидатор для заметок типа: TEXT_NOTE

@@ -7,6 +7,7 @@ import ru.yandex.kingartaved.data.constant.NoteTypeEnum;
 import ru.yandex.kingartaved.exception.MetadataValidationException;
 import ru.yandex.kingartaved.exception.constant.ErrorMessage;
 import ru.yandex.kingartaved.util.LoggerUtil;
+import ru.yandex.kingartaved.validation.FieldValidationUtil;
 import ru.yandex.kingartaved.validation.db_line_validator.metadata_validator.MetadataValidator;
 
 import java.util.Arrays;
@@ -27,7 +28,7 @@ public final class DefaultMetadataValidator implements MetadataValidator {
             validateTitle(parts[TITLE.getIndex()]);
             validateDateField(parts[CREATED_AT.getIndex()], CREATED_AT.getIndex(), CREATED_AT.getFieldName());
             validateDateField(parts[UPDATED_AT.getIndex()], UPDATED_AT.getIndex(), UPDATED_AT.getFieldName());
-            if (isNotStringNull(parts[REMIND_AT.getIndex()])) {
+            if (FieldValidationUtil.isNotStringNull(parts[REMIND_AT.getIndex()])) {
                 validateDateField(parts[REMIND_AT.getIndex()], REMIND_AT.getIndex(), REMIND_AT.getFieldName());
             }
             validateBooleanField(parts[PINNED.getIndex()], PINNED.getIndex(), PINNED.getFieldName());

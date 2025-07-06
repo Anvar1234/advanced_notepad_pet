@@ -1,6 +1,7 @@
 package ru.yandex.kingartaved.validation.db_line_validator.content_validator.impl;
 
 import ru.yandex.kingartaved.config.AppConfig;
+import ru.yandex.kingartaved.config.FieldIndex;
 import ru.yandex.kingartaved.data.constant.NoteTypeEnum;
 import ru.yandex.kingartaved.exception.ContentValidationException;
 import ru.yandex.kingartaved.util.LoggerUtil;
@@ -24,12 +25,12 @@ public class TextContentValidator implements ContentValidator {
     }
 
     @Override
-    public void validateContent(String contentPart) throws ContentValidationException {
+    public void validateContent(String[] parts) throws ContentValidationException {
         try {
-            //Все базовые проверки уже выполнены в @link{CustomFormatDbLineValidator}
-            DataValidationUtil.validateText(contentPart, MIN_TEXT_LENGTH, MAX_TEXT_LENGTH);
+            //Все базовые проверки уже выполнены в @link{DefaultDbLineValidator}
+            DataValidationUtil.validateText(parts[FieldIndex.CONTENT.getIndex()], MIN_TEXT_LENGTH, MAX_TEXT_LENGTH);
         } catch (IllegalArgumentException e) {
-            logAndThrowContentValidationException(contentPart, e);
+            logAndThrowContentValidationException(parts[FieldIndex.CONTENT.getIndex()], e);
         }
     }
 }

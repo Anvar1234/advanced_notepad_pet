@@ -7,7 +7,7 @@ import ru.yandex.kingartaved.exception.ContentValidationException;
 import ru.yandex.kingartaved.exception.MetadataValidationException;
 import ru.yandex.kingartaved.exception.DbLineValidationException;
 import ru.yandex.kingartaved.exception.constant.ErrorMessage;
-import ru.yandex.kingartaved.util.LineSplitter;
+import ru.yandex.kingartaved.util.DbLineSplitter;
 import ru.yandex.kingartaved.util.LoggerUtil;
 import ru.yandex.kingartaved.validation.db_line_validator.content_validator.ContentValidatorRegistry;
 import ru.yandex.kingartaved.validation.DataValidationUtil;
@@ -28,14 +28,14 @@ import static ru.yandex.kingartaved.validation.FieldValidationUtil.*;
  * Осуществляет разбор строки по разделителю '|', проверку количества полей и их валидность.
  */
 
-public class CustomFormatDbLineValidator implements DbLineValidator {
-    private static final Logger LOGGER = LoggerUtil.getLogger(CustomFormatDbLineValidator.class);
+public class DefaultDbLineValidator implements DbLineValidator {
+    private static final Logger LOGGER = LoggerUtil.getLogger(DefaultDbLineValidator.class);
     private static final int EXPECTED_FIELDS_COUNT = 10;
     private static final String DB_FIELD_DELIMITER = AppConfig.DB_FIELD_DELIMITER;
     private final MetadataValidator metadataValidator;
     private final ContentValidatorRegistry contentValidatorRegistry;
 
-    public CustomFormatDbLineValidator(ContentValidatorRegistry contentValidatorRegistry, MetadataValidator metadataValidator) {
+    public DefaultDbLineValidator(ContentValidatorRegistry contentValidatorRegistry, MetadataValidator metadataValidator) {
         this.contentValidatorRegistry = contentValidatorRegistry;
         this.metadataValidator = metadataValidator;
     }
@@ -62,7 +62,7 @@ public class CustomFormatDbLineValidator implements DbLineValidator {
     public void validateDbLine(String lineFromDb) {
 
         try {
-            String[] parts = LineSplitter.splitDbLine(lineFromDb);
+            String[] parts = DbLineSplitter.splitDbLine(lineFromDb);
 
             validateLineStructure(parts, REMIND_AT.getIndex());
             metadataValidator.validateMetadata(parts);
@@ -107,6 +107,6 @@ public class CustomFormatDbLineValidator implements DbLineValidator {
     void validateNoteContent(String[] parts) throws ContentValidationException {
         NoteTypeEnum noteTypeEnum = Enum.valueOf(NoteTypeEnum.class, parts[TYPE.getIndex()]);
         ContentValidator contentValidator = contentValidatorRegistry.getValidator(noteTypeEnum);
-        contentValidator.validateContent(parts[CONTENT.getIndex()]);
+        contentValidator.validateContent(parts);
     }
 }

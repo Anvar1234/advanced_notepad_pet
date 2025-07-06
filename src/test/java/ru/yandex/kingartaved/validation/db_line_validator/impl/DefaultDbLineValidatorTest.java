@@ -29,7 +29,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class CustomFormatDbLineValidatorTest {
+public class DefaultDbLineValidatorTest {
 
     private static final String DB_FIELD_DELIMITER = "\\|";
 
@@ -43,7 +43,7 @@ public class CustomFormatDbLineValidatorTest {
     private MetadataValidator mockMetadataValidator;
 
     @InjectMocks
-    private CustomFormatDbLineValidator customFormatDbLineValidator;
+    private DefaultDbLineValidator defaultDbLineValidator;
 
     /**
      * Проверяет, что при обработке контента заметок типа TEXT_NOTE
@@ -57,7 +57,7 @@ public class CustomFormatDbLineValidatorTest {
         // given
         when(mockContentValidatorRegistry.getValidator(NoteTypeEnum.TEXT_NOTE))
                 .thenReturn(mockContentValidator);
-        doNothing().when(mockContentValidator).validateContent("Sample text");
+        doNothing().when(mockContentValidator).validateContent(any(String[].class));
 
         String[] parts = new String[10];
         Arrays.fill(parts, "value");
@@ -66,12 +66,12 @@ public class CustomFormatDbLineValidatorTest {
 
         // when
         for (int i = 0; i < 2; i++) {
-            customFormatDbLineValidator.validateNoteContent(parts);
+            defaultDbLineValidator.validateNoteContent(parts);
         }
 
         // then
         verify(mockContentValidatorRegistry, times(2)).getValidator(NoteTypeEnum.TEXT_NOTE);
-        verify(mockContentValidator, times(2)).validateContent("Sample text");
+        verify(mockContentValidator, times(2)).validateContent(eq(parts));
     }
 
     @ParameterizedTest
@@ -85,7 +85,7 @@ public class CustomFormatDbLineValidatorTest {
         parts[9] = content;
 
         //when
-        Executable actual = () -> customFormatDbLineValidator.validateNoteContent(parts);
+        Executable actual = () -> defaultDbLineValidator.validateNoteContent(parts);
 
         //then
         if (isValid) {
@@ -114,7 +114,7 @@ public class CustomFormatDbLineValidatorTest {
         String[] parts = lineFromCsv.split(DB_FIELD_DELIMITER);
 
         //when
-        Executable actual = () -> customFormatDbLineValidator.validateLineStructure(parts, FieldIndex.REMIND_AT.getIndex());
+        Executable actual = () -> defaultDbLineValidator.validateLineStructure(parts, FieldIndex.REMIND_AT.getIndex());
 
         //then
         assertThrows(IllegalArgumentException.class, actual, description + " , строка должна быть невалидна");
@@ -133,7 +133,7 @@ public class CustomFormatDbLineValidatorTest {
         String[] parts = lineFromCsv.split(DB_FIELD_DELIMITER);
 
         //when
-        Executable actual = () -> customFormatDbLineValidator.validateLineStructure(parts, FieldIndex.REMIND_AT.getIndex());
+        Executable actual = () -> defaultDbLineValidator.validateLineStructure(parts, FieldIndex.REMIND_AT.getIndex());
 
         //then
         assertDoesNotThrow(actual, "Для " + noteType + " строка должна быть валидна");
@@ -150,7 +150,7 @@ public class CustomFormatDbLineValidatorTest {
         // lineFromCsv - валидная или невалидная строка из CSV
 
         //when
-        Executable actual = () -> customFormatDbLineValidator.validateDbLine(lineFromCsv);
+        Executable actual = () -> defaultDbLineValidator.validateDbLine(lineFromCsv);
 
         //then
         if (expectedValid) {

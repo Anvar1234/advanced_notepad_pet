@@ -1,16 +1,18 @@
-package ru.yandex.kingartaved.data.mapper;
+package ru.yandex.kingartaved.data.mapper.metadata_mapper.impl;
 
+import ru.yandex.kingartaved.data.mapper.metadata_mapper.MetadataMapper;
 import ru.yandex.kingartaved.data.model.Metadata;
 import ru.yandex.kingartaved.dto.MetadataDto;
 import ru.yandex.kingartaved.exception.constant.ErrorMessage;
 
-public final class MetadataMapper {
+public class DefaultMetadataMapper implements MetadataMapper {
 
-    private MetadataMapper() {
+    private DefaultMetadataMapper() {
         throw new UnsupportedOperationException(ErrorMessage.UTILITY_CLASS.getMessage());
     }
 
-    public static MetadataDto mapEntityToDto(Metadata metadata) {
+    @Override
+    public MetadataDto mapEntityToDto(Metadata metadata) {
         return MetadataDto.builder()
                 .id(metadata.getId())
                 .title(metadata.getTitle())
@@ -24,7 +26,8 @@ public final class MetadataMapper {
                 .build();
     }
 
-    public static Metadata mapDtoToEntity(MetadataDto metadataDto) {
+    @Override
+    public Metadata mapDtoToEntity(MetadataDto metadataDto) {
         return Metadata.builder()
                 .id(metadataDto.getId())
                 .title(metadataDto.getTitle())

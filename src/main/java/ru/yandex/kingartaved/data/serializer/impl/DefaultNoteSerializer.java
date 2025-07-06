@@ -1,93 +1,49 @@
 package ru.yandex.kingartaved.data.serializer.impl;
 
-import ru.yandex.kingartaved.data.constant.NoteTypeEnum;
+import ru.yandex.kingartaved.data.model.Content;
+import ru.yandex.kingartaved.data.model.Metadata;
 import ru.yandex.kingartaved.data.model.Note;
 import ru.yandex.kingartaved.data.serializer.NoteSerializer;
+import ru.yandex.kingartaved.data.serializer.content_serializer.ContentSerializer;
+import ru.yandex.kingartaved.data.serializer.content_serializer.ContentSerializerRegistry;
+import ru.yandex.kingartaved.data.serializer.metadata_serializer.MetadataSerializer;
+import ru.yandex.kingartaved.util.DbLineSplitter;
 import ru.yandex.kingartaved.validation.db_line_validator.DbLineValidator;
 
-public class DefaultNoteSerializer implements NoteSerializer {//} implements NoteSerializer<TextNote> {
+public class DefaultNoteSerializer implements NoteSerializer {
+    private final ContentSerializerRegistry contentSerializerRegistry;
+    private final MetadataSerializer metadataSerializer;
     private final DbLineValidator dbLineValidator;
 
-    public DefaultNoteSerializer(DbLineValidator dbLineValidator) {
+    public DefaultNoteSerializer(ContentSerializerRegistry contentSerializerRegistry, MetadataSerializer metadataSerializer, DbLineValidator dbLineValidator) {
+        this.contentSerializerRegistry = contentSerializerRegistry;
+        this.metadataSerializer = metadataSerializer;
         this.dbLineValidator = dbLineValidator;
     }
 
-    //TODO: добавить валидацию перед (де-)сериализацией.
+    @Override
+    public String serialize(Note note) { //TODO: добавить валидацию перед сериализацией, типа rawDataValidator. Или нет, если должны приходить точно корректные данные.
+        Metadata metadata = note.getMetadata();
+        Content content = note.getContent();
+        ContentSerializer contentSerializer = contentSerializerRegistry.getSerializer(metadata.getType());
 
-        @Override
-    public String serialize(Note note) {
-        return "";
+        String metadataPart = metadataSerializer.serializeMetadata(metadata);
+        String contentPart = contentSerializer.serializeContent(content);
+
+        return generateDbLine(metadataPart, contentPart);
+    }
+
+    private String generateDbLine(String metadataPart, String contentPart) {
+        return String.join("|", metadataPart, contentPart);
     }
 
     @Override
-    public Note deserialize(String str) {
-
-
-
-        Note note = new Note()
-
-
-        return null;
+    public Note deserialize(String lineFromDb) {
+        dbLineValidator.validateDbLine(lineFromDb);
+        String[] parts = DbLineSplitter.splitDbLine(lineFromDb);
+        Metadata metadata = metadataSerializer.deserializeMetadata(parts);
+        ContentSerializer contentSerializer = contentSerializerRegistry.getSerializer(metadata.getType());
+        Content content = contentSerializer.deserializeContent(parts);
+        return new Note(metadata, content);
     }
-
-
-
-
-
-
-
-
-
-//    private DefaultNoteSerializer instance;
-//    private final DbLineValidator validator;
-//
-//    private DefaultNoteSerializer(DbLineValidator validator) {
-//        this.validator = validator;
-//    }
-//
-//    public DefaultNoteSerializer getInstance(DbLineValidator validator) { //TODO: это не singletone - удалить или изменить.
-//        if (instance == null) {
-//            return new DefaultNoteSerializer(validator);
-//        }
-//        return this;
-//    }
-//
-//    @Override
-//    public String serialize(TextNote note) {
-//        return String.join("|",
-//                note.getId().toString(),
-//                note.getTitle(),
-//                note.getCreatedAt().toString(),
-//                note.getUpdatedAt().toString(),
-//                note.getRemindAt() != null ? note.getRemindAt().toString() : "",
-//                String.valueOf(note.isPinned()),
-//                note.getPriority().name(),
-////                String.join(",", note.getTags()),
-//                note.getStatus().name(),
-//                note.getType().name(),
-//                note.getContent()
-//        );
-//    }
-//
-//    @Override
-//    public TextNote deserialize(String line) {
-//
-//        validator.validate(line);
-//
-//        String[] parts = line.split("\\|", -1);  // -1 сохраняет пустые значения
-//
-//        return new TextNote.TextNoteBuilder()
-//                .setId(UUID.fromString(parts[0]))                 // id
-//                .setTitle(parts[1])                                  // title
-//                .setCreatedAt(LocalDateTime.parse(parts[2]))          // createdAt
-//                .setChangedAt(LocalDateTime.parse(parts[3]))  // changedAt
-//                .setRemindAt(parts[4].isEmpty() ? null : LocalDateTime.parse(parts[4])) // deadline
-//                .setPinned(Boolean.parseBoolean(parts[5])) // isPinned
-//                .setPriority(NotePriorityEnum.valueOf(parts[6])) // priority
-////                .setTags(Set.of(parts[7].split(","))) // tags
-//                .setStatus(NoteStatusEnum.valueOf(parts[8])) // status
-//                .setType(NoteTypeEnum.valueOf(parts[9])) // type
-//                .setContent(parts[10]) // contentDto
-//                .build();
-//    }
 }

@@ -24,6 +24,10 @@ public enum ErrorMessage {
 
     CONTENT_VALIDATION_ERROR("Ошибка валидации контента"),
 
+    CONTENT_SERIALIZATION_ERROR("Ошибка сериализации контента"),
+
+    CONTENT_DESERIALIZATION_ERROR("Ошибка десериализации контента"),
+
     DB_LINE_VALIDATION_ERROR("Ошибка при валидации строки из БД"),
 
     DB_CONNECTION_ERROR("Ошибка подключения к БД"),
