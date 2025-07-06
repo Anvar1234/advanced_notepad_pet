@@ -5,7 +5,9 @@ import ru.yandex.kingartaved.config.FieldIndex;
 import ru.yandex.kingartaved.data.constant.NoteTypeEnum;
 import ru.yandex.kingartaved.exception.ContentValidationException;
 import ru.yandex.kingartaved.exception.MetadataValidationException;
+import ru.yandex.kingartaved.exception.DbLineValidationException;
 import ru.yandex.kingartaved.exception.constant.ErrorMessage;
+import ru.yandex.kingartaved.util.DbLineSplitter;
 import ru.yandex.kingartaved.util.LoggerUtil;
 import ru.yandex.kingartaved.validation.db_line_validator.content_validator.ContentValidatorRegistry;
 import ru.yandex.kingartaved.validation.DataValidationUtil;
@@ -26,14 +28,14 @@ import static ru.yandex.kingartaved.validation.FieldValidationUtil.*;
  * Осуществляет разбор строки по разделителю '|', проверку количества полей и их валидность.
  */
 
-public class CustomFormatDbLineValidator implements DbLineValidator {
-    private static final Logger LOGGER = LoggerUtil.getLogger(CustomFormatDbLineValidator.class);
+public class DefaultDbLineValidator implements DbLineValidator {
+    private static final Logger LOGGER = LoggerUtil.getLogger(DefaultDbLineValidator.class);
     private static final int EXPECTED_FIELDS_COUNT = 10;
     private static final String DB_FIELD_DELIMITER = AppConfig.DB_FIELD_DELIMITER;
     private final MetadataValidator metadataValidator;
     private final ContentValidatorRegistry contentValidatorRegistry;
 
-    public CustomFormatDbLineValidator(ContentValidatorRegistry contentValidatorRegistry, MetadataValidator metadataValidator) {
+    public DefaultDbLineValidator(ContentValidatorRegistry contentValidatorRegistry, MetadataValidator metadataValidator) {
         this.contentValidatorRegistry = contentValidatorRegistry;
         this.metadataValidator = metadataValidator;
     }
@@ -41,40 +43,35 @@ public class CustomFormatDbLineValidator implements DbLineValidator {
     /**
      * Проверяет строку из БД на соответствие формату заметки.
      * <p>
-     * Формат строки (10 полей через '|'):
+     * Формат строки (10 полей через {@value DB_FIELD_DELIMITER}):
      * 0: UUID, 1: заголовок, 2: дата создания, 3: дата изменения,
      * 4: дата напоминания (или "null"), 5: закреплена (true/false),
      * 6: приоритет, 7: статус, 8: тип, 9: содержимое.
      * <p>
      * Процесс валидации:<p>
      * 1. Проверка строки на null/пустоту <p>
-     * 2. Разделение по символу '|'<p>
+     * 2. Разделение по символу {@value DB_FIELD_DELIMITER}<p>
      * 3. Проверка количества полей<p>
      * 4. Удаление пробелов вокруг значений<p>
      * 5. Проверка значений полей<p>
      *
      * @param lineFromDb Строка из БД в формате "id|title|createdAt|...|content".
-     * @return true если строка валидна, false в противном случае (ошибки логируются).
+     * @throws DbLineValidationException если строка не валидна.
      */
     @Override
-    public boolean isValidDbLine(String lineFromDb) {
-
-        String[] parts;
+    public void validateDbLine(String lineFromDb) {
 
         try {
-            validateLineNotNullAndNotBlank(lineFromDb);
-
-            parts = lineFromDb.split(DB_FIELD_DELIMITER, -1);
+            String[] parts = DbLineSplitter.splitDbLine(lineFromDb);
 
             validateLineStructure(parts, REMIND_AT.getIndex());
             metadataValidator.validateMetadata(parts);
             validateNoteContent(parts);
-
-            return true;
         } catch (IllegalArgumentException | MetadataValidationException | ContentValidationException e) {
-            String errorMessage = ErrorMessage.DB_LINE_VALIDATION_ERROR.getMessage() + ": " + lineFromDb + "'\nПричина: " + e.getMessage();
-            LOGGER.log(Level.SEVERE, errorMessage, e);
-            return false;
+            String errorMessage = ErrorMessage.DB_LINE_VALIDATION_ERROR.getMessage();
+            String logMessage = errorMessage + ": " + lineFromDb + "'\nПричина: " + e.getMessage();
+            LOGGER.log(Level.SEVERE, logMessage, e);
+            throw new DbLineValidationException(errorMessage, e);
         }
     }
 
@@ -110,6 +107,6 @@ public class CustomFormatDbLineValidator implements DbLineValidator {
     void validateNoteContent(String[] parts) throws ContentValidationException {
         NoteTypeEnum noteTypeEnum = Enum.valueOf(NoteTypeEnum.class, parts[TYPE.getIndex()]);
         ContentValidator contentValidator = contentValidatorRegistry.getValidator(noteTypeEnum);
-        contentValidator.validateContent(parts[CONTENT.getIndex()]);
+        contentValidator.validateContent(parts);
     }
 }

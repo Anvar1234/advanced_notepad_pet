@@ -7,14 +7,14 @@ import ru.yandex.kingartaved.data.model.Content;
 import java.util.List;
 
 public final class ChecklistContent implements Content {
-    private final List<ChecklistItem> items;
+    private final List<ChecklistItem> tasks;
 
-    public ChecklistContent(List<ChecklistItem> items) {
-        this.items = List.copyOf(items); // Защита от мутации
+    public ChecklistContent(List<ChecklistItem> tasks) {
+        this.tasks = List.copyOf(tasks); // Защита от мутации
     }
 
-    public List<ChecklistItem> items() {
-        return items;
+    public List<ChecklistItem> tasks() {
+        return tasks;
     }
 
     @Override

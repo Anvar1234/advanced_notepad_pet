@@ -1,4 +1,4 @@
-package ru.yandex.kingartaved.data.mapper;
+package ru.yandex.kingartaved.data.mapper.content_mapper;
 
 import ru.yandex.kingartaved.data.constant.NoteTypeEnum;
 import ru.yandex.kingartaved.data.model.Content;

@@ -7,7 +7,7 @@ import java.util.Map;
 
 public final class AppConfig { //TODO: сделать неизменяемым (конструктор)
     // Путь к пакету для формирования маппера
-    public static final String MAPPERS_PACKAGE = "ru.yandex.kingartaved.data.mapper.impl";
+    public static final String MAPPERS_PACKAGE = "ru.yandex.kingartaved.data.mapper.content_mapper.impl";
     public static final String ENTITY_CLASSES_PACKAGE = "ru.yandex.kingartaved.data.model";
     public static final String MAPPER_SUFFIX = "Mapper";
 

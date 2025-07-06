@@ -1,7 +1,7 @@
-package ru.yandex.kingartaved.data.mapper.impl;
+package ru.yandex.kingartaved.data.mapper.content_mapper.impl;
 
 import ru.yandex.kingartaved.data.constant.NoteTypeEnum;
-import ru.yandex.kingartaved.data.mapper.ContentMapper;
+import ru.yandex.kingartaved.data.mapper.content_mapper.ContentMapper;
 import ru.yandex.kingartaved.data.model.ChecklistItem;
 import ru.yandex.kingartaved.data.model.impl.ChecklistContent;
 import ru.yandex.kingartaved.dto.ChecklistItemDto;
@@ -14,7 +14,7 @@ public class ChecklistContentMapperImpl implements ContentMapper<ChecklistConten
     //TODO: неужели необходимо делать маппер и для айтемов внутри чеклиста?
     @Override
     public ChecklistContentDto mapEntityToDto(ChecklistContent content) {
-        return new ChecklistContentDto(content.items().stream()
+        return new ChecklistContentDto(content.tasks().stream()
                 .map(item -> new ChecklistItemDto(item.getText(), item.isDone()))
                 .collect(Collectors.toList()));
     }
