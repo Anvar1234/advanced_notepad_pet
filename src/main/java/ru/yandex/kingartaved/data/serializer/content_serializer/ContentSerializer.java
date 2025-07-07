@@ -12,18 +12,4 @@ public interface ContentSerializer {
     NoteTypeEnum getSupportedType();
     String serializeContent(Content content);
     Content deserializeContent(String[] contentPart);
-
-    default Logger getLogger(){
-       return LoggerUtil.getLogger(this.getClass());
-    }
-
-    default void logAndThrowContentSerializationException(String contentPart){
-        Logger log = getLogger();
-        String errorMessage = ErrorMessage.CONTENT_DESERIALIZATION_ERROR.getMessage(); //"Ошибка при "
-        String logMessage = String.format("%s %s", errorMessage, action);
-        //-------------
-        //дальнейшая реализация.
-
-
-    }
 }

@@ -1,10 +1,5 @@
 package ru.yandex.kingartaved.config;
 
-import ru.yandex.kingartaved.data.constant.DbFileFormatEnum;
-
-import java.util.HashMap;
-import java.util.Map;
-
 public final class AppConfig { //TODO: сделать неизменяемым (конструктор)
     // Путь к пакету для формирования маппера
     public static final String MAPPERS_PACKAGE = "ru.yandex.kingartaved.data.mapper.content_mapper.impl";
@@ -12,8 +7,7 @@ public final class AppConfig { //TODO: сделать неизменяемым (
     public static final String MAPPER_SUFFIX = "Mapper";
 
     // Пути к файлам базы данных и сопутствующие константы
-    public static final String DB_FILE_FORMAT = DbFileFormatEnum.TXT.getFormat();
-    public static final String PATH_TO_DB_FILE = DbFileFormatEnum.TXT.getStringPath();
+    public static final String PATH_TO_DB_FILE = "src/main/resources/note_db.txt";
     public static final String DB_FIELD_DELIMITER = "\\|";
 
     // Требования к контенту
