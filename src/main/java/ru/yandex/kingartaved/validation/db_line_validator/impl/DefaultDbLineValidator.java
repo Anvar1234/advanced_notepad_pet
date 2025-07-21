@@ -105,7 +105,7 @@ public class DefaultDbLineValidator implements DbLineValidator {
      * Проверяет валидность содержимого заметки в зависимости от её типа.
      */
     void validateNoteContent(String[] parts) throws ContentValidationException {
-        NoteTypeEnum noteTypeEnum = Enum.valueOf(NoteTypeEnum.class, parts[TYPE.getIndex()]);
+        NoteTypeEnum noteTypeEnum = Enum.valueOf(NoteTypeEnum.class, parts[FieldIndex.TYPE.getIndex()]);
         ContentValidator contentValidator = contentValidatorRegistry.getValidator(noteTypeEnum);
         contentValidator.validateContent(parts);
     }

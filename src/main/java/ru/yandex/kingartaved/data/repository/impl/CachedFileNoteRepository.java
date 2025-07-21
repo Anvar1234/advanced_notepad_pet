@@ -23,13 +23,14 @@ public class CachedFileNoteRepository implements NoteRepository {
 
     private final Path pathToDbFile;
 
-    private volatile Map<UUID, Note> notes = new LinkedHashMap<>();
+    private volatile Map<UUID, Note> notes = new LinkedHashMap<>(); //TODO: мне кажется, сохранять в БД нужно только при выборе пользователем решения о выходе из приложения.
 
     public CachedFileNoteRepository(DbConnector dbConnector, DbLineValidator dbLineValidator, NoteSerializer noteSerializer) {
         this.dbConnector = dbConnector;
         this.dbLineValidator = dbLineValidator;
         this.noteSerializer = noteSerializer;
         this.pathToDbFile = dbConnector.getPath();
+        init();
     }
 
     protected void init() {
@@ -51,19 +52,17 @@ public class CachedFileNoteRepository implements NoteRepository {
     }
 
     @Override
-    public boolean saveToDb() {
-        List<String> strings = notes.values()
-                .stream()
-                .map(noteSerializer::serialize)
-                .toList();
-        FileUtil.saveAll(pathToDbFile, strings);
-        return true;
+    public void save(Note note) {
+        notes.put(note.getMetadata().getId(), note);
+        saveToDb();//TODO: мне кажется, сохранять в БД нужно только при выборе пользователем решения о выходе из приложения.
     }
+
 
     @Override
     public boolean delete(UUID id) {
         if(!notes.containsKey(id)) return false;
         notes.remove(id);
+        saveToDb();//TODO: мне кажется, сохранять в БД нужно только при выборе пользователем решения о выходе из приложения.
         return true;
     }
 
@@ -71,6 +70,15 @@ public class CachedFileNoteRepository implements NoteRepository {
     public boolean update(Note note) {
         UUID actualId = note.getMetadata().getId();
         notes.put(actualId, note);
+        saveToDb();//TODO: мне кажется, сохранять в БД нужно только при выборе пользователем решения о выходе из приложения.
         return true;
+    }
+
+    private void saveToDb() { //TODO: мне кажется, сохранять в БД нужно только при выборе пользователем решения о выходе из приложения.
+        List<String> strings = notes.values()
+                .stream()
+                .map(noteSerializer::serialize)
+                .toList();
+        FileUtil.saveAll(pathToDbFile, strings);
     }
 }
