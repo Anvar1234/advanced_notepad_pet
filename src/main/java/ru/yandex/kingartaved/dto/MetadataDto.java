@@ -14,7 +14,7 @@ public final class MetadataDto {
     private final LocalDateTime createdAt;
     private final LocalDateTime remindAt;
     private final LocalDateTime updatedAt;
-    private final Boolean pinned;
+    private final boolean pinned;
     private final NotePriorityEnum priority;
     private final NoteStatusEnum status;
     private final NoteTypeEnum type;
@@ -41,7 +41,7 @@ public final class MetadataDto {
         private LocalDateTime createdAt;
         private LocalDateTime remindAt;
         private LocalDateTime updatedAt;
-        private Boolean pinned;
+        private boolean pinned;
         private NotePriorityEnum priority;
         private NoteStatusEnum status;
         private NoteTypeEnum type;
@@ -74,7 +74,7 @@ public final class MetadataDto {
             return this;
         }
 
-        public Builder pinned(Boolean pinned) {
+        public Builder pinned(boolean pinned) {
             this.pinned = pinned;
             return this;
         }
@@ -119,7 +119,7 @@ public final class MetadataDto {
         return updatedAt;
     }
 
-    public Boolean isPinned() {
+    public boolean isPinned() {
         return pinned;
     }
 

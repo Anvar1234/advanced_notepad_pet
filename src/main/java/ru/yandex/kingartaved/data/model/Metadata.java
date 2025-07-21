@@ -13,7 +13,7 @@ public final class Metadata {
     private final LocalDateTime createdAt;
     private final LocalDateTime remindAt;
     private final LocalDateTime updatedAt;
-    private final Boolean pinned;
+    private final boolean pinned;
     private final NotePriorityEnum priority;
     private final NoteStatusEnum status;
     private final NoteTypeEnum type;
@@ -40,7 +40,7 @@ public final class Metadata {
         private LocalDateTime createdAt = LocalDateTime.now(); // Значение по умолчанию
         private LocalDateTime remindAt = null; // Значение по умолчанию
         private LocalDateTime updatedAt = LocalDateTime.now(); // Значение по умолчанию
-        private Boolean pinned = null; // Значение по умолчанию
+        private boolean pinned = false; // Значение по умолчанию (если не указать - все равно будет фолс)
         private NotePriorityEnum priority = NotePriorityEnum.BASE; // Значение по умолчанию
         private NoteStatusEnum status = NoteStatusEnum.ACTIVE; // Значение по умолчанию
         private NoteTypeEnum type; // Обязательное поле (без дефолтного значения)
@@ -72,7 +72,7 @@ public final class Metadata {
             return this;
         }
 
-        public Builder pinned(Boolean pinned) {
+        public Builder pinned(boolean pinned) {
             this.pinned = pinned;
             return this;
         }
@@ -117,7 +117,7 @@ public final class Metadata {
         return updatedAt;
     }
 
-    public Boolean isPinned() {
+    public boolean isPinned() {
         return pinned;
     }
 

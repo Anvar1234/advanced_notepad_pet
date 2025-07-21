@@ -6,6 +6,6 @@ import ru.yandex.kingartaved.dto.MetadataDto;
 
 public interface MetadataService {
 
-    Metadata createMetadata(MetadataDto metadataDto);
+    Metadata createMetadata(MetadataDto validMetadataDto);
 }
 

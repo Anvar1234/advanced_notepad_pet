@@ -1,5 +1,6 @@
 package ru.yandex.kingartaved.service.content_service.impl;
 
+import ru.yandex.kingartaved.data.constant.NoteTypeEnum;
 import ru.yandex.kingartaved.data.model.ChecklistItem;
 import ru.yandex.kingartaved.data.model.Content;
 import ru.yandex.kingartaved.data.model.impl.ChecklistContent;
@@ -10,21 +11,24 @@ import ru.yandex.kingartaved.service.content_service.ContentService;
 
 import java.util.List;
 
-public class ChecklistContentService implements ContentService<ChecklistContent> {
+public class ChecklistContentService implements ContentService<ChecklistContentDto> {
 
 //    private Map<ServiceCommandEnum, методы этого класса> commandsAndActionsRegistry;
 
     @Override
-    public ChecklistContent createContent(ContentDto contentDto) {
-        if (!(contentDto instanceof ChecklistContentDto dto)) {
-            throw new IllegalArgumentException("Ожидался ChecklistContentDto");
-        }
+    public ChecklistContent createContent(ChecklistContentDto validContentDto) {
 
-        return new ChecklistContent(dto.items().stream()
+        return new ChecklistContent(
+                validContentDto.tasks().stream()
                 .map(itemDto -> new ChecklistItem(
                         itemDto.text(),
                         itemDto.isDone()))
                 .toList());
+    }
+
+    @Override
+    public NoteTypeEnum getSupportedType() {
+        return NoteTypeEnum.CHECKLIST;
     }
 
 

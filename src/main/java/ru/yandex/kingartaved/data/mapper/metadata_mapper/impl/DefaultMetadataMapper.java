@@ -46,11 +46,9 @@ public class DefaultMetadataMapper implements MetadataMapper {
             builder.updatedAt(metadataDto.getUpdatedAt());
         }
 
-        builder.remindAt(metadataDto.getRemindAt()); // remindAt устанавливается всегда, даже если null, так как может быть null.
+        builder.remindAt(metadataDto.getRemindAt()); // todo: remindAt устанавливается всегда, даже если null, так как может быть null.
 
-        if(metadataDto.isPinned()){
-            builder.pinned(true);
-        }
+        builder.pinned(metadataDto.isPinned()); //todo: устанавливается всегда: если заметка новая, то установится по умолчанию, если придет true/false - тоже установится.
 
         if (metadataDto.getPriority() != null) {
             builder.priority(metadataDto.getPriority());
