@@ -24,7 +24,7 @@ public enum FileDbConnector implements DbConnector {
     public void initializeStorage() {
         try {
             DataValidationUtil.validatePath(STRING_PATH);
-            Path pathToDb = DataValidationUtil.getPath(STRING_PATH);
+            Path pathToDb = getPath();
             FileUtil.createFile(pathToDb);
         } catch (IllegalArgumentException | FileOperationException e) {
             String errorMessage = ErrorMessage.DB_CONNECTION_ERROR.getMessage();
@@ -32,5 +32,10 @@ public enum FileDbConnector implements DbConnector {
             LOGGER.log(Level.SEVERE, logMessage, e);
             throw new DbConnectionException(errorMessage, e);
         }
+    }
+
+    @Override
+    public Path getPath() {
+        return DataValidationUtil.getPath(STRING_PATH);
     }
 }

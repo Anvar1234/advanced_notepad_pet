@@ -7,6 +7,7 @@ public enum ServiceCommandEnum {
     SET_REMIND("Установить напоминание"),
     SET_PINNED("Закрепить"),
     SET_STATUS("Изменить статус"),
+    REMOVE("Изменить статус")
     ; //TODO: добавить поле description в Note, чтобы отображать краткое содержание поля contentDto
 
     /*
@@ -21,6 +22,7 @@ public enum ServiceCommandEnum {
     }
 
     public String getDescription() {
+        CREATE.getClass();
         return description;
     }
 }

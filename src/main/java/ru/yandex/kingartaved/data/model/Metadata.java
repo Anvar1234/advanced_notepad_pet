@@ -34,17 +34,16 @@ public final class Metadata {
         return new Builder();
     }
 
-    //TODO: переделать, некоторые поля должны быть инициализированы по умолчанию.
     public static class Builder {
-        private UUID id;
-        private String title;
-        private LocalDateTime createdAt;
-        private LocalDateTime remindAt;
-        private LocalDateTime updatedAt;
-        private boolean pinned;
-        private NotePriorityEnum priority;
-        private NoteStatusEnum status;
-        private NoteTypeEnum type;
+        private UUID id = UUID.randomUUID(); // Значение по умолчанию
+        private String title; // Обязательное поле (без дефолтного значения)
+        private LocalDateTime createdAt = LocalDateTime.now(); // Значение по умолчанию
+        private LocalDateTime remindAt = null; // Значение по умолчанию
+        private LocalDateTime updatedAt = LocalDateTime.now(); // Значение по умолчанию
+        private boolean pinned = false; // Значение по умолчанию (если не указать - все равно будет фолс)
+        private NotePriorityEnum priority = NotePriorityEnum.BASE; // Значение по умолчанию
+        private NoteStatusEnum status = NoteStatusEnum.ACTIVE; // Значение по умолчанию
+        private NoteTypeEnum type; // Обязательное поле (без дефолтного значения)
 
         private Builder(){}
 

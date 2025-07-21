@@ -28,17 +28,41 @@ public class DefaultMetadataMapper implements MetadataMapper {
 
     @Override
     public Metadata mapDtoToEntity(MetadataDto metadataDto) {
-        return Metadata.builder()
-                .id(metadataDto.getId())
-                .title(metadataDto.getTitle())
-                .createdAt(metadataDto.getCreatedAt())
-                .updatedAt(metadataDto.getUpdatedAt())
-                .remindAt(metadataDto.getRemindAt())
-                .pinned(metadataDto.isPinned())
-                .priority(metadataDto.getPriority())
-                .status(metadataDto.getStatus())
-                .type(metadataDto.getType())
-                .build();
+        Metadata.Builder builder = Metadata.builder();
+
+        if (metadataDto.getId() != null) {
+            builder.id(metadataDto.getId());
+        }
+
+        if (metadataDto.getTitle() != null) {
+            builder.title(metadataDto.getTitle());
+        }
+
+        if (metadataDto.getCreatedAt() != null) {
+            builder.createdAt(metadataDto.getCreatedAt());
+        }
+
+        if (metadataDto.getUpdatedAt() != null) {
+            builder.updatedAt(metadataDto.getUpdatedAt());
+        }
+
+        builder.remindAt(metadataDto.getRemindAt()); // todo: remindAt устанавливается всегда, даже если null, так как может быть null.
+
+        builder.pinned(metadataDto.isPinned()); //todo: устанавливается всегда: если заметка новая, то установится по умолчанию, если придет true/false - тоже установится.
+
+        if (metadataDto.getPriority() != null) {
+            builder.priority(metadataDto.getPriority());
+        }
+
+        if (metadataDto.getStatus() != null) {
+            builder.status(metadataDto.getStatus());
+        }
+
+        if (metadataDto.getType() != null) {
+            builder.type(metadataDto.getType());
+        }
+
+        return builder.build();
     }
 }
 

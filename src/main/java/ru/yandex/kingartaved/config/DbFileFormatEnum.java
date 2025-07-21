@@ -1,4 +1,4 @@
-package ru.yandex.kingartaved.data.constant;
+package ru.yandex.kingartaved.config;
 
 public enum DbFileFormatEnum {
 

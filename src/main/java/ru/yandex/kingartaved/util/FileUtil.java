@@ -57,9 +57,9 @@ public final class FileUtil {
     public static void saveAll(Path filePath, List<String> data) {
         try {
             Files.write(filePath, data); // Перезапись
-            LOGGER.info("Data successfully written to file: " + filePath);
+            LOGGER.info("Данные записаны в файл: " + filePath);
         } catch (IOException e) {
-            LOGGER.warning("Failed to write to file: " + filePath + ". Error: " + e.getMessage());
+            LOGGER.warning("Ошибка сохранения в файл: " + filePath + ". Error: " + e.getMessage());
         }
     }
 

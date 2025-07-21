@@ -1,8 +1,5 @@
 package ru.yandex.kingartaved.data.model;
 
-//public record Note(Metadata metadata, Content content) {
-//}
-
 public final class Note {
     private final Metadata metadata;
     private final Content content;
@@ -19,5 +16,4 @@ public final class Note {
     public Content getContent() {
         return content;
     }
-
 }
