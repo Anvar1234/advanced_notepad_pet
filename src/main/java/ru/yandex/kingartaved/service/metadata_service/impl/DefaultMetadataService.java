@@ -7,6 +7,7 @@ import ru.yandex.kingartaved.service.metadata_service.MetadataService;
 
 public class DefaultMetadataService implements MetadataService {
 
+    //todo: а здесь не нужно возвращать ДТО а не Метадата?
     @Override
     public Metadata createMetadata(MetadataDto validMetadataDto) { //здесь все поля кроме title & type == null
         //todo: здесь маппинг, видимо и проверка на пустоту заголовка.

@@ -5,8 +5,10 @@ import ru.yandex.kingartaved.dto.ContentDto;
 
 import java.util.Scanner;
 
-public interface ContentView {
+public interface ContentView<T extends ContentDto> {
 
-    ContentDto createContentDto(Scanner scanner);
+    T createContentDto(Scanner scanner);
     NoteTypeEnum getSupportedType();
+
+    void getBodyView(T contentDto);
 }

@@ -21,7 +21,7 @@ public class ChecklistContentMapperImpl implements ContentMapper<ChecklistConten
 
     @Override
     public ChecklistContent mapDtoToEntity(ChecklistContentDto contentDto) {
-        return new ChecklistContent(contentDto.items().stream()
+        return new ChecklistContent(contentDto.tasks().stream()
                 .map(itemDto -> new ChecklistItem(itemDto.text(), itemDto.isDone()))
                 .collect(Collectors.toList()));
 

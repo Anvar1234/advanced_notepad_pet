@@ -12,7 +12,7 @@ import java.util.UUID;
 public interface NoteRepository{
     Optional<Note> findById(UUID id);
     List<Note> findAll();
-    void save(Note note); //TODO: мне кажется, сохранять в БД нужно только при выборе пользователем решения о выходе из приложения.
+    void saveToCache(Note note); //TODO: мне кажется, сохранять в БД нужно только при выборе пользователем решения о выходе из приложения.
     boolean delete(UUID id);
     boolean update(Note note);
 }

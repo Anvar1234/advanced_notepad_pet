@@ -18,4 +18,20 @@ public class DefaultMetadataView implements MetadataView {
                 .title(title)
                 .build();
     }
+
+    public void getHeader(MetadataDto metadataDto){
+        System.out.println("Тип: " + metadataDto.getType().getDescription());
+        System.out.println("Название: " + metadataDto.getTitle());
+    }
+
+    public void getFooter(MetadataDto metadataDto){
+        System.out.printf
+                ("Создано: %s | Изменено: %s | Статус: %s",
+                        metadataDto.getCreatedAt(),
+                        metadataDto.getUpdatedAt(),
+                        metadataDto.getStatus().getDescription()
+                );
+    }
+
+
 }

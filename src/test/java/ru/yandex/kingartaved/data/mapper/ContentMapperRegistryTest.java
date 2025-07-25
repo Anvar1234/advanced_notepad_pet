@@ -8,6 +8,7 @@ import org.junit.jupiter.api.function.Executable;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 import ru.yandex.kingartaved.data.constant.NoteTypeEnum;
+import ru.yandex.kingartaved.data.mapper.content_mapper.ContentMapperRegistry;
 
 import static org.junit.jupiter.api.Assertions.*;
 
