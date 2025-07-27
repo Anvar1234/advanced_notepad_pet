@@ -1,6 +1,7 @@
 package ru.yandex.kingartaved.view.content_view;
 
 import ru.yandex.kingartaved.data.constant.NoteTypeEnum;
+import ru.yandex.kingartaved.dto.ContentDto;
 import ru.yandex.kingartaved.util.LoggerUtil;
 
 import java.util.HashMap;
@@ -12,7 +13,7 @@ import java.util.logging.Logger;
 public class ContentViewRegistry {
 
     private static final Logger LOGGER = LoggerUtil.getLogger(ContentViewRegistry.class);
-    private static final Map<NoteTypeEnum, ContentView> CONTENT_VIEW_REGISTRY = new HashMap<>();
+    private static final Map<NoteTypeEnum, ContentView<?>> CONTENT_VIEW_REGISTRY = new HashMap<>();
     private static boolean isInitialized = false;
 
     private static synchronized void initialize() {
@@ -26,10 +27,10 @@ public class ContentViewRegistry {
         }
     }
 
-    public ContentView getContentView(NoteTypeEnum type) {
+    public <T extends ContentDto> ContentView<T> getContentView(NoteTypeEnum type) {
         initialize();
 
-        ContentView contentView = CONTENT_VIEW_REGISTRY.get(type);
+        ContentView<?> contentView = CONTENT_VIEW_REGISTRY.get(type);
         if (contentView == null) {
             LOGGER.log(
                     Level.WARNING,
@@ -39,6 +40,6 @@ public class ContentViewRegistry {
 
             throw new IllegalArgumentException("Нет экрана для заметок типа: " + type);
         }
-        return contentView;
+        return (ContentView<T>) contentView;
     }
 }

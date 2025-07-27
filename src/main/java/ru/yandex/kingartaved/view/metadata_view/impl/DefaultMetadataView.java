@@ -1,7 +1,6 @@
 package ru.yandex.kingartaved.view.metadata_view.impl;
 
 import ru.yandex.kingartaved.data.constant.NoteTypeEnum;
-import ru.yandex.kingartaved.data.model.Metadata;
 import ru.yandex.kingartaved.dto.MetadataDto;
 import ru.yandex.kingartaved.view.metadata_view.MetadataView;
 
@@ -19,14 +18,19 @@ public class DefaultMetadataView implements MetadataView {
                 .build();
     }
 
-    public void getHeader(MetadataDto metadataDto){
-        System.out.println("Тип: " + metadataDto.getType().getDescription());
+
+    public void renderHeader(MetadataDto metadataDto) {
+//        System.out.println("Тип: " + metadataDto.getType().getDescription());
         System.out.println("Название: " + metadataDto.getTitle());
     }
 
-    public void getFooter(MetadataDto metadataDto){
+    public void renderFooter(MetadataDto metadataDto) {
         System.out.printf
-                ("Создано: %s | Изменено: %s | Статус: %s",
+                ("""
+                                Создана: %s
+                                Изменена: %s
+                                Статус: %s
+                                """,
                         metadataDto.getCreatedAt(),
                         metadataDto.getUpdatedAt(),
                         metadataDto.getStatus().getDescription()

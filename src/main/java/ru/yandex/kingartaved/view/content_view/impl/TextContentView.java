@@ -22,7 +22,7 @@ public class TextContentView implements ContentView<TextContentDto> {
     }
 
     @Override
-    public void getBodyView(TextContentDto textContentDto) {
+    public void renderContent(TextContentDto textContentDto) {
         String border = "-----------------------------------";
         String contentText = textContentDto.text();
         String[] words = contentText.split(" ");

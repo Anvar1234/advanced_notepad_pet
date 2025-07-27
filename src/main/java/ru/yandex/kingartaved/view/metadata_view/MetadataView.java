@@ -8,4 +8,6 @@ import java.util.Scanner;
 public interface MetadataView {
 
     MetadataDto createMetadataDto(Scanner scanner, NoteTypeEnum type);
+    void renderHeader(MetadataDto metadataDto);
+    void renderFooter(MetadataDto metadataDto);
 }

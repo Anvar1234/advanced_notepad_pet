@@ -7,10 +7,6 @@ import ru.yandex.kingartaved.exception.constant.ErrorMessage;
 
 public class DefaultMetadataMapper implements MetadataMapper {
 
-    private DefaultMetadataMapper() {
-        throw new UnsupportedOperationException(ErrorMessage.UTILITY_CLASS.getMessage());
-    }
-
     @Override
     public MetadataDto mapEntityToDto(Metadata metadata) {
         return MetadataDto.builder()

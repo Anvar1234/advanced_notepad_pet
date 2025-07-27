@@ -10,5 +10,5 @@ public interface ContentView<T extends ContentDto> {
     T createContentDto(Scanner scanner);
     NoteTypeEnum getSupportedType();
 
-    void getBodyView(T contentDto);
+    void renderContent(T contentDto);
 }
