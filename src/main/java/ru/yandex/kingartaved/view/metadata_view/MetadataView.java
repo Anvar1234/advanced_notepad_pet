@@ -2,12 +2,13 @@ package ru.yandex.kingartaved.view.metadata_view;
 
 import ru.yandex.kingartaved.data.constant.NoteTypeEnum;
 import ru.yandex.kingartaved.dto.MetadataDto;
+import ru.yandex.kingartaved.dto.request.CreateNewMetadataRequestDto;
 
 import java.util.Scanner;
 
 public interface MetadataView {
 
-    MetadataDto createMetadataDto(Scanner scanner, NoteTypeEnum type);
-    void renderHeader(MetadataDto metadataDto);
+    CreateNewMetadataRequestDto createMetadataDto(Scanner scanner, NoteTypeEnum type);
+    void renderHeader(MetadataDto metadataDto, int tableWidth, String delimiterSymbol);
     void renderFooter(MetadataDto metadataDto);
 }

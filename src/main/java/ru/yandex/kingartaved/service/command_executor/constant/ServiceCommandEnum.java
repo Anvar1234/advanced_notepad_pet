@@ -1,4 +1,4 @@
-package ru.yandex.kingartaved.service.constant;
+package ru.yandex.kingartaved.service.command_executor.constant;
 
 public enum ServiceCommandEnum {
     CREATE("Создать новую заметку"), //перед созданием юзер выбирает тип заметки (список, чеклист), title тоже устанавливается здесь.
@@ -7,7 +7,7 @@ public enum ServiceCommandEnum {
     SET_REMIND("Установить напоминание"),
     SET_PINNED("Закрепить"),
     SET_STATUS("Изменить статус"),
-    REMOVE("Изменить статус")
+    REMOVE("Удалить")
     ; //TODO: добавить поле description в Note, чтобы отображать краткое содержание поля contentDto
 
     /*

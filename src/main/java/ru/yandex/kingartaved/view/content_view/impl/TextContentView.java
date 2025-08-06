@@ -1,5 +1,6 @@
 package ru.yandex.kingartaved.view.content_view.impl;
 
+import ru.yandex.kingartaved.config.AppConfig;
 import ru.yandex.kingartaved.data.constant.NoteTypeEnum;
 import ru.yandex.kingartaved.dto.impl.TextContentDto;
 import ru.yandex.kingartaved.view.content_view.ContentView;
@@ -7,6 +8,7 @@ import ru.yandex.kingartaved.view.content_view.ContentView;
 import java.util.Scanner;
 
 public class TextContentView implements ContentView<TextContentDto> {
+
 
     @Override
     public TextContentDto createContentDto(Scanner scanner) {
@@ -22,13 +24,13 @@ public class TextContentView implements ContentView<TextContentDto> {
     }
 
     @Override
-    public void renderContent(TextContentDto textContentDto) {
-        String border = "-----------------------------------";
+    public void renderContent(TextContentDto textContentDto, int tableWidth, String delimiterSymbol) {
+
+        String textColumnHeaderAndBodyDelimiter = delimiterSymbol.repeat(tableWidth);
+
         String contentText = textContentDto.text();
         String[] words = contentText.split(" ");
-        int maxLength = border.length();
-
-        System.out.println(border);
+        int maxLength = textColumnHeaderAndBodyDelimiter.length();
 
         // Если текст короче границы — выводим как есть
         if (contentText.length() <= maxLength) {
@@ -55,6 +57,6 @@ public class TextContentView implements ContentView<TextContentDto> {
             }
         }
 
-        System.out.println(border);
+        System.out.println(textColumnHeaderAndBodyDelimiter);
     }
 }

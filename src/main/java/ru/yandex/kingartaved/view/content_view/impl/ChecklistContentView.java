@@ -1,5 +1,6 @@
 package ru.yandex.kingartaved.view.content_view.impl;
 
+import ru.yandex.kingartaved.config.AppConfig;
 import ru.yandex.kingartaved.data.constant.NoteTypeEnum;
 import ru.yandex.kingartaved.dto.ChecklistItemDto;
 import ru.yandex.kingartaved.dto.impl.ChecklistContentDto;
@@ -11,11 +12,9 @@ import java.util.Scanner;
 
 public class ChecklistContentView implements ContentView<ChecklistContentDto> {
 
-    //Эти литералы вынести в поля класса (или в конфиги).
-    private static final int TABLE_WIDTH = 50;
-    private static final String ID_COLUMN_HEADER = "ID  ";
-    private static final String STATUS_COLUMN_HEADER = " Статус ";
-    private static final String TASK_COLUMN_HEADER = " Задача";
+    private static final String ID_COLUMN_NAME = "ID  ";
+    private static final String STATUS_COLUMN_NAME = " Статус ";
+    private static final String TASK_COLUMN_NAME = " Задача";
 
     @Override
     public ChecklistContentDto createContentDto(Scanner scanner) {
@@ -41,28 +40,20 @@ public class ChecklistContentView implements ContentView<ChecklistContentDto> {
     }
 
     @Override
-    public void renderContent(ChecklistContentDto contentDto) { //todo: добавить обработку очень длинного слова.
+    public void renderContent(ChecklistContentDto contentDto, int tableWidth, String delimiterSymbol) { //todo: добавить обработку очень длинного слова.
 
-        //todo: вынести в параметры метода renderContent.
-        int taskColumnHeaderAndBodyDelimiterWidth = TABLE_WIDTH
-                - ID_COLUMN_HEADER.length()
+        //todo: вынести TABLE_WIDTH и DELIMITER_SYMBOL в параметры метода renderContent.
+        int taskColumnHeaderAndBodyDelimiterWidth = tableWidth
+                - ID_COLUMN_NAME.length()
                 - 1
-                - STATUS_COLUMN_HEADER.length()
+                - STATUS_COLUMN_NAME.length()
                 - 1;
 
-        StringBuilder buffer = new StringBuilder();
+        String idColumnHeaderAndBodyDelimiter = delimiterSymbol.repeat(ID_COLUMN_NAME.length());
 
-        buffer.append("-".repeat(ID_COLUMN_HEADER.length()));
-        String idColumnHeaderAndBodyDelimiter = buffer.toString();
-        buffer.setLength(0);
+        String statusColumnHeaderAndBodyDelimiter = delimiterSymbol.repeat(STATUS_COLUMN_NAME.length());
 
-        buffer.append("-".repeat(STATUS_COLUMN_HEADER.length()));
-        String statusColumnHeaderAndBodyDelimiter = buffer.toString();
-        buffer.setLength(0);
-
-        buffer.append("-".repeat(taskColumnHeaderAndBodyDelimiterWidth));
-        String taskTextColumnHeaderAndBodyDelimiter = buffer.toString();
-        buffer.setLength(0);
+        String taskTextColumnHeaderAndBodyDelimiter = delimiterSymbol.repeat(taskColumnHeaderAndBodyDelimiterWidth);
 
         //нужно нарисовать
         /**
@@ -82,7 +73,7 @@ public class ChecklistContentView implements ContentView<ChecklistContentDto> {
          * ID  | Статус | Задача
          * ----|--------|-----------------------------------
          */
-        System.out.println(ID_COLUMN_HEADER + "|" + STATUS_COLUMN_HEADER + "|" + TASK_COLUMN_HEADER);
+        System.out.println(ID_COLUMN_NAME + "|" + STATUS_COLUMN_NAME + "|" + TASK_COLUMN_NAME);
         System.out.println(idColumnHeaderAndBodyDelimiter + "|" + statusColumnHeaderAndBodyDelimiter + "|" + taskTextColumnHeaderAndBodyDelimiter);
 
         List<ChecklistItemDto> tasks = List.copyOf(contentDto.tasks());
@@ -144,9 +135,9 @@ public class ChecklistContentView implements ContentView<ChecklistContentDto> {
     /**
      * Рисуем:
      * 01  |   ✗    |Это новый текст заметки чек-листа
-     *     |        |пробный для посмотреть такой
-     *     |        |длинный текст вроде бы должен
-     *     |        |корректно отобразиться
+     * |        |пробный для посмотреть такой
+     * |        |длинный текст вроде бы должен
+     * |        |корректно отобразиться
      * ----|--------|-----------------------------------
      * 02  |   ✓    |Короткая заметка
      * ----|--------|-----------------------------------
@@ -162,11 +153,11 @@ public class ChecklistContentView implements ContentView<ChecklistContentDto> {
         StringBuilder buffer = new StringBuilder();
 
         //создаем пустые значения колонок id, status
-        buffer.append(" ".repeat(ID_COLUMN_HEADER.length()));
+        buffer.append(" ".repeat(ID_COLUMN_NAME.length()));
         String idColumnSpaces = buffer.toString();
         buffer.setLength(0);
 
-        buffer.append(" ".repeat(STATUS_COLUMN_HEADER.length()));
+        buffer.append(" ".repeat(STATUS_COLUMN_NAME.length()));
         String statusColumnSpaces = buffer.toString();
         buffer.setLength(0);
 
@@ -226,12 +217,12 @@ public class ChecklistContentView implements ContentView<ChecklistContentDto> {
         return result;
     }
 
-    public static void main(String[] args) {
-        List<ChecklistItemDto> items = new ArrayList<>();
-        items.add(new ChecklistItemDto("Это новый текст заметки чек-листа пробный для посмотреть такой длинный текст вроде бы должен корректно отобразиться", false));
-        items.add(new ChecklistItemDto("Короткая заметка", true));
-        ChecklistContentView contentView = new ChecklistContentView();
-        contentView.renderContent(new ChecklistContentDto(items));
-
-    }
+//    public static void main(String[] args) {
+//        List<ChecklistItemDto> items = new ArrayList<>();
+//        items.add(new ChecklistItemDto("Это новый текст заметки чек-листа пробный для посмотреть такой длинный текст вроде бы должен корректно отобразиться", false));
+//        items.add(new ChecklistItemDto("Короткая заметка", true));
+//        ChecklistContentView contentView = new ChecklistContentView();
+//        contentView.renderContent(new ChecklistContentDto(items));
+//
+//    }
 }

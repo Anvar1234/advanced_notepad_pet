@@ -17,7 +17,9 @@ public final class AppConfig { //TODO: сделать неизменяемым (
     // Требования к заголовку (title)
     public static final int MAX_TITLE_LENGTH = 10;
 
-
+    //Требования к отображению
+    public static final int TABLE_WIDTH = 50;
+    public static final String DELIMITER_SYMBOL = "-";
 
     public static final String USER_DB_JSON_FILE = "users.json";
     public static final String ACCOUNT_DB_JSON_FILE = "accounts.json";

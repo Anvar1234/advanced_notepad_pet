@@ -1,5 +1,6 @@
 package ru.yandex.kingartaved.view.impl;
 
+import ru.yandex.kingartaved.config.AppConfig;
 import ru.yandex.kingartaved.controller.NoteController;
 import ru.yandex.kingartaved.data.constant.NoteTypeEnum;
 import ru.yandex.kingartaved.data.mapper.NoteMapper;
@@ -16,7 +17,8 @@ import ru.yandex.kingartaved.data.model.impl.TextContent;
 import ru.yandex.kingartaved.dto.ContentDto;
 import ru.yandex.kingartaved.dto.MetadataDto;
 import ru.yandex.kingartaved.dto.NoteDto;
-import ru.yandex.kingartaved.view.NoteView;
+import ru.yandex.kingartaved.dto.request.CreateNewMetadataRequestDto;
+import ru.yandex.kingartaved.dto.request.CreateNewNoteRequestDto;
 import ru.yandex.kingartaved.view.content_view.ContentView;
 import ru.yandex.kingartaved.view.content_view.ContentViewRegistry;
 import ru.yandex.kingartaved.view.metadata_view.MetadataView;
@@ -27,16 +29,19 @@ import java.util.List;
 import java.util.Scanner;
 
 public class DefaultNoteView {
+    private static final int TABLE_WIDTH = AppConfig.TABLE_WIDTH;
+    private static final String DELIMITER_SYMBOL = AppConfig.DELIMITER_SYMBOL;
+    private static final String AROUND_SYMBOL = "=";
 
     MetadataView metadataView;
     ContentViewRegistry contentViewRegistry;
-//    NoteController controller;
+    NoteController controller;
     Scanner scanner;
 
-    public DefaultNoteView(MetadataView metadataView, ContentViewRegistry contentViewRegistry,Scanner scanner){//, NoteController controller) {
+    public DefaultNoteView(MetadataView metadataView, ContentViewRegistry contentViewRegistry, Scanner scanner, NoteController controller) {
         this.metadataView = metadataView;
         this.contentViewRegistry = contentViewRegistry;
-//        this.controller = controller;
+        this.controller = controller;
         this.scanner = scanner;
     }
 
@@ -65,19 +70,24 @@ public class DefaultNoteView {
             choice = scanner.nextInt();
             NoteTypeEnum type = values[choice];
 
-            MetadataDto metadataDto = metadataView
+            CreateNewMetadataRequestDto createNewMetadataRequestDto = metadataView //пока только title & type
                     .createMetadataDto(scanner, type);
 
             ContentDto contentDto = contentViewRegistry.getContentView(type)
                     .createContentDto(scanner);
 
-            NoteDto noteDto = new NoteDto(metadataDto, contentDto);
+            CreateNewNoteRequestDto createNewNoteRequestDto = new CreateNewNoteRequestDto(createNewMetadataRequestDto, contentDto);
 
-//            NoteDto createdNoteDto = controller.createNote(noteDto);
+            NoteDto createdNoteDto = controller.createNote(createNewNoteRequestDto);
 
             //todo: сохраняем созданную заметку (в кеш репозитория в сервисе),
             // отображаем заметку (подробная инфа) и переходим в метод read(), где меню для этой заметки: изменить, удалить и тд,
             // скорее всего из контроллера метод update(type).
+            renderNote(createdNoteDto);
+
+
+
+
 
 //            System.out.println(createdNoteDto.toString());//отображаем созданную заметку
 //            controller.readNote(NoteDto noteDto)  //экран контента опять выбирается из реестра.
@@ -91,19 +101,31 @@ public class DefaultNoteView {
 
     }
 
+
+    private void renderNoteHeader(NoteTypeEnum noteType) {
+
+        String typeDescription = noteType.getDescription();
+
+        String typeDescriptionAndAroundSymbols = AROUND_SYMBOL + AROUND_SYMBOL + typeDescription + AROUND_SYMBOL + AROUND_SYMBOL;
+        int headerBordersLength = (TABLE_WIDTH - typeDescriptionAndAroundSymbols.length()) / 2;
+
+        String border = "-".repeat(headerBordersLength);
+
+        System.out.println(border + typeDescriptionAndAroundSymbols + border);
+    }
+
     public void renderNote(NoteDto noteDto) { //TODO: как отображается при выборе конкретной заметки
         MetadataDto metadataDto = noteDto.metadataDto();
         ContentDto contentDto = noteDto.contentDto();
         NoteTypeEnum noteType = metadataDto.getType();
         ContentView<ContentDto> contentView = contentViewRegistry.getContentView(noteType);
 
-        System.out.printf("--------------==%s==---------------\n", metadataDto.getType().getDescription());
-        metadataView.renderHeader(metadataDto);
-        contentView.renderContent(contentDto);
+        renderNoteHeader(noteType);
+        metadataView.renderHeader(metadataDto, TABLE_WIDTH, DELIMITER_SYMBOL);
+        contentView.renderContent(contentDto, TABLE_WIDTH, DELIMITER_SYMBOL);
         metadataView.renderFooter(metadataDto);
 
         System.out.println();
-
     }
 
     public void renderAllNotes() { //TODO: как отображается при выборе конкретной заметки
@@ -135,8 +157,8 @@ public class DefaultNoteView {
                 .build();
 
         List<ChecklistItem> items = new ArrayList<>();
-        items.add(new ChecklistItem("Это новый текст заметки чек-листа пробный для посмотреть такой длинный текст вроде бы должен корректно отобразиться", false));
-        items.add(new ChecklistItem("Короткая заметка", true));
+        items.add(new ChecklistItem("Это новый текст подзадачки чек-листа пробный для посмотреть такой длинный текст вроде бы должен корректно отобразиться", false));
+        items.add(new ChecklistItem("Короткая подзадачка", true));
 
         Content content2 = new ChecklistContent(items);
 
@@ -156,7 +178,7 @@ public class DefaultNoteView {
         Scanner scanner = new Scanner(System.in);
 
         DefaultNoteView noteView = new DefaultNoteView(metadataView, contentViewRegistry, scanner);
-        for (NoteDto noteDto : noteDtos){
+        for (NoteDto noteDto : noteDtos) {
             noteView.renderNote(noteDto);
         }
     }

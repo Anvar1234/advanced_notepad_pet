@@ -1,9 +1,13 @@
 package ru.yandex.kingartaved.service.impl;
 
+import ru.yandex.kingartaved.data.constant.NoteTypeEnum;
 import ru.yandex.kingartaved.data.mapper.NoteMapper;
+import ru.yandex.kingartaved.data.model.Content;
+import ru.yandex.kingartaved.data.model.Metadata;
 import ru.yandex.kingartaved.data.model.Note;
 import ru.yandex.kingartaved.data.repository.NoteRepository;
 import ru.yandex.kingartaved.dto.NoteDto;
+import ru.yandex.kingartaved.dto.request.CreateNewNoteRequestDto;
 import ru.yandex.kingartaved.service.NoteService;
 import ru.yandex.kingartaved.service.content_service.ContentServiceRegistry;
 import ru.yandex.kingartaved.service.metadata_service.MetadataService;
@@ -29,12 +33,21 @@ public class DefaultNoteService implements NoteService {
     }
 
     @Override
-    public NoteDto createNote(NoteDto validNoteDto) { //todo: верно ли, что из контроллера должен приходить валидный ДТО?
-        Note note = noteMapper.mapDtoToEntity(validNoteDto);
+    public NoteDto createNote(CreateNewNoteRequestDto createNewNoteRequestDto) { //todo: верно ли, что из контроллера должен приходить валидный ДТО?
+        NoteTypeEnum type = createNewNoteRequestDto.createNewMetadataRequestDto().type();
+
+        Metadata metadata = Metadata.builder() //todo: вот здесь уже метаданные заполняются по умолчанию.
+                .title(createNewNoteRequestDto.createNewMetadataRequestDto().title())
+                .type(type)
+                .build();
+
+        Content content = contentServiceRegistry.getContentService(type).createContent(createNewNoteRequestDto.contentDto());
+
+        Note note = new Note(metadata, content);
 
         repository.saveToCache(note);
 
-        return noteMapper.mapEntityToDto(note); //todo: правильно ли возвращать именно ДТО в контроллер?
+        return noteMapper.mapEntityToDto(note);
     }
 
 

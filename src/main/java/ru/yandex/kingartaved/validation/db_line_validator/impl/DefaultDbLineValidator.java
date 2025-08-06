@@ -20,7 +20,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static ru.yandex.kingartaved.config.FieldIndex.*;
-import static ru.yandex.kingartaved.validation.FieldValidationUtil.*;
 
 /**
  * Валидатор структуры строк из базы данных.
@@ -93,10 +92,10 @@ public class DefaultDbLineValidator implements DbLineValidator {
     void validateLineStructure(String[] parts, int... nullableIndexes) {// TODO: По окончании работ убрать nullableIndexes, если не понадобится.
         FieldValidationUtil.validateFieldsCount(parts, EXPECTED_FIELDS_COUNT);
         for (int i = 0; i < parts.length; i++) {
-            validateFieldNotBlank(parts[i], i, FieldIndex.values()[i].getFieldName());
-            validateFieldTrimmed(parts[i], i, FieldIndex.values()[i].getFieldName());
+            FieldValidationUtil.validateFieldNotBlank(parts[i], i, FieldIndex.values()[i].getFieldName());
+            FieldValidationUtil.validateFieldTrimmed(parts[i], i, FieldIndex.values()[i].getFieldName());
             if (DataValidationUtil.contains(i, nullableIndexes)) continue;
-            validateFieldNotEqualsStringNull(parts[i], i, FieldIndex.values()[i].getFieldName());
+            FieldValidationUtil.validateFieldNotEqualsStringNull(parts[i], i, FieldIndex.values()[i].getFieldName());
         }
     }
 
