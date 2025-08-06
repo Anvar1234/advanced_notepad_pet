@@ -1,13 +1,9 @@
 package ru.yandex.kingartaved.controller;
 
-import ru.yandex.kingartaved.data.constant.NoteTypeEnum;
-import ru.yandex.kingartaved.data.model.Note;
 import ru.yandex.kingartaved.dto.NoteDto;
-import ru.yandex.kingartaved.view.content_view.ContentViewRegistry;
-
-import java.util.Scanner;
+import ru.yandex.kingartaved.dto.request.CreateNewNoteRequestDto;
 
 public interface NoteController {
 
-    Note createNote(NoteDto noteDto);
+    NoteDto createNote(CreateNewNoteRequestDto noteDto);
 }

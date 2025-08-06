@@ -7,9 +7,13 @@ public enum NoteStatusEnum {
     POSTPONED("Отложенная"),
     ARCHIVED("Архивная");
 
-    private final String clientType;
+    private final String description;
 
-    NoteStatusEnum(String clientType) {
-        this.clientType = clientType;
+    NoteStatusEnum(String description) {
+        this.description = description;
+    }
+
+    public String getDescription(){
+        return description;
     }
 }

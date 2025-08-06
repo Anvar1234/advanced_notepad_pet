@@ -8,13 +8,13 @@ public enum NoteTypeEnum {
     // Временно для тестов
     TEST_UNSUPPORTED_TYPE("Неподдерживаемый тип для тестов");
 
-    private final String noteType;
+    private final String description;
 
-    NoteTypeEnum(String noteType) {
-        this.noteType = noteType;
+    NoteTypeEnum(String description) {
+        this.description = description;
     }
 
-    public String getNoteType() {
-        return noteType;
+    public String getDescription() {
+        return description;
     }
 }

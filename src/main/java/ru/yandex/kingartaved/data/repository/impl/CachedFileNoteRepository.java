@@ -52,7 +52,7 @@ public class CachedFileNoteRepository implements NoteRepository {
     }
 
     @Override
-    public void save(Note note) {
+    public void saveToCache(Note note) {
         notes.put(note.getMetadata().getId(), note);
 //        saveToDb();//TODO: мне кажется, сохранять в БД нужно только при выборе пользователем решения о выходе из приложения.
     }

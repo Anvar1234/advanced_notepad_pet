@@ -2,14 +2,9 @@ package ru.yandex.kingartaved.service.content_service.impl;
 
 import ru.yandex.kingartaved.data.constant.NoteTypeEnum;
 import ru.yandex.kingartaved.data.model.ChecklistItem;
-import ru.yandex.kingartaved.data.model.Content;
 import ru.yandex.kingartaved.data.model.impl.ChecklistContent;
-import ru.yandex.kingartaved.dto.ContentDto;
 import ru.yandex.kingartaved.dto.impl.ChecklistContentDto;
-import ru.yandex.kingartaved.service.constant.ServiceCommandEnum;
 import ru.yandex.kingartaved.service.content_service.ContentService;
-
-import java.util.List;
 
 public class ChecklistContentService implements ContentService<ChecklistContentDto> {
 

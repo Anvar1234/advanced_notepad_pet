@@ -5,6 +5,7 @@ import ru.yandex.kingartaved.data.constant.NoteStatusEnum;
 import ru.yandex.kingartaved.data.constant.NoteTypeEnum;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 //Так как нужно сеттить поля, то используем билдер, для построения иммутабельного объекта. TODO delete
@@ -134,4 +135,5 @@ public final class MetadataDto {
     public NoteTypeEnum getType() {
         return type;
     }
+
 }

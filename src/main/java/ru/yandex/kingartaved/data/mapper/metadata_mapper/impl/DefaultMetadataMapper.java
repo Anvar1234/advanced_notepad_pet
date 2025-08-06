@@ -7,10 +7,6 @@ import ru.yandex.kingartaved.exception.constant.ErrorMessage;
 
 public class DefaultMetadataMapper implements MetadataMapper {
 
-    private DefaultMetadataMapper() {
-        throw new UnsupportedOperationException(ErrorMessage.UTILITY_CLASS.getMessage());
-    }
-
     @Override
     public MetadataDto mapEntityToDto(Metadata metadata) {
         return MetadataDto.builder()
@@ -46,7 +42,7 @@ public class DefaultMetadataMapper implements MetadataMapper {
             builder.updatedAt(metadataDto.getUpdatedAt());
         }
 
-        builder.remindAt(metadataDto.getRemindAt()); // todo: remindAt устанавливается всегда, даже если null, так как может быть null.
+        builder.remindAt(metadataDto.getRemindAt()); // todo: remindAt устанавливается всегда, даже если null, так как может быть null если напоминание удалили.
 
         builder.pinned(metadataDto.isPinned()); //todo: устанавливается всегда: если заметка новая, то установится по умолчанию, если придет true/false - тоже установится.
 
