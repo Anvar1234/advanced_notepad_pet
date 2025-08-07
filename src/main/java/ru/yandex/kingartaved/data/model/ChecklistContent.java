@@ -1,12 +1,10 @@
-package ru.yandex.kingartaved.data.model.impl;
+package ru.yandex.kingartaved.data.model;
 
 import ru.yandex.kingartaved.data.constant.NoteTypeEnum;
-import ru.yandex.kingartaved.data.model.ChecklistItem;
-import ru.yandex.kingartaved.data.model.Content;
 
 import java.util.List;
 
-public final class ChecklistContent implements Content {
+public final class ChecklistContent extends Content {
     private final List<ChecklistItem> tasks;
 
     public ChecklistContent(List<ChecklistItem> tasks) {

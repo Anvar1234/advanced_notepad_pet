@@ -1,9 +1,9 @@
 package ru.yandex.kingartaved.view.content_view.impl;
 
-import ru.yandex.kingartaved.config.AppConfig;
 import ru.yandex.kingartaved.data.constant.NoteTypeEnum;
 import ru.yandex.kingartaved.dto.ChecklistItemDto;
-import ru.yandex.kingartaved.dto.impl.ChecklistContentDto;
+import ru.yandex.kingartaved.dto.ContentDto;
+import ru.yandex.kingartaved.dto.ChecklistContentDto;
 import ru.yandex.kingartaved.view.content_view.ContentView;
 
 import java.util.ArrayList;
@@ -15,6 +15,9 @@ public class ChecklistContentView implements ContentView<ChecklistContentDto> {
     private static final String ID_COLUMN_NAME = "ID  ";
     private static final String STATUS_COLUMN_NAME = " Статус ";
     private static final String TASK_COLUMN_NAME = " Задача";
+
+
+
 
     @Override
     public ChecklistContentDto createContentDto(Scanner scanner) {
@@ -35,6 +38,31 @@ public class ChecklistContentView implements ContentView<ChecklistContentDto> {
     }
 
     @Override
+    public void updateContent(Scanner scanner, ContentDto contentDto) {
+        System.out.println("Меню редактирования чек-листа:");
+        System.out.println("1.Добавить подзадачу");
+        System.out.println("2.Изменить текст подзадачи");
+        System.out.println("3.Отметить подзадачу выполненной");
+        System.out.println("4.Удалить подзадачу");
+
+        ChecklistContentDto checklistContentDto = (ChecklistContentDto) contentDto;
+        int choice = scanner.nextInt();
+
+        if (choice == 1){
+
+        }
+        if(choice == 2){
+
+        }
+        if (choice == 3){
+
+        }
+        if(choice == 4){
+
+        }
+    }
+
+    @Override
     public NoteTypeEnum getSupportedType() {
         return NoteTypeEnum.CHECKLIST;
     }
@@ -42,7 +70,6 @@ public class ChecklistContentView implements ContentView<ChecklistContentDto> {
     @Override
     public void renderContent(ChecklistContentDto contentDto, int tableWidth, String delimiterSymbol) { //todo: добавить обработку очень длинного слова.
 
-        //todo: вынести TABLE_WIDTH и DELIMITER_SYMBOL в параметры метода renderContent.
         int taskColumnHeaderAndBodyDelimiterWidth = tableWidth
                 - ID_COLUMN_NAME.length()
                 - 1
@@ -96,6 +123,44 @@ public class ChecklistContentView implements ContentView<ChecklistContentDto> {
             renderChecklistItem(checklistItemDtoIndex, itemDto, idColumnHeaderAndBodyDelimiter, statusColumnHeaderAndBodyDelimiter, taskTextColumnHeaderAndBodyDelimiter);
         }
 
+    }
+
+    @Override
+    public String getContentPreview(ChecklistContentDto contentDto, int remainingTableWidth) {
+        List<ChecklistItemDto> tasks = List.copyOf(contentDto.tasks()); //todo: хотя бы одна задача должна быть после валидации, иначе заметка не создается.
+        int tasksCount = tasks.size();
+        String counterPattern = String.format("(1/%d)", tasksCount);
+
+        String taskText = tasks.get(0).text();
+        int contentTextLength = taskText.length();
+        int acceptableFullTextLength = remainingTableWidth - counterPattern.length() - 1; //text + "(1/11)" + "|"
+        int acceptableAbbreviatedTextLength = remainingTableWidth - 3 - counterPattern.length() - 1; //tex + "..." + "(1/11)" + "|"
+
+        // Если текст + "(1/11)" + "|" короче границы — возвращаем как есть
+        if (contentTextLength <= acceptableFullTextLength) {
+            return String.format(
+                    "%s%s%s%s",
+                    taskText,
+                    " ".repeat(acceptableFullTextLength - contentTextLength),
+                    counterPattern,
+                    "|"
+            );
+        }
+
+        // Если текст + "|" длиннее границы и его нужно обрезать, учитывая tex + "..." + "|"
+        String trimmedSubText = taskText
+                .substring(0, acceptableAbbreviatedTextLength)
+                .trim();
+
+        //Если после trim текст стал короче, то добавляем пробелы до достижения длины acceptableAbbreviatedTextLength
+        return String.format(
+                "%s%s%s%s%s",
+                trimmedSubText,
+                "...",
+                " ".repeat(acceptableAbbreviatedTextLength - trimmedSubText.length()),
+                String.format("(1/%d)", tasksCount),
+                "|"
+        );
     }
 
 //    protected String printTaskText(String border, String text) {

@@ -1,8 +1,8 @@
 package ru.yandex.kingartaved.service.content_service.impl;
 
 import ru.yandex.kingartaved.data.constant.NoteTypeEnum;
-import ru.yandex.kingartaved.data.model.impl.TextContent;
-import ru.yandex.kingartaved.dto.impl.TextContentDto;
+import ru.yandex.kingartaved.data.model.TextContent;
+import ru.yandex.kingartaved.dto.TextContentDto;
 import ru.yandex.kingartaved.service.content_service.ContentService;
 
 public class TextContentService implements ContentService<TextContentDto> {

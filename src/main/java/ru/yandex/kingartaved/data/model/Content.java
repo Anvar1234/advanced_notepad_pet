@@ -2,7 +2,7 @@ package ru.yandex.kingartaved.data.model;
 
 import ru.yandex.kingartaved.data.constant.NoteTypeEnum;
 
-public interface Content {
+public sealed abstract class Content permits TextContent, ChecklistContent { //- Sealed класс определяет ограниченную иерархию
 //    Content getContent();
-    NoteTypeEnum getSupportedType();
+    public abstract NoteTypeEnum getSupportedType();
 }

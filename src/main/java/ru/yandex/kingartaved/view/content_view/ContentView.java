@@ -8,7 +8,10 @@ import java.util.Scanner;
 public interface ContentView<T extends ContentDto> {
 
     T createContentDto(Scanner scanner);
+
+    void updateContent(Scanner scanner, ContentDto contentDto);
     NoteTypeEnum getSupportedType();
 
     void renderContent(T contentDto, int tableWidth, String delimiterSymbol);
+    String getContentPreview(T contentDto, int remainingWidth);
 }

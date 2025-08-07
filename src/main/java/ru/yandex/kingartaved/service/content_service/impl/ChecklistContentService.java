@@ -2,13 +2,13 @@ package ru.yandex.kingartaved.service.content_service.impl;
 
 import ru.yandex.kingartaved.data.constant.NoteTypeEnum;
 import ru.yandex.kingartaved.data.model.ChecklistItem;
-import ru.yandex.kingartaved.data.model.impl.ChecklistContent;
-import ru.yandex.kingartaved.dto.impl.ChecklistContentDto;
+import ru.yandex.kingartaved.data.model.ChecklistContent;
+import ru.yandex.kingartaved.dto.ChecklistContentDto;
 import ru.yandex.kingartaved.service.content_service.ContentService;
 
 public class ChecklistContentService implements ContentService<ChecklistContentDto> {
 
-//    private Map<ServiceCommandEnum, методы этого класса> commandsAndActionsRegistry;
+//    private Map<NoteServiceCommandEnum, методы этого класса> commandsAndActionsRegistry;
 
     @Override
     public ChecklistContent createContent(ChecklistContentDto validContentDto) {
@@ -33,10 +33,10 @@ public class ChecklistContentService implements ContentService<ChecklistContentD
 //    }
 //
 //    @Override
-//    public void executeCommand(ServiceCommandEnum command, int id) {
-//        if (ServiceCommandEnum.CREATE == command) {
+//    public void executeCommand(NoteServiceCommandEnum command, int id) {
+//        if (NoteServiceCommandEnum.CREATE == command) {
 //            createContent();
-//        } else if (ServiceCommandEnum.REMOVE == command) {
+//        } else if (NoteServiceCommandEnum.REMOVE == command) {
 //            removeContent();
 //        }
 //    }
@@ -46,7 +46,7 @@ public class ChecklistContentService implements ContentService<ChecklistContentD
 //        return new ChecklistContent(List.of());
 //    }
 
-//    public Map<ServiceCommandEnum,методы> getCommandsAndActionsRegistry() {
+//    public Map<NoteServiceCommandEnum,методы> getCommandsAndActionsRegistry() {
 //        return this.commandsAndActionsRegistry;
 //    }
 }

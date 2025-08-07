@@ -2,8 +2,8 @@ package ru.yandex.kingartaved.data.mapper.content_mapper.impl;
 
 import ru.yandex.kingartaved.data.constant.NoteTypeEnum;
 import ru.yandex.kingartaved.data.mapper.content_mapper.ContentMapper;
-import ru.yandex.kingartaved.data.model.impl.TextContent;
-import ru.yandex.kingartaved.dto.impl.TextContentDto;
+import ru.yandex.kingartaved.data.model.TextContent;
+import ru.yandex.kingartaved.dto.TextContentDto;
 
 public class TextContentMapperImpl implements ContentMapper<TextContent, TextContentDto>{
 

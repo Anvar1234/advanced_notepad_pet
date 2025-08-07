@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 import ru.yandex.kingartaved.config.FieldIndex;
 import ru.yandex.kingartaved.data.constant.NoteTypeEnum;
 import ru.yandex.kingartaved.data.model.Content;
-import ru.yandex.kingartaved.data.model.impl.TextContent;
+import ru.yandex.kingartaved.data.model.TextContent;
 import ru.yandex.kingartaved.data.serializer.content_serializer.ContentSerializer;
 
 public class TextContentSerializer implements ContentSerializer {
