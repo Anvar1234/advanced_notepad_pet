@@ -18,3 +18,11 @@ INFO: Зарегистрирован маппер для заметок типа
 INFO: Зарегистрирован экран для заметок типа: TEXT_NOTE
 авг. 07, 2025 11:07:24 PM ru.yandex.kingartaved.view.content_view.ContentViewRegistry lambda$initialize$0
 INFO: Зарегистрирован экран для заметок типа: CHECKLIST
+авг. 14, 2025 1:48:48 PM ru.yandex.kingartaved.data.mapper.content_mapper.ContentMapperRegistry lambda$initialize$0
+INFO: Зарегистрирован маппер для заметок типа: CHECKLIST
+авг. 14, 2025 1:48:48 PM ru.yandex.kingartaved.data.mapper.content_mapper.ContentMapperRegistry lambda$initialize$0
+INFO: Зарегистрирован маппер для заметок типа: TEXT_NOTE
+авг. 14, 2025 1:48:48 PM ru.yandex.kingartaved.view.content_view.ContentViewRegistry lambda$initialize$0
+INFO: Зарегистрирован экран для заметок типа: TEXT_NOTE
+авг. 14, 2025 1:48:48 PM ru.yandex.kingartaved.view.content_view.ContentViewRegistry lambda$initialize$0
+INFO: Зарегистрирован экран для заметок типа: CHECKLIST

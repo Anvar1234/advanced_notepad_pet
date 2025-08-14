@@ -33,7 +33,7 @@ public class TextContentView implements ContentView<TextContentDto> {
             }
             default -> throw new IllegalArgumentException();
         }
-
+        return null; //todo: заглушка, удалить.
     }
 
     @Override

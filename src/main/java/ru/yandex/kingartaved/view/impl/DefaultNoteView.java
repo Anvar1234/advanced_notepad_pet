@@ -108,7 +108,7 @@ public class DefaultNoteView {
 
         if (choice == 4) {
             ContentView<ContentDto> contentView = contentViewRegistry.getContentView(noteDto.metadataDto().getType());
-            contentView.updateContent();
+//            contentView.updateContent();
         }
 
     }
