@@ -12,6 +12,8 @@ import ru.yandex.kingartaved.service.NoteService;
 import ru.yandex.kingartaved.service.content_service.ContentServiceRegistry;
 import ru.yandex.kingartaved.service.metadata_service.MetadataService;
 
+import java.util.List;
+
 public class DefaultNoteService implements NoteService {
 
     private final NoteMapper noteMapper;
@@ -36,13 +38,8 @@ public class DefaultNoteService implements NoteService {
     public NoteDto createNote(CreateNewNoteRequestDto createNewNoteRequestDto) { //todo: верно ли, что из контроллера должен приходить валидный ДТО?
         NoteTypeEnum type = createNewNoteRequestDto.createNewMetadataRequestDto().type();
 
-        Metadata metadata = Metadata.builder() //todo: вот здесь уже метаданные заполняются по умолчанию.
-                .title(createNewNoteRequestDto.createNewMetadataRequestDto().title())
-                .type(type)
-                .build();
-
+        Metadata metadata = metadataService.createMetadata(createNewNoteRequestDto.createNewMetadataRequestDto());
         Content content = contentServiceRegistry.getContentService(type).createContent(createNewNoteRequestDto.contentDto());
-
         Note note = new Note(metadata, content);
 
         repository.saveToCache(note);
@@ -50,6 +47,11 @@ public class DefaultNoteService implements NoteService {
         return noteMapper.mapEntityToDto(note);
     }
 
-
+    @Override
+    public List<NoteDto> readAllNotes() {
+        return repository.findAll().stream()
+                .map(noteMapper::mapEntityToDto)
+                .toList();
+    }
 
 }

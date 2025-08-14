@@ -3,9 +3,9 @@ package ru.yandex.kingartaved.data.mapper.content_mapper.impl;
 import ru.yandex.kingartaved.data.constant.NoteTypeEnum;
 import ru.yandex.kingartaved.data.mapper.content_mapper.ContentMapper;
 import ru.yandex.kingartaved.data.model.ChecklistItem;
-import ru.yandex.kingartaved.data.model.impl.ChecklistContent;
+import ru.yandex.kingartaved.data.model.ChecklistContent;
 import ru.yandex.kingartaved.dto.ChecklistItemDto;
-import ru.yandex.kingartaved.dto.impl.ChecklistContentDto;
+import ru.yandex.kingartaved.dto.ChecklistContentDto;
 
 import java.util.stream.Collectors;
 

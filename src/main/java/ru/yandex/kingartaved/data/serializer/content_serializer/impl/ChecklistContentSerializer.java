@@ -3,7 +3,7 @@ package ru.yandex.kingartaved.data.serializer.content_serializer.impl;
 import ru.yandex.kingartaved.data.constant.NoteTypeEnum;
 import ru.yandex.kingartaved.data.model.ChecklistItem;
 import ru.yandex.kingartaved.data.model.Content;
-import ru.yandex.kingartaved.data.model.impl.ChecklistContent;
+import ru.yandex.kingartaved.data.model.ChecklistContent;
 import ru.yandex.kingartaved.data.serializer.content_serializer.ContentSerializer;
 
 import java.util.Arrays;

@@ -1,9 +1,8 @@
-package ru.yandex.kingartaved.data.model.impl;
+package ru.yandex.kingartaved.data.model;
 
 import ru.yandex.kingartaved.data.constant.NoteTypeEnum;
-import ru.yandex.kingartaved.data.model.Content;
 
-public final class TextContent implements Content {
+public final class TextContent extends Content {
     private final String text;
 
     public TextContent(String text) {

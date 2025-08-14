@@ -5,6 +5,8 @@ import ru.yandex.kingartaved.dto.MetadataDto;
 import ru.yandex.kingartaved.dto.request.CreateNewMetadataRequestDto;
 import ru.yandex.kingartaved.view.metadata_view.MetadataView;
 
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Scanner;
 
 public class DefaultMetadataView implements MetadataView {
@@ -16,15 +18,20 @@ public class DefaultMetadataView implements MetadataView {
         return new CreateNewMetadataRequestDto(title, type);
     }
 
+    public void noteMetadataMenu() {
 
-    public void renderHeader(MetadataDto metadataDto, int tableWidth, String delimiterSymbol) {
-//        System.out.println("Тип: " + metadataDto.getType().getDescription());
-        System.out.println("Название: " + metadataDto.getTitle());
-        String textHeaderAndBodyDelimiter = delimiterSymbol.repeat(tableWidth);
-        System.out.println(textHeaderAndBodyDelimiter);
     }
 
-    public void renderFooter(MetadataDto metadataDto) {
+    @Override
+    public void renderMetadataForHeader(MetadataDto metadataDto) {
+//        System.out.println("Тип: " + metadataDto.getType().getDescription());
+        System.out.println("Название: " + metadataDto.getTitle());
+//        String textHeaderAndBodyDelimiter = delimiterSymbol.repeat(tableWidth);
+//        System.out.println(textHeaderAndBodyDelimiter);
+    }
+
+    @Override
+    public void renderMetadataForFooter(MetadataDto metadataDto) {
         System.out.printf
                 ("""
                                 Создана: %s
@@ -35,6 +42,19 @@ public class DefaultMetadataView implements MetadataView {
                         metadataDto.getUpdatedAt(),
                         metadataDto.getStatus().getDescription()
                 );
+    }
+    //todo: type + title не будет больше "текстовая заметка"+"10 символов заголовка", но возможно нужно проверять чтобы это было не больше TABLE_WIDTH
+    @Override
+    public String getMetadataPreview(MetadataDto metadataDto) {
+        int maxTypeLength = Arrays.stream(NoteTypeEnum.values())
+                .map(NoteTypeEnum::getDescription)
+                .mapToInt(String::length)
+                .max()
+                .orElse(0);
+
+        return String.format("%" + maxTypeLength + "s|%s: ",
+                metadataDto.getType().getDescription(),
+                metadataDto.getTitle());
     }
 
 

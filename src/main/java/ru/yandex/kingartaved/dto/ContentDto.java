@@ -2,6 +2,6 @@ package ru.yandex.kingartaved.dto;
 
 import ru.yandex.kingartaved.data.constant.NoteTypeEnum;
 
-public interface ContentDto {
-    NoteTypeEnum getSupportedType();
+public sealed abstract class ContentDto permits TextContentDto, ChecklistContentDto {
+   public abstract NoteTypeEnum getSupportedType();
 }

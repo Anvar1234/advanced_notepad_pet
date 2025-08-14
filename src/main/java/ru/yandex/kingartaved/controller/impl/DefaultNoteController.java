@@ -5,6 +5,8 @@ import ru.yandex.kingartaved.dto.NoteDto;
 import ru.yandex.kingartaved.dto.request.CreateNewNoteRequestDto;
 import ru.yandex.kingartaved.service.NoteService;
 
+import java.util.List;
+
 public class DefaultNoteController implements NoteController {
 
     private final NoteService noteService;
@@ -20,6 +22,11 @@ public class DefaultNoteController implements NoteController {
         //todo: валидация, передача валидного ДТО в сервис.
         return noteService.createNote(createNewNoteRequestDto);
 
+    }
+
+    @Override
+    public List<NoteDto> readAll() {
+        return noteService.readAllNotes();
     }
 
 

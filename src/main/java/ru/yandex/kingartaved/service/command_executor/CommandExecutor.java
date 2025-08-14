@@ -1,7 +1,7 @@
 package ru.yandex.kingartaved.service.command_executor;
 
-import ru.yandex.kingartaved.service.command_executor.constant.ServiceCommandEnum;
+import ru.yandex.kingartaved.service.command_executor.constant.NoteServiceCommandEnum;
 
 public interface CommandExecutor {
-    void executeCommand(ServiceCommandEnum command);
+    void executeCommand(NoteServiceCommandEnum command);
 }

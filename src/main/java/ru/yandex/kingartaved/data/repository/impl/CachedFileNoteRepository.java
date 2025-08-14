@@ -23,7 +23,9 @@ public class CachedFileNoteRepository implements NoteRepository {
 
     private final Path pathToDbFile;
 
-    private volatile Map<UUID, Note> notes = new LinkedHashMap<>(); //TODO: мне кажется, сохранять в БД нужно только при выборе пользователем решения о выходе из приложения.
+    private final Map<UUID, Note> notes = new LinkedHashMap<>(); //TODO: мне кажется, сохранять в БД нужно только при выборе пользователем решения о выходе из приложения.
+
+//    private final SortingTypeEnum =
 
     public CachedFileNoteRepository(DbConnector dbConnector, DbLineValidator dbLineValidator, NoteSerializer noteSerializer) {
         this.dbConnector = dbConnector;

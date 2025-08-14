@@ -9,6 +9,7 @@ import java.util.Scanner;
 public interface MetadataView {
 
     CreateNewMetadataRequestDto createMetadataDto(Scanner scanner, NoteTypeEnum type);
-    void renderHeader(MetadataDto metadataDto, int tableWidth, String delimiterSymbol);
-    void renderFooter(MetadataDto metadataDto);
+    void renderMetadataForHeader(MetadataDto metadataDto);
+    void renderMetadataForFooter(MetadataDto metadataDto);
+    String getMetadataPreview(MetadataDto metadataDto);
 }

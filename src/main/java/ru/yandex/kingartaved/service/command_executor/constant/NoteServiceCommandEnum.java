@@ -1,12 +1,9 @@
 package ru.yandex.kingartaved.service.command_executor.constant;
 
-public enum ServiceCommandEnum {
+public enum NoteServiceCommandEnum {
     CREATE("Создать новую заметку"), //перед созданием юзер выбирает тип заметки (список, чеклист), title тоже устанавливается здесь.
     READ("Прочесть заметку"), //
-    SEARCH_NOTES("Найти заметку по ключевому слову"), //List<Note> notes
-    SET_REMIND("Установить напоминание"),
-    SET_PINNED("Закрепить"),
-    SET_STATUS("Изменить статус"),
+    UPDATE("Изменить заметку"),
     REMOVE("Удалить")
     ; //TODO: добавить поле description в Note, чтобы отображать краткое содержание поля contentDto
 
@@ -17,7 +14,7 @@ public enum ServiceCommandEnum {
      */
     private final String description;
 
-    ServiceCommandEnum(String description) {
+    NoteServiceCommandEnum(String description) {
         this.description = description;
     }
 
