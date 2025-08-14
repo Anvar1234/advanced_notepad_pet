@@ -1,30 +1,29 @@
 package ru.yandex.kingartaved.view.content_view.impl;
 
 import ru.yandex.kingartaved.data.constant.NoteTypeEnum;
-import ru.yandex.kingartaved.dto.ContentDto;
 import ru.yandex.kingartaved.dto.TextContentDto;
 import ru.yandex.kingartaved.view.content_view.ContentView;
 
+import java.util.Optional;
 import java.util.Scanner;
 
 public class TextContentView implements ContentView<TextContentDto> {
 
 
     @Override
-    public TextContentDto createContentDto(Scanner scanner) {
+    public Optional<TextContentDto> createContentDto(Scanner scanner) {
         System.out.println("Введите текст заметки (пустой ввод - выход): ");
         String text = scanner.nextLine();
 
-        return new TextContentDto(text);
+        return Optional.of(new TextContentDto(text));
     }
 
     @Override
-    public void updateContent(Scanner scanner, ContentDto contentDto) {
+    public TextContentDto updateContent(Scanner scanner, TextContentDto textContentDto) {
         System.out.println("Меню редактирования текстовой заметки:");
         System.out.println("1.Изменить текст");
         System.out.println("2.Назад к заметке");
 
-        TextContentDto textContentDto = (TextContentDto) contentDto;
         int choice = scanner.nextInt();
 
         switch (choice) {

@@ -8,6 +8,7 @@ import ru.yandex.kingartaved.view.content_view.ContentView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 
 public class ChecklistContentView implements ContentView<ChecklistContentDto> {
@@ -17,50 +18,68 @@ public class ChecklistContentView implements ContentView<ChecklistContentDto> {
     private static final String TASK_COLUMN_NAME = " Задача";
 
 
-
-
     @Override
-    public ChecklistContentDto createContentDto(Scanner scanner) {
+    public Optional<ChecklistContentDto> createContentDto(Scanner scanner) { //todo: возвращать Optional<ChecklistContentDto> так как пользователь может сразу нажать "Ввод" что значит выход, и по пути нужно исправить все методы!
         System.out.println("Введите задачи чек-листа (пустой ввод - выход): ");
         List<ChecklistItemDto> tasks = new ArrayList<>();
 
         while (scanner.hasNextLine()) {
+            System.out.print("Задача: ");
+            String text = scanner.nextLine();
 
-            String line = scanner.nextLine();
-
-            if (line.isBlank()) {
-                return new ChecklistContentDto(tasks);
+            if (text.isBlank()) { //todo: также проверять на пустоту списка, не только задачи.
+                return Optional.of(new ChecklistContentDto(tasks));
             } else {
-                tasks.add(new ChecklistItemDto(line, false));
+                tasks.add(new ChecklistItemDto(text, false));
             }
         }
-        return new ChecklistContentDto(List.copyOf(tasks));
+        return Optional.of(new ChecklistContentDto(List.copyOf(tasks)));
     }
 
     @Override
-    public void updateContent(Scanner scanner, ContentDto contentDto) {
+    public ChecklistContentDto updateContent(Scanner scanner, ChecklistContentDto checklistContentDto) { //todo: возвращать что-то
         System.out.println("Меню редактирования чек-листа:");
-        System.out.println("1.Добавить подзадачу");
-        System.out.println("2.Изменить текст подзадачи");
-        System.out.println("3.Отметить подзадачу выполненной");
-        System.out.println("4.Удалить подзадачу");
+        System.out.println("1.Добавить задачу");
+        System.out.println("2.Изменить текст задачи");
+        System.out.println("3.Отметить задачу выполненной");
+        System.out.println("4.Удалить задачу");
+        System.out.println("5.Назад к заметке");
 
-        ChecklistContentDto checklistContentDto = (ChecklistContentDto) contentDto;
         int choice = scanner.nextInt();
 
-        if (choice == 1){
+        if (choice == 1) {
+           return addTask(scanner, checklistContentDto); //todo: возвращать что-то
+        }
+        if (choice == 2) {
 
         }
-        if(choice == 2){
+        if (choice == 3) {
 
         }
-        if (choice == 3){
+        if (choice == 4) {
 
         }
-        if(choice == 4){
-
-        }
+        return checklistContentDto; //todo: спросить у ии, норм ли просто "тихо" возвращать то же дто, что пришло, если пользовательский выбор некорректен?
     }
+
+    private ChecklistContentDto addTask(Scanner scanner, ChecklistContentDto checklistContentDto) {
+
+        List<ChecklistItemDto> tasks = new ArrayList<>(checklistContentDto.tasks());
+        System.out.println("Введите задачи (пустой ввод - выход) ");
+        while (scanner.hasNextLine()) {
+            System.out.print("Задача: ");
+            String text = scanner.nextLine();
+
+            if (text.isBlank()) { //Текст задачи не может быть пустым
+                return checklistContentDto; // тогда просто возвращаем оригинал
+            }
+
+            ChecklistItemDto task = new ChecklistItemDto(text, false);
+            tasks.add(task);
+        }
+        return new ChecklistContentDto(tasks);
+    }
+
 
     @Override
     public NoteTypeEnum getSupportedType() {

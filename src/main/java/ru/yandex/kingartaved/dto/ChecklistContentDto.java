@@ -18,7 +18,7 @@ public final class ChecklistContentDto extends ContentDto {
     }
 
     public List<ChecklistItemDto> tasks() {
-        return tasks;
+        return List.copyOf(tasks);
     }
 
     @Override

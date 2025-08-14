@@ -17,6 +17,8 @@ import ru.yandex.kingartaved.data.model.TextContent;
 import ru.yandex.kingartaved.dto.ContentDto;
 import ru.yandex.kingartaved.dto.MetadataDto;
 import ru.yandex.kingartaved.dto.NoteDto;
+import ru.yandex.kingartaved.dto.request.CreateNewMetadataRequestDto;
+import ru.yandex.kingartaved.dto.request.CreateNewNoteRequestDto;
 import ru.yandex.kingartaved.view.content_view.ContentView;
 import ru.yandex.kingartaved.view.content_view.ContentViewRegistry;
 import ru.yandex.kingartaved.view.metadata_view.MetadataView;
@@ -24,6 +26,7 @@ import ru.yandex.kingartaved.view.metadata_view.impl.DefaultMetadataView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 
 public class DefaultNoteView {
@@ -33,7 +36,7 @@ public class DefaultNoteView {
 
     MetadataView metadataView;
     ContentViewRegistry contentViewRegistry;
-//    NoteController controller;
+    NoteController controller;
     Scanner scanner;
 
     public DefaultNoteView(MetadataView metadataView, ContentViewRegistry contentViewRegistry, Scanner scanner) {
@@ -97,22 +100,23 @@ public class DefaultNoteView {
         System.out.println("Что изменить:");
         System.out.println("1.Изменить название");
         System.out.println("2.Поставить напоминание"); //todo: здесь подменю конкретных заметок от типа: закрепить, удалить, отредактировать и тд.
-        System.out.println("3.Изменить содержимое");
-        System.out.println("4.Назад");
+        System.out.println("3.Закрепить заметку");
+        System.out.println("4.Изменить содержимое");
+        System.out.println("5.Назад");
 
         int choice = scanner.nextInt();
 
-//        if (choice == 3) {
-//            ContentView<?> contentView = contentViewRegistry.getContentView(noteDto.metadataDto().getType());
-//            contentView.
-//        }
+        if (choice == 4) {
+            ContentView<ContentDto> contentView = contentViewRegistry.getContentView(noteDto.metadataDto().getType());
+            contentView.updateContent();
+        }
 
     }
 
     private void readNote(NoteDto noteDto) {
         renderNote(noteDto);
-        System.out.println("Что делать дальше:");
-        System.out.println("1.Редактировать заметку");
+        System.out.println("Что делать с заметкой:");
+        System.out.println("1.Редактировать");
         System.out.println("2.Отобразить общий список заметок"); //todo: уже с новой заметкой
 
         int choice = scanner.nextInt();
@@ -125,17 +129,19 @@ public class DefaultNoteView {
         }
     }
 
-//    private NoteDto createNote(NoteTypeEnum type) {
-//        CreateNewMetadataRequestDto createNewMetadataRequestDto = metadataView //здесь только title & type
-//                .createMetadataDto(scanner, type);
-//
-//        ContentDto contentDto = contentViewRegistry.getContentView(type)
-//                .createContentDto(scanner);
-//
-//        CreateNewNoteRequestDto createNewNoteRequestDto = new CreateNewNoteRequestDto(createNewMetadataRequestDto, contentDto);
-//
-//        return controller.createNote(createNewNoteRequestDto);
-//    }
+    private Optional<NoteDto> createNote(NoteTypeEnum type) {
+        CreateNewMetadataRequestDto createNewMetadataRequestDto = metadataView //здесь только title & type
+                .createMetadataDto(scanner, type);
+
+        Optional<ContentDto> contentDto = contentViewRegistry.getContentView(type)
+                .createContentDto(scanner);
+        if (contentDto.isPresent()) {
+            CreateNewNoteRequestDto createNewNoteRequestDto = new CreateNewNoteRequestDto(createNewMetadataRequestDto, contentDto.get());
+
+            return Optional.of(controller.createNote(createNewNoteRequestDto));
+        }
+        return Optional.empty();
+    }
 
     public void renderAllNotesPreview(List<NoteDto> noteDtos) {
         noteDtos.forEach(noteDto -> {
@@ -196,7 +202,7 @@ public class DefaultNoteView {
         renderGeneralDelimiter();
     }
 
-    private void renderGeneralDelimiter(){
+    private void renderGeneralDelimiter() {
         String noteHeaderAndBodyDelimiter = DELIMITER_SYMBOL.repeat(TABLE_WIDTH);
         System.out.println(noteHeaderAndBodyDelimiter);
     }
