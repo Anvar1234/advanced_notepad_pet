@@ -5,7 +5,7 @@ import ru.yandex.kingartaved.data.mapper.NoteMapper;
 import ru.yandex.kingartaved.data.model.Content;
 import ru.yandex.kingartaved.data.model.Metadata;
 import ru.yandex.kingartaved.data.model.Note;
-import ru.yandex.kingartaved.data.repository.NoteRepository;
+import ru.yandex.kingartaved.repository.NoteRepository;
 import ru.yandex.kingartaved.dto.NoteDto;
 import ru.yandex.kingartaved.dto.request.CreateNewNoteRequestDto;
 import ru.yandex.kingartaved.service.NoteService;

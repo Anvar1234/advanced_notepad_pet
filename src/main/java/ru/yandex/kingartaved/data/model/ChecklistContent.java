@@ -5,13 +5,13 @@ import ru.yandex.kingartaved.data.constant.NoteTypeEnum;
 import java.util.List;
 
 public final class ChecklistContent extends Content {
-    private final List<ChecklistItem> tasks;
+    private final List<ChecklistTask> tasks;
 
-    public ChecklistContent(List<ChecklistItem> tasks) {
+    public ChecklistContent(List<ChecklistTask> tasks) {
         this.tasks = List.copyOf(tasks); // Защита от мутации
     }
 
-    public List<ChecklistItem> tasks() {
+    public List<ChecklistTask> tasks() {
         return tasks;
     }
 

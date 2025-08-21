@@ -1,39 +1,55 @@
 package ru.yandex.kingartaved.view.content_view.impl;
 
+import ru.yandex.kingartaved.config.AppConfig;
 import ru.yandex.kingartaved.data.constant.NoteTypeEnum;
 import ru.yandex.kingartaved.dto.TextContentDto;
+import ru.yandex.kingartaved.dto.response.TextContentUpdateResponse;
 import ru.yandex.kingartaved.view.content_view.ContentView;
 
 import java.util.Optional;
 import java.util.Scanner;
 
 public class TextContentView implements ContentView<TextContentDto> {
-
+    private static final int TABLE_WIDTH = AppConfig.TABLE_WIDTH;
+    private static final String DELIMITER_SYMBOL = AppConfig.DELIMITER_SYMBOL;
 
     @Override
     public Optional<TextContentDto> createContentDto(Scanner scanner) {
-        System.out.println("Введите текст заметки (пустой ввод - выход): ");
+        System.out.println("Введите текст заметки (пустой ввод - отмена): ");
         String text = scanner.nextLine();
 
-        return Optional.of(new TextContentDto(text));
+        if (text.isBlank()) {
+            System.out.println("Создание заметки отменено.");
+            return Optional.empty();
+        }
+
+        return Optional.of(new TextContentDto(text.trim()));
     }
 
     @Override
-    public TextContentDto updateContent(Scanner scanner, TextContentDto textContentDto) {
+    public TextContentUpdateResponse updateContent(Scanner scanner, TextContentDto textContentDto) {
         System.out.println("Меню редактирования текстовой заметки:");
-        System.out.println("1.Изменить текст");
+        System.out.println("1.Изменить текст заметки");
         System.out.println("2.Назад к заметке");
 
         int choice = scanner.nextInt();
 
         switch (choice) {
             case 1 -> {
-                String text = textContentDto.text();
+                System.out.println("Введите новый текст заметки (пустой ввод - отмена): ");
+                String text = scanner.nextLine().trim();
 
+                if (text.isBlank()) {
+                    return textContentDto; //todo: тогда просто возвращаем то же dto.
+                }
+                return new TextContentDto(text);
+
+            }
+            case 2 -> {
+                return textContentDto;
             }
             default -> throw new IllegalArgumentException();
         }
-        return null; //todo: заглушка, удалить.
     }
 
     @Override
@@ -42,9 +58,9 @@ public class TextContentView implements ContentView<TextContentDto> {
     }
 
     @Override
-    public void renderContent(TextContentDto textContentDto, int tableWidth, String delimiterSymbol) {
+    public void renderContent(TextContentDto textContentDto) {
 
-        String textColumnHeaderAndBodyDelimiter = delimiterSymbol.repeat(tableWidth);
+        String textColumnHeaderAndBodyDelimiter = DELIMITER_SYMBOL.repeat(TABLE_WIDTH);
 
         String contentText = textContentDto.text();
         String[] words = contentText.split(" ");

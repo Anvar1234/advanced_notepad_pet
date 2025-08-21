@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.Objects;
 
 public final class ChecklistContentDto extends ContentDto {
-    private final List<ChecklistItemDto> tasks;
+    private final List<ChecklistTaskDto> tasks;
 
-    public ChecklistContentDto(List<ChecklistItemDto> tasks) {
+    public ChecklistContentDto(List<ChecklistTaskDto> tasks) {
         this.tasks = tasks;
     }
 
@@ -17,7 +17,7 @@ public final class ChecklistContentDto extends ContentDto {
         return NoteTypeEnum.CHECKLIST;
     }
 
-    public List<ChecklistItemDto> tasks() {
+    public List<ChecklistTaskDto> tasks() {
         return List.copyOf(tasks);
     }
 

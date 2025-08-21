@@ -18,7 +18,7 @@ public final class AppConfig { //TODO: сделать неизменяемым (
     public static final int MAX_TITLE_LENGTH = 10;
 
     //Требования к отображению
-    public static final int TABLE_WIDTH = 70;
+    public static final int TABLE_WIDTH = 80;
     public static final String DELIMITER_SYMBOL = "-";
 
     public static final String USER_DB_JSON_FILE = "users.json";

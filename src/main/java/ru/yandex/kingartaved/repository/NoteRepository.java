@@ -1,4 +1,4 @@
-package ru.yandex.kingartaved.data.repository;
+package ru.yandex.kingartaved.repository;
 
 import ru.yandex.kingartaved.data.model.Note;
 

@@ -1,7 +1,7 @@
-package ru.yandex.kingartaved.data.repository.db_connector.impl;
+package ru.yandex.kingartaved.repository.db_connector.impl;
 
 import ru.yandex.kingartaved.config.AppConfig;
-import ru.yandex.kingartaved.data.repository.db_connector.DbConnector;
+import ru.yandex.kingartaved.repository.db_connector.DbConnector;
 import ru.yandex.kingartaved.exception.DbConnectionException;
 import ru.yandex.kingartaved.exception.FileOperationException;
 import ru.yandex.kingartaved.exception.constant.ErrorMessage;

@@ -1,8 +1,8 @@
-package ru.yandex.kingartaved.data.repository.impl;
+package ru.yandex.kingartaved.repository.impl;
 
 import ru.yandex.kingartaved.data.model.Note;
-import ru.yandex.kingartaved.data.repository.NoteRepository;
-import ru.yandex.kingartaved.data.repository.db_connector.DbConnector;
+import ru.yandex.kingartaved.repository.NoteRepository;
+import ru.yandex.kingartaved.repository.db_connector.DbConnector;
 import ru.yandex.kingartaved.data.serializer.NoteSerializer;
 import ru.yandex.kingartaved.util.FileUtil;
 import ru.yandex.kingartaved.util.LoggerUtil;

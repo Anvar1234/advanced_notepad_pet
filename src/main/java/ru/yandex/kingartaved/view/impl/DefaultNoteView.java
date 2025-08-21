@@ -8,12 +8,8 @@ import ru.yandex.kingartaved.data.mapper.content_mapper.ContentMapperRegistry;
 import ru.yandex.kingartaved.data.mapper.impl.DefaultNoteMapper;
 import ru.yandex.kingartaved.data.mapper.metadata_mapper.MetadataMapper;
 import ru.yandex.kingartaved.data.mapper.metadata_mapper.impl.DefaultMetadataMapper;
-import ru.yandex.kingartaved.data.model.ChecklistItem;
-import ru.yandex.kingartaved.data.model.Content;
-import ru.yandex.kingartaved.data.model.Metadata;
-import ru.yandex.kingartaved.data.model.Note;
-import ru.yandex.kingartaved.data.model.ChecklistContent;
-import ru.yandex.kingartaved.data.model.TextContent;
+import ru.yandex.kingartaved.data.model.*;
+import ru.yandex.kingartaved.data.model.ChecklistTask;
 import ru.yandex.kingartaved.dto.ContentDto;
 import ru.yandex.kingartaved.dto.MetadataDto;
 import ru.yandex.kingartaved.dto.NoteDto;
@@ -55,6 +51,7 @@ public class DefaultNoteView {
         System.out.println("1.Создать заметку");
         System.out.println("2.Редактировать заметку"); //todo: здесь подменю конкретных заметок от типа: закрепить, удалить, отредактировать и тд.
         System.out.println("3.Отсортировать заметки"); //todo: по разным полям: приоритет, тип и тд.
+        System.out.println("4.Удалить заметку");
 
         int choice = scanner.nextInt();
 
@@ -105,10 +102,12 @@ public class DefaultNoteView {
         System.out.println("5.Назад");
 
         int choice = scanner.nextInt();
+        scanner.nextLine();
 
         if (choice == 4) {
             ContentView<ContentDto> contentView = contentViewRegistry.getContentView(noteDto.metadataDto().getType());
-//            contentView.updateContent();
+            ContentDto contentDto = noteDto.contentDto();
+             contentView.updateContent(scanner, contentDto);
         }
 
     }
@@ -209,7 +208,7 @@ public class DefaultNoteView {
 
     private void renderNoteBody(NoteTypeEnum type, ContentDto contentDto) {
         ContentView<ContentDto> contentView = contentViewRegistry.getContentView(type);
-        contentView.renderContent(contentDto, TABLE_WIDTH, DELIMITER_SYMBOL);
+        contentView.renderContent(contentDto);
     }
 
     public void renderNoteFooter(MetadataDto metadataDto) {
@@ -235,10 +234,10 @@ public class DefaultNoteView {
                 .type(NoteTypeEnum.CHECKLIST)
                 .build();
 
-        List<ChecklistItem> items = new ArrayList<>();
-        items.add(new ChecklistItem("Корот                                                         d", false));
-        items.add(new ChecklistItem("Короткая подзадачка", true));
-        items.add(new ChecklistItem("Это новый текст подзадачки чек-листа пробный для посмотреть такой длинный текст вроде бы должен корректно отобразиться", false));
+        List<ChecklistTask> items = new ArrayList<>();
+        items.add(new ChecklistTask("Корот                                                         d", false));
+        items.add(new ChecklistTask("Короткая подзадачка", true));
+        items.add(new ChecklistTask("Это новый текст подзадачки чек-листа пробный для посмотреть такой длинный текст вроде бы должен корректно отобразиться", false));
 
 
         Content content2 = new ChecklistContent(items);
