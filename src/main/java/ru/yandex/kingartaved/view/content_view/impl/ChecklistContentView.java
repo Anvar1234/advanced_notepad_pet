@@ -8,6 +8,7 @@ import ru.yandex.kingartaved.dto.ChecklistContentDto;
 import ru.yandex.kingartaved.dto.response.ChecklistTaskRemovalResponse;
 import ru.yandex.kingartaved.dto.response.ChecklistContentUpdateResponse;
 import ru.yandex.kingartaved.dto.response.ContentUpdateResult;
+import ru.yandex.kingartaved.view.NoteViewUtil;
 import ru.yandex.kingartaved.view.content_view.ContentView;
 
 import java.util.ArrayList;
@@ -53,20 +54,12 @@ public class ChecklistContentView implements ContentView<ChecklistContentDto> {
             System.out.println("2.Изменить задачу чек-листа");
             System.out.println("3.Удалить задачу");
             System.out.println("4.Назад в меню чек-листа");
-            System.out.print("Ввод: ");
 
-            int choice;
-
-            try {
-                choice = Integer.parseInt(scanner.nextLine());
-            } catch (NumberFormatException e) {
-                System.err.println("Ошибка: введите число от 1 до 3!");
-                continue;
-            }
+            Optional<Integer> optionalChoice = NoteViewUtil.getNumericChoice(scanner, "Ошибка: введите число от 1 до 4!");
+            if(optionalChoice.isEmpty()) continue;
+            int choice = optionalChoice.get();
 
             switch (choice) {
-
-
                 case 1 -> {
                     System.out.println("\nРежим добавления задач. Пустой ввод - выход из режима.");
                     while (true) {
@@ -146,40 +139,36 @@ public class ChecklistContentView implements ContentView<ChecklistContentDto> {
 
     private List<ChecklistTaskDto> updateTask(Scanner scanner, List<ChecklistTaskDto> inputTasks) {
 
-        if (inputTasks.isEmpty()) { //todo: если в цикле удаления задач чек-листа удалили все задачи, то в цикле редактирования всего чек-листа может гулять пустой список задач, может его еще заполнят.
+        if (inputTasks.isEmpty()) {
             System.out.println("Чек-лист пуст, сначала добавьте задачи.");
             return inputTasks;
         }
 
         List<ChecklistTaskDto> tasks = new ArrayList<>(inputTasks);
-        Optional<ChecklistTaskSelection> selectedTask = getTaskWithIndex(scanner, tasks);
+        Optional<Integer> integerOptional = getTaskIndex(scanner, tasks);
 
-        if (selectedTask.isEmpty()) {
+        if (integerOptional.isEmpty()) {
             return tasks;
         }
 
-        int selectedItemDtoIndex = selectedTask.get().index();
-        ChecklistTaskDto selectedTaskDto = selectedTask.get().taskDto();
+        int selectedTaskDtoIndex = integerOptional.get();
+        ChecklistTaskDto selectedTaskDto = tasks.get(selectedTaskDtoIndex);
 
         System.out.println();
 
         while (true) {
             System.out.println();
             renderContentHeader();
-            renderChecklistItem(selectedItemDtoIndex + 1, selectedTaskDto);
-            System.out.println("\nМеню редактирования задачи чек-листа");
+            renderChecklistItem(selectedTaskDtoIndex + 1, selectedTaskDto);
+            System.out.println("\nРежим редактирования задачи чек-листа");
             System.out.println("1.Изменить текст задачи");
             System.out.println("2.Изменить статус");
             System.out.println("3.Назад");
             System.out.print("Ввод: ");
-            int choice;
 
-            try {
-                choice = Integer.parseInt(scanner.nextLine());
-            } catch (NumberFormatException e) {
-                System.err.println("Ошибка: введите число от 1 до 3!");
-                continue;
-            }
+            Optional<Integer> optionalChoice = NoteViewUtil.getNumericChoice(scanner, "Ошибка: введите число от 1 до 3!");
+            if(optionalChoice.isEmpty()) continue;
+            int choice = optionalChoice.get();
 
             switch (choice) {
                 case 1 -> {
@@ -189,14 +178,14 @@ public class ChecklistContentView implements ContentView<ChecklistContentDto> {
                         System.out.println("Ввод отменен.");
                         continue;
                     }
-                    ChecklistTaskDto updatedItemDto = new ChecklistTaskDto(updatedText, selectedTaskDto.isDone());
-                    tasks.set(selectedItemDtoIndex, updatedItemDto);
-                    selectedTaskDto = updatedItemDto;
+                    ChecklistTaskDto updatedTaskDto = new ChecklistTaskDto(updatedText, selectedTaskDto.isDone());
+                    tasks.set(selectedTaskDtoIndex, updatedTaskDto);
+                    selectedTaskDto = updatedTaskDto;
                     System.out.println("Текст задачи обновлен");
                 }
                 case 2 -> {
                     selectedTaskDto = toggleTaskCompleted(selectedTaskDto);
-                    tasks.set(selectedItemDtoIndex, selectedTaskDto);
+                    tasks.set(selectedTaskDtoIndex, selectedTaskDto);
                     System.out.println("Статус задачи изменен");
 
                 }
@@ -218,15 +207,15 @@ public class ChecklistContentView implements ContentView<ChecklistContentDto> {
             );
         }
 
-        Optional<ChecklistTaskSelection> selectedTask = getTaskWithIndex(scanner, inputTasks);
-        if (selectedTask.isEmpty()) { // пользователь отменил выбор
+        Optional<Integer> selectedTaskOptional = getTaskIndex(scanner, inputTasks);
+        if (selectedTaskOptional.isEmpty()) { // пользователь отменил выбор
             return new ChecklistTaskRemovalResponse(
                     ChecklistTaskRemovalResponse.TaskRemovalResult.OPERATION_CANCELLED,
                     inputTasks
             );
         }
 
-        int index = selectedTask.get().index();
+        int selectedTaskDtoIndex = selectedTaskOptional.get();
         List<ChecklistTaskDto> tasks = new ArrayList<>(inputTasks);
 
         if (tasks.size() == 1) {// Если задача одна - запрашиваем подтверждение
@@ -251,14 +240,14 @@ public class ChecklistContentView implements ContentView<ChecklistContentDto> {
         }
 
         // в остальных случаях - удаляем задачу
-        tasks.remove(index);
+        tasks.remove(selectedTaskDtoIndex);
         return new ChecklistTaskRemovalResponse(
                 ChecklistTaskRemovalResponse.TaskRemovalResult.TASK_REMOVED,
                 tasks
         );
     }
 
-    protected Optional<ChecklistTaskSelection> getTaskWithIndex(Scanner scanner, List<ChecklistTaskDto> inputTasks) {
+    protected Optional<Integer> getTaskIndex(Scanner scanner, List<ChecklistTaskDto> inputTasks) {
         List<ChecklistTaskDto> tasks = new ArrayList<>(inputTasks);
 
         while (true) {
@@ -273,9 +262,8 @@ public class ChecklistContentView implements ContentView<ChecklistContentDto> {
             try {
                 int choice = Integer.parseInt(input);
                 if (choice >= 1 && choice <= tasks.size()) {
-                    int itemIndex = choice - 1;
-                    ChecklistTaskDto selectedTask = tasks.get(itemIndex);
-                    return Optional.of(new ChecklistTaskSelection(itemIndex, selectedTask));
+                    int taskIndex = choice - 1;
+                    return Optional.of(taskIndex);
                 }
                 System.err.printf("Неверный номер! Доступно: 1-%d%n", tasks.size());
             } catch (NumberFormatException e) {
@@ -283,6 +271,32 @@ public class ChecklistContentView implements ContentView<ChecklistContentDto> {
             }
         }
     }
+
+//    protected Optional<ChecklistTaskSelection> getTaskWithIndex(Scanner scanner, List<ChecklistTaskDto> inputTasks) {
+//        List<ChecklistTaskDto> tasks = new ArrayList<>(inputTasks);
+//
+//        while (true) {
+//            System.out.printf("Номер задачи (1-%d) или пустой ввод для отмены: \n", tasks.size());
+//            String input = scanner.nextLine().trim();
+//
+//            if (input.isBlank()) {
+//                System.out.println("Выбор отменен.");
+//                return Optional.empty();
+//            }
+//
+//            try {
+//                int choice = Integer.parseInt(input);
+//                if (choice >= 1 && choice <= tasks.size()) {
+//                    int itemIndex = choice - 1;
+//                    ChecklistTaskDto selectedTask = tasks.get(itemIndex);
+//                    return Optional.of(new ChecklistTaskSelection(itemIndex, selectedTask));
+//                }
+//                System.err.printf("Неверный номер! Доступно: 1-%d%n", tasks.size());
+//            } catch (NumberFormatException e) {
+//                System.err.println("Ошибка: введите число!");
+//            }
+//        }
+//    }
 
     protected ChecklistTaskDto toggleTaskCompleted(ChecklistTaskDto itemDto) {
         return itemDto.isDone() ? new ChecklistTaskDto(itemDto.text(), false) : new ChecklistTaskDto(itemDto.text(), true);
@@ -528,15 +542,15 @@ public class ChecklistContentView implements ContentView<ChecklistContentDto> {
     }
 
 
-//    public static void main(String[] args) {
-//        List<ChecklistTaskDto> items = new ArrayList<>();
-//        items.add(new ChecklistTaskDto("Это новый текст задачи чек-листа пробный для посмотреть такой длинный текст вроде бы должен корректно отобразиться", false));
-//        items.add(new ChecklistTaskDto("Короткая задача", true));
-//        items.add(new ChecklistTaskDto("И вот третья задача", false));
-//        ChecklistContentView contentView = new ChecklistContentView();
-//        ChecklistContentDto contentDto = new ChecklistContentDto(items);
-//        ChecklistContentUpdateResponse response = contentView.updateContent(new Scanner(System.in), contentDto);
-//
-//    }
+    public static void main(String[] args) {
+        List<ChecklistTaskDto> items = new ArrayList<>();
+        items.add(new ChecklistTaskDto("Это новый текст задачи чек-листа пробный для посмотреть такой длинный текст вроде бы должен корректно отобразиться", false));
+        items.add(new ChecklistTaskDto("Короткая задача", true));
+        items.add(new ChecklistTaskDto("И вот третья задача", false));
+        ChecklistContentView contentView = new ChecklistContentView();
+        ChecklistContentDto contentDto = new ChecklistContentDto(items);
+        ChecklistContentUpdateResponse response = contentView.updateContent(new Scanner(System.in), contentDto);
+
+    }
 }
 

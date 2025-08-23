@@ -46,45 +46,62 @@ public class DefaultNoteView {
 
         //контроллер - findAll();
 //        renderAllNotesPreview();
+        while (true) {
 
-        System.out.println("Выбери действие (пустой ввод - выход):");
-        System.out.println("1.Создать заметку");
-        System.out.println("2.Редактировать заметку"); //todo: здесь подменю конкретных заметок от типа: закрепить, удалить, отредактировать и тд.
-        System.out.println("3.Отсортировать заметки"); //todo: по разным полям: приоритет, тип и тд.
-        System.out.println("4.Удалить заметку");
+            System.out.println("Выбери действие (пустой ввод - выход):");
+            System.out.println("1.Создать заметку");
+            System.out.println("2.Редактировать заметку"); //todo: здесь подменю конкретных заметок от типа: закрепить, удалить, отредактировать и тд.
+            System.out.println("3.Отсортировать заметки"); //todo: по разным полям: приоритет, тип и тд.
+            System.out.println("4.Удалить заметку");
 
-        int choice = scanner.nextInt();
+            int choice;
 
-        if (choice == 1) { //todo: это метод createNote().
-            System.out.println("Выбери тип заметки:");
-            NoteTypeEnum[] values = NoteTypeEnum.values();
-
-            for (int i = 0; i < values.length; i++) {
-                System.out.printf("%s.%s", values[i].ordinal() + 1, values[i].name());
+            try {
+                choice = Integer.parseInt(scanner.nextLine());
+            } catch (NumberFormatException e) {
+                System.err.println("Ошибка: введите число от 1 до 3!");
+                continue;
             }
 
-            choice = scanner.nextInt();
-            NoteTypeEnum type = values[choice];
+            if (choice == 1) { //todo: это метод createNote().
+                System.out.println("Выбери тип заметки:");
+                NoteTypeEnum[] values = NoteTypeEnum.values();
+
+                for (int i = 0; i < values.length; i++) {
+                    System.out.printf("%s.%s", values[i].ordinal() + 1, values[i].name());
+                }
+
+                while (true) {
+                    try {
+                        choice = Integer.parseInt(scanner.nextLine());
+                    } catch (NumberFormatException e) {
+                        System.err.println("Ошибка: введите число!");
+                        break;
+                    }
+                }
+
+                NoteTypeEnum type = values[choice];
 
 //            NoteDto createdNoteDto = createNote(type);
-            //todo: отображаем заметку (подробная инфа) и переходим в метод, где меню для этой заметки: изменить, удалить и тд,
-            // скорее всего из контроллера метод update(type).
+                //todo: отображаем заметку (подробная инфа) и переходим в метод, где меню для этой заметки: изменить, удалить и тд,
+                // скорее всего из контроллера метод update(type).
 //            renderNote(createdNoteDto);
 
 
-            if (choice == 2) {
+                if (choice == 2) {
 
-            }
+                }
 
-            if (choice == 3) {
+                if (choice == 3) {
 
-            }
+                }
 
 
 //            System.out.println(createdNoteDto.toString());//отображаем созданную заметку
 //            controller.readNote(NoteDto noteDto)  //экран контента опять выбирается из реестра.
 
 
+            }
         }
     }
 
@@ -96,18 +113,24 @@ public class DefaultNoteView {
     private void updateNote(NoteDto noteDto) {
         System.out.println("Что изменить:");
         System.out.println("1.Изменить название");
-        System.out.println("2.Поставить напоминание"); //todo: здесь подменю конкретных заметок от типа: закрепить, удалить, отредактировать и тд.
+        System.out.println("2.Поставить напоминание");
         System.out.println("3.Закрепить заметку");
         System.out.println("4.Изменить содержимое");
         System.out.println("5.Назад");
 
-        int choice = scanner.nextInt();
-        scanner.nextLine();
+        int choice;
+
+        try {
+            choice = Integer.parseInt(scanner.nextLine());
+        } catch (NumberFormatException e) {
+            System.err.println("Ошибка: введите число от 1 до 3!");
+            br  ;
+        }
 
         if (choice == 4) {
             ContentView<ContentDto> contentView = contentViewRegistry.getContentView(noteDto.metadataDto().getType());
             ContentDto contentDto = noteDto.contentDto();
-             contentView.updateContent(scanner, contentDto);
+            contentView.updateContent(scanner, contentDto);
         }
 
     }
