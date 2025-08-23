@@ -1,10 +1,10 @@
 package ru.yandex.kingartaved.data.model;
 
-public class ChecklistItem {
+public class ChecklistTask {
     private final String text;
     private final boolean isDone;
 
-    public ChecklistItem(String text, boolean isDone) {
+    public ChecklistTask(String text, boolean isDone) {
         this.text = text;
         this.isDone = isDone;
     }

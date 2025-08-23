@@ -3,7 +3,8 @@ package ru.yandex.kingartaved.data.constant;
 public enum NotePriorityEnum {
 
     HIGH("Высокий"),
-    BASE("Базовый");
+    BASE("Базовый"),
+    LOW("Низкий");
 
     private final String priority;
 

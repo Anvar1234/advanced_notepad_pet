@@ -16,7 +16,7 @@ import java.util.List;
  */
 
 public class ChecklistContentValidator implements ContentValidator {
-    private static final int EXPECTED_ITEM_FIELDS_COUNT = 2;
+    private static final int EXPECTED_TASK_FIELDS_COUNT = 2;
     private static final int MIN_TEXT_LENGTH = AppConfig.MIN_TEXT_LENGTH;
     private static final int MAX_TEXT_LENGTH = AppConfig.MAX_TEXT_LENGTH;
 
@@ -28,10 +28,10 @@ public class ChecklistContentValidator implements ContentValidator {
     @Override
     public void validateContent(String[] parts) throws ContentValidationException { //заходит не пустая, не null, не равная строке 'null' часть.
         try {
-            List<String> itemStrings = parseItemStrings(parts[FieldIndex.CONTENT.getIndex()]);
+            List<String> taskStrings = parseTaskStrings(parts[FieldIndex.CONTENT.getIndex()]);
 
-            for (String itemString : itemStrings) {
-                validateItemStructureAndContent(itemString);
+            for (String taskString : taskStrings) {
+                validateTaskStructureAndContent(taskString);
             }
 
         } catch (IllegalArgumentException e) {
@@ -39,24 +39,24 @@ public class ChecklistContentValidator implements ContentValidator {
         }
     }
 
-    protected List<String> parseItemStrings(String contentPart) {
+    protected List<String> parseTaskStrings(String contentPart) {
         return Arrays.stream(contentPart.split(";")).toList(); // TODO: Без "-1", т.к. не берем последний пустой элемент (который после последнего ";" в строке вида CHECKLIST|1задача:true;задача2:false;)
     }
 
-    protected void validateItemStructureAndContent(String itemStr) {
-        String[] itemParts = itemStr.split(":");
-        FieldValidationUtil.validateFieldsCount(itemParts, EXPECTED_ITEM_FIELDS_COUNT);
-        validateLineTrimmedAndNotBlank(itemParts);
+    protected void validateTaskStructureAndContent(String taskStr) {
+        String[] taskParts = taskStr.split(":");
+        FieldValidationUtil.validateFieldsCount(taskParts, EXPECTED_TASK_FIELDS_COUNT);
+        validateLineTrimmedAndNotBlank(taskParts);
 
-        String text = itemParts[0];
-        String isDoneStr = itemParts[1];
+        String text = taskParts[0];
+        String isDoneStr = taskParts[1];
 
         DataValidationUtil.validateText(text, MIN_TEXT_LENGTH, MAX_TEXT_LENGTH);
         DataValidationUtil.validateBoolean(isDoneStr);
     }
 
-    protected void validateLineTrimmedAndNotBlank(String[] itemParts) {
-        for (String part : itemParts) {
+    protected void validateLineTrimmedAndNotBlank(String[] taskParts) {
+        for (String part : taskParts) {
             DataValidationUtil.validateNotBlank(part);
             DataValidationUtil.validateTrimmed(part);
         }

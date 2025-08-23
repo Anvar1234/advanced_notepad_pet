@@ -2,11 +2,11 @@ package ru.yandex.kingartaved.dto;
 
 import java.util.Objects;
 
-public final class ChecklistItemDto {
+public final class ChecklistTaskDto {
     private final String text;
     private final boolean isDone;
 
-    public ChecklistItemDto(String text, boolean isDone) {
+    public ChecklistTaskDto(String text, boolean isDone) {
         this.text = text;
         this.isDone = isDone;
     }
@@ -23,7 +23,7 @@ public final class ChecklistItemDto {
     public boolean equals(Object obj) {
         if (obj == this) return true;
         if (obj == null || obj.getClass() != this.getClass()) return false;
-        var that = (ChecklistItemDto) obj;
+        var that = (ChecklistTaskDto) obj;
         return Objects.equals(this.text, that.text) &&
                 this.isDone == that.isDone;
     }
@@ -35,7 +35,7 @@ public final class ChecklistItemDto {
 
     @Override
     public String toString() {
-        return "ChecklistItemDto[" +
+        return "ChecklistTaskDto[" +
                 "text=" + text + ", " +
                 "isDone=" + isDone + ']';
     }

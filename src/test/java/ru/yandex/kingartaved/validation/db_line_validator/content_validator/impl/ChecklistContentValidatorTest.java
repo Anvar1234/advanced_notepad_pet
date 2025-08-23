@@ -25,12 +25,12 @@ public class ChecklistContentValidatorTest {
     @ParameterizedTest(name = "Для заметки типа: {0}")
     @MethodSource("provideValidContentPartLine")
     @DisplayName("Проверка парсинга валидной строки контента")
-    void parseItemStrings_validLine_success(String noteType, String input, List<String> expected) {
+    void parseTaskStrings_validLine_success(String noteType, String input, List<String> expected) {
         // given
         // input - валидная строка из метода
 
         //when
-        List<String> actual = contentValidator.parseItemStrings(input);
+        List<String> actual = contentValidator.parseTaskStrings(input);
 
         //then
         Assertions.assertEquals(expected, actual, "Для " + noteType + " строка должна быть валидна");
@@ -47,12 +47,12 @@ public class ChecklistContentValidatorTest {
     @ParameterizedTest(name = "Для заметки типа: {0}")
     @MethodSource("provideInvalidContentPartLine")
     @DisplayName("Проверка парсинга невалидной строки контента")
-    void parseItemStrings_invalidLine_success(String noteType, String input, List<String> expected) {
+    void parseTaskStrings_invalidLine_success(String noteType, String input, List<String> expected) {
         // given
         // input - валидная строка из метода
 
         //when
-        List<String> actual = contentValidator.parseItemStrings(input);
+        List<String> actual = contentValidator.parseTaskStrings(input);
 
         //then
         Assertions.assertNotEquals(expected, actual, "Для " + noteType + " строка должна быть невалидна");
@@ -67,12 +67,12 @@ public class ChecklistContentValidatorTest {
     }
 
     @Test
-    void validateItemStructureAndContent_validLine_success() {
+    void validateTaskStructureAndContent_validLine_success() {
         //given
         String itemStr = "text:true";
 
         //when
-        Executable action = () -> contentValidator.validateItemStructureAndContent(itemStr);
+        Executable action = () -> contentValidator.validateTaskStructureAndContent(itemStr);
 
         //then
         Assertions.assertDoesNotThrow(action,"Строка '"+itemStr+"' должна быть валидна");
@@ -95,11 +95,11 @@ public class ChecklistContentValidatorTest {
             "' text7:true'"
     })
     @DisplayName("Проверка структуры элемента чек-листа")
-    void validateItemStructureAndContent_invalidLine_failed(String itemStr) {
+    void validateTaskStructureAndContent_invalidLine_failed(String itemStr) {
         // given — приходит как параметр
 
         //when
-        Executable action = () -> contentValidator.validateItemStructureAndContent(itemStr);
+        Executable action = () -> contentValidator.validateTaskStructureAndContent(itemStr);
 
         //then
         Assertions.assertThrows(IllegalArgumentException.class, action,"Строка '"+itemStr+"' должна быть невалидна");

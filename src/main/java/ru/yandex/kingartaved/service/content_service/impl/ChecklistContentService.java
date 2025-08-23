@@ -1,7 +1,7 @@
 package ru.yandex.kingartaved.service.content_service.impl;
 
 import ru.yandex.kingartaved.data.constant.NoteTypeEnum;
-import ru.yandex.kingartaved.data.model.ChecklistItem;
+import ru.yandex.kingartaved.data.model.ChecklistTask;
 import ru.yandex.kingartaved.data.model.ChecklistContent;
 import ru.yandex.kingartaved.dto.ChecklistContentDto;
 import ru.yandex.kingartaved.service.content_service.ContentService;
@@ -15,7 +15,7 @@ public class ChecklistContentService implements ContentService<ChecklistContentD
 
         return new ChecklistContent(
                 validContentDto.tasks().stream()
-                .map(itemDto -> new ChecklistItem(
+                .map(itemDto -> new ChecklistTask(
                         itemDto.text(),
                         itemDto.isDone()))
                 .toList());

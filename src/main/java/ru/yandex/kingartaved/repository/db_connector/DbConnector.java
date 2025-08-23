@@ -1,4 +1,4 @@
-package ru.yandex.kingartaved.data.repository.db_connector;
+package ru.yandex.kingartaved.repository.db_connector;
 
 import java.nio.file.Path;
 

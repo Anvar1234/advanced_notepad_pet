@@ -8,12 +8,8 @@ import ru.yandex.kingartaved.data.mapper.content_mapper.ContentMapperRegistry;
 import ru.yandex.kingartaved.data.mapper.impl.DefaultNoteMapper;
 import ru.yandex.kingartaved.data.mapper.metadata_mapper.MetadataMapper;
 import ru.yandex.kingartaved.data.mapper.metadata_mapper.impl.DefaultMetadataMapper;
-import ru.yandex.kingartaved.data.model.ChecklistItem;
-import ru.yandex.kingartaved.data.model.Content;
-import ru.yandex.kingartaved.data.model.Metadata;
-import ru.yandex.kingartaved.data.model.Note;
-import ru.yandex.kingartaved.data.model.ChecklistContent;
-import ru.yandex.kingartaved.data.model.TextContent;
+import ru.yandex.kingartaved.data.model.*;
+import ru.yandex.kingartaved.data.model.ChecklistTask;
 import ru.yandex.kingartaved.dto.ContentDto;
 import ru.yandex.kingartaved.dto.MetadataDto;
 import ru.yandex.kingartaved.dto.NoteDto;
@@ -50,44 +46,62 @@ public class DefaultNoteView {
 
         //контроллер - findAll();
 //        renderAllNotesPreview();
+        while (true) {
 
-        System.out.println("Выбери действие (пустой ввод - выход):");
-        System.out.println("1.Создать заметку");
-        System.out.println("2.Редактировать заметку"); //todo: здесь подменю конкретных заметок от типа: закрепить, удалить, отредактировать и тд.
-        System.out.println("3.Отсортировать заметки"); //todo: по разным полям: приоритет, тип и тд.
+            System.out.println("Выбери действие (пустой ввод - выход):");
+            System.out.println("1.Создать заметку");
+            System.out.println("2.Редактировать заметку"); //todo: здесь подменю конкретных заметок от типа: закрепить, удалить, отредактировать и тд.
+            System.out.println("3.Отсортировать заметки"); //todo: по разным полям: приоритет, тип и тд.
+            System.out.println("4.Удалить заметку");
 
-        int choice = scanner.nextInt();
+            int choice;
 
-        if (choice == 1) { //todo: это метод createNote().
-            System.out.println("Выбери тип заметки:");
-            NoteTypeEnum[] values = NoteTypeEnum.values();
-
-            for (int i = 0; i < values.length; i++) {
-                System.out.printf("%s.%s", values[i].ordinal() + 1, values[i].name());
+            try {
+                choice = Integer.parseInt(scanner.nextLine());
+            } catch (NumberFormatException e) {
+                System.err.println("Ошибка: введите число от 1 до 3!");
+                continue;
             }
 
-            choice = scanner.nextInt();
-            NoteTypeEnum type = values[choice];
+            if (choice == 1) { //todo: это метод createNote().
+                System.out.println("Выбери тип заметки:");
+                NoteTypeEnum[] values = NoteTypeEnum.values();
+
+                for (int i = 0; i < values.length; i++) {
+                    System.out.printf("%s.%s", values[i].ordinal() + 1, values[i].name());
+                }
+
+                while (true) {
+                    try {
+                        choice = Integer.parseInt(scanner.nextLine());
+                    } catch (NumberFormatException e) {
+                        System.err.println("Ошибка: введите число!");
+                        break;
+                    }
+                }
+
+                NoteTypeEnum type = values[choice];
 
 //            NoteDto createdNoteDto = createNote(type);
-            //todo: отображаем заметку (подробная инфа) и переходим в метод, где меню для этой заметки: изменить, удалить и тд,
-            // скорее всего из контроллера метод update(type).
+                //todo: отображаем заметку (подробная инфа) и переходим в метод, где меню для этой заметки: изменить, удалить и тд,
+                // скорее всего из контроллера метод update(type).
 //            renderNote(createdNoteDto);
 
 
-            if (choice == 2) {
+                if (choice == 2) {
 
-            }
+                }
 
-            if (choice == 3) {
+                if (choice == 3) {
 
-            }
+                }
 
 
 //            System.out.println(createdNoteDto.toString());//отображаем созданную заметку
 //            controller.readNote(NoteDto noteDto)  //экран контента опять выбирается из реестра.
 
 
+            }
         }
     }
 
@@ -99,16 +113,24 @@ public class DefaultNoteView {
     private void updateNote(NoteDto noteDto) {
         System.out.println("Что изменить:");
         System.out.println("1.Изменить название");
-        System.out.println("2.Поставить напоминание"); //todo: здесь подменю конкретных заметок от типа: закрепить, удалить, отредактировать и тд.
+        System.out.println("2.Поставить напоминание");
         System.out.println("3.Закрепить заметку");
         System.out.println("4.Изменить содержимое");
         System.out.println("5.Назад");
 
-        int choice = scanner.nextInt();
+        int choice;
+
+        try {
+            choice = Integer.parseInt(scanner.nextLine());
+        } catch (NumberFormatException e) {
+            System.err.println("Ошибка: введите число от 1 до 3!");
+            br  ;
+        }
 
         if (choice == 4) {
             ContentView<ContentDto> contentView = contentViewRegistry.getContentView(noteDto.metadataDto().getType());
-//            contentView.updateContent();
+            ContentDto contentDto = noteDto.contentDto();
+            contentView.updateContent(scanner, contentDto);
         }
 
     }
@@ -209,7 +231,7 @@ public class DefaultNoteView {
 
     private void renderNoteBody(NoteTypeEnum type, ContentDto contentDto) {
         ContentView<ContentDto> contentView = contentViewRegistry.getContentView(type);
-        contentView.renderContent(contentDto, TABLE_WIDTH, DELIMITER_SYMBOL);
+        contentView.renderContent(contentDto);
     }
 
     public void renderNoteFooter(MetadataDto metadataDto) {
@@ -235,10 +257,10 @@ public class DefaultNoteView {
                 .type(NoteTypeEnum.CHECKLIST)
                 .build();
 
-        List<ChecklistItem> items = new ArrayList<>();
-        items.add(new ChecklistItem("Корот                                                         d", false));
-        items.add(new ChecklistItem("Короткая подзадачка", true));
-        items.add(new ChecklistItem("Это новый текст подзадачки чек-листа пробный для посмотреть такой длинный текст вроде бы должен корректно отобразиться", false));
+        List<ChecklistTask> items = new ArrayList<>();
+        items.add(new ChecklistTask("Корот                                                         d", false));
+        items.add(new ChecklistTask("Короткая подзадачка", true));
+        items.add(new ChecklistTask("Это новый текст подзадачки чек-листа пробный для посмотреть такой длинный текст вроде бы должен корректно отобразиться", false));
 
 
         Content content2 = new ChecklistContent(items);
