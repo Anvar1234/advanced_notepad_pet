@@ -34,22 +34,23 @@ public class TextContentView implements ContentView<TextContentDto> {
 
         int choice = scanner.nextInt();
 
-        switch (choice) {
-            case 1 -> {
-                System.out.println("Введите новый текст заметки (пустой ввод - отмена): ");
-                String text = scanner.nextLine().trim();
-
-                if (text.isBlank()) {
-                    return textContentDto; //todo: тогда просто возвращаем то же dto.
-                }
-                return new TextContentDto(text);
-
-            }
-            case 2 -> {
-                return textContentDto;
-            }
-            default -> throw new IllegalArgumentException();
-        }
+//        switch (choice) {
+//            case 1 -> {
+//                System.out.println("Введите новый текст заметки (пустой ввод - отмена): ");
+//                String text = scanner.nextLine().trim();
+//
+//                if (text.isBlank()) {
+//                    return textContentDto; //todo: тогда просто возвращаем то же dto.
+//                }
+//                return new TextContentDto(text);
+//
+//            }
+//            case 2 -> {
+//                return textContentDto;
+//            }
+//            default -> throw new IllegalArgumentException();
+//        }
+        return null;
     }
 
     @Override

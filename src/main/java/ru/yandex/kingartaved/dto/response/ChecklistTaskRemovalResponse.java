@@ -24,8 +24,11 @@ public class ChecklistTaskRemovalResponse {
 
     public enum TaskRemovalResult {
         TASK_REMOVED("Задача удалена"),
-        ALL_TASKS_REMOVED("Все задачи удалены (заметка должна быть удалена)"),
-        OPERATION_CANCELLED("Операция отменена"),
+        ALL_TASKS_REMOVED("""
+        Все задачи чек-листа удалены.
+        Заметка будет удалена при выходе
+        из режима редактирования"""),
+        OPERATION_CANCELLED("Операция удаления отменена"),
         EMPTY_CHECKLIST("Чек-лист пуст. Удаление задач невозможно");
 
         private final String description;
