@@ -15,6 +15,7 @@ import ru.yandex.kingartaved.dto.MetadataDto;
 import ru.yandex.kingartaved.dto.NoteDto;
 import ru.yandex.kingartaved.dto.request.CreateNewMetadataRequestDto;
 import ru.yandex.kingartaved.dto.request.CreateNewNoteRequestDto;
+import ru.yandex.kingartaved.view.NoteViewUtil;
 import ru.yandex.kingartaved.view.content_view.ContentView;
 import ru.yandex.kingartaved.view.content_view.ContentViewRegistry;
 import ru.yandex.kingartaved.view.metadata_view.MetadataView;
@@ -118,14 +119,14 @@ public class DefaultNoteView {
         System.out.println("4.Изменить содержимое");
         System.out.println("5.Назад");
 
-        int choice;
-
-        try {
-            choice = Integer.parseInt(scanner.nextLine());
-        } catch (NumberFormatException e) {
-            System.err.println("Ошибка: введите число от 1 до 3!");
-            br  ;
-        }
+        int choice = 0;
+//
+//        try {
+//            choice = Integer.parseInt(scanner.nextLine());
+//        } catch (NumberFormatException e) {
+//            System.err.println("Ошибка: введите число от 1 до 3!");
+//            br  ;
+//        }
 
         if (choice == 4) {
             ContentView<ContentDto> contentView = contentViewRegistry.getContentView(noteDto.metadataDto().getType());
@@ -136,18 +137,24 @@ public class DefaultNoteView {
     }
 
     private void readNote(NoteDto noteDto) {
-        renderNote(noteDto);
-        System.out.println("Что делать с заметкой:");
-        System.out.println("1.Редактировать");
-        System.out.println("2.Отобразить общий список заметок"); //todo: уже с новой заметкой
+        while (true) {
+            System.out.println();
+            renderNote(noteDto);
 
-        int choice = scanner.nextInt();
+            System.out.println("Что делать с заметкой:");
+            System.out.println("1.Редактировать");
+            System.out.println("2.Отобразить общий список заметок"); //todo: уже с новой заметкой
 
-        if (choice == 1) {
-            //updateNote()
-        }
-        if (choice == 2) {
-            start();
+            Optional<Integer> optionalChoice = NoteViewUtil.getNumericChoice(scanner, "Ошибка: введите число от 1 до 2!");
+            if (optionalChoice.isEmpty()) continue;
+            int choice = optionalChoice.get();
+
+            if (choice == 1) {
+                updateNote(noteDto);
+            }
+            if (choice == 2) {
+                start();
+            }
         }
     }
 
@@ -166,20 +173,12 @@ public class DefaultNoteView {
     }
 
     public void renderAllNotesPreview(List<NoteDto> noteDtos) {
+        NoteViewUtil.renderHeaderWithDescription("Все заметки");
         noteDtos.forEach(noteDto -> {
             renderNotePreview(noteDto);
-            renderGeneralDelimiter();
+            NoteViewUtil.renderGeneralDelimiter();
         });
 //        controller.readAll().forEach(this::renderNotePreview);
-    }
-
-    private void renderGeneralListHeader() {   //"------------==Все заметки==-------------"
-        String listTitleAndAroundSymbols = AROUND_SYMBOL + AROUND_SYMBOL + "Все заметки" + AROUND_SYMBOL + AROUND_SYMBOL;
-        int headerBordersLength = (TABLE_WIDTH - listTitleAndAroundSymbols.length()) / 2;
-
-        String border = "-".repeat(headerBordersLength);
-
-        System.out.println(border + listTitleAndAroundSymbols + border);
     }
 
     public void renderNotePreview(NoteDto noteDto) {
@@ -218,15 +217,10 @@ public class DefaultNoteView {
 
         //---------------=Текстовая заметка=---------------
         //Название: Заметка 1
-        //--------------------------------------------------
+
         System.out.println(border + listTitleAndAroundSymbols + border);
         metadataView.renderMetadataForHeader(metadataDto);
-        renderGeneralDelimiter();
-    }
-
-    private void renderGeneralDelimiter() {
-        String noteHeaderAndBodyDelimiter = DELIMITER_SYMBOL.repeat(TABLE_WIDTH);
-        System.out.println(noteHeaderAndBodyDelimiter);
+//        renderGeneralDelimiter();
     }
 
     private void renderNoteBody(NoteTypeEnum type, ContentDto contentDto) {
@@ -286,6 +280,10 @@ public class DefaultNoteView {
         }
 
         noteView.renderAllNotesPreview(noteDtos);
+
+        for (NoteDto dto : noteDtos) {
+            noteView.renderNote(dto);
+        }
     }
 
 }

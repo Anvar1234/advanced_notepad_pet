@@ -173,7 +173,7 @@ public class ChecklistContentView implements ContentView<ChecklistContentDto> {
             switch (choice) {
                 case 1 -> {
                     System.out.println("Введите новый текст задачи (пустой ввод - отмена): ");
-                    String updatedText = scanner.nextLine();
+                    String updatedText = scanner.nextLine().trim();
                     if (updatedText.isBlank()) {
                         System.out.println("Ввод отменен.");
                         continue;
@@ -325,6 +325,7 @@ public class ChecklistContentView implements ContentView<ChecklistContentDto> {
          * ID  | Статус | Задача
          * ----|--------|-----------------------------------
          */
+        NoteViewUtil.renderGeneralDelimiter();
         System.out.println(ID_COLUMN_NAME + "|" + STATUS_COLUMN_NAME + "|" + TASK_COLUMN_NAME);
         System.out.println(idColumnHeaderAndBodyDelimiter + "|" + statusColumnHeaderAndBodyDelimiter + "|" + taskTextColumnHeaderAndBodyDelimiter);
     }

@@ -1,9 +1,13 @@
 package ru.yandex.kingartaved.view;
 
+import ru.yandex.kingartaved.dto.MetadataDto;
 import ru.yandex.kingartaved.exception.constant.ErrorMessage;
 
 import java.util.Optional;
 import java.util.Scanner;
+
+import static ru.yandex.kingartaved.config.AppConfig.DELIMITER_SYMBOL;
+import static ru.yandex.kingartaved.config.AppConfig.TABLE_WIDTH;
 
 public class NoteViewUtil {
 
@@ -29,17 +33,22 @@ public class NoteViewUtil {
                 System.err.println(errorMessage + "\n");
             }
         }
-
-        //        System.out.print("\nВвод: ");
-//
-//        while (true) {
-//            try {
-//                return Integer.parseInt(scanner.nextLine());
-//            } catch (NumberFormatException e) {
-//                System.err.println(errorMessage);
-//            }
-//        }
     }
 
+    public static void renderGeneralDelimiter() {
+        String noteHeaderAndBodyDelimiter = DELIMITER_SYMBOL.repeat(TABLE_WIDTH);
+        System.out.println(noteHeaderAndBodyDelimiter);
+    }
+
+    public static void renderHeaderWithDescription(String description) {
+
+        String listTitleAndAroundSymbols = "=" + description + "=";
+        int headerHalfBordersLength = (TABLE_WIDTH - listTitleAndAroundSymbols.length()) / 2;
+
+        String border = "-".repeat(headerHalfBordersLength);
+
+        //---------------=Описание=---------------
+        System.out.println(border + listTitleAndAroundSymbols + border);
+    }
 
 }
