@@ -6,6 +6,7 @@ import ru.yandex.kingartaved.dto.request.CreateNewNoteRequestDto;
 import ru.yandex.kingartaved.service.NoteService;
 
 import java.util.List;
+import java.util.UUID;
 
 public class DefaultNoteController implements NoteController {
 
@@ -27,6 +28,11 @@ public class DefaultNoteController implements NoteController {
     @Override
     public List<NoteDto> readAll() {
         return noteService.readAllNotes();
+    }
+
+    @Override
+    public boolean deleteNote(UUID id) {
+        return noteService.deleteNote(id);
     }
 
 

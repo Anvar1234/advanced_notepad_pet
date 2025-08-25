@@ -14,6 +14,7 @@ import ru.yandex.kingartaved.service.content_service.ContentServiceRegistry;
 import ru.yandex.kingartaved.service.metadata_service.MetadataService;
 
 import java.util.List;
+import java.util.UUID;
 
 public class DefaultNoteService implements NoteService {
 
@@ -21,7 +22,6 @@ public class DefaultNoteService implements NoteService {
     private final NoteRepository repository;
     private final MetadataService metadataService; //todo: возможно удалить
     private final ContentServiceRegistry contentServiceRegistry; //todo: возможно удалить
-
 
     public DefaultNoteService(
             NoteMapper noteMapper,
@@ -60,4 +60,8 @@ public class DefaultNoteService implements NoteService {
                 .toList();
     }
 
+    @Override
+    public boolean deleteNote(UUID id) {
+        return repository.delete(id);
+    }
 }

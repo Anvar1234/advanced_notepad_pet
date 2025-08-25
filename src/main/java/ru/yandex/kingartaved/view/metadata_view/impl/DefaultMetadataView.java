@@ -3,8 +3,10 @@ package ru.yandex.kingartaved.view.metadata_view.impl;
 import ru.yandex.kingartaved.data.constant.NoteTypeEnum;
 import ru.yandex.kingartaved.dto.MetadataDto;
 import ru.yandex.kingartaved.dto.request.CreateNewMetadataRequestDto;
+import ru.yandex.kingartaved.dto.request.UpdateMetadataRequestDto;
 import ru.yandex.kingartaved.view.metadata_view.MetadataView;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Scanner;
@@ -17,6 +19,36 @@ public class DefaultMetadataView implements MetadataView {
 
         return new CreateNewMetadataRequestDto(title, type);
     }
+
+    @Override
+    public MetadataDto updateMetadataDto(Scanner scanner, MetadataDto oldMetadataDto, UpdateMetadataRequestDto updateMetadataRequestDto) {
+        MetadataDto.Builder metadatBuilder = MetadataDto.builder();
+        if (updateMetadataRequestDto.getTitle() != null) {
+            metadatBuilder.title(updateMetadataRequestDto.getTitle());
+        } else {
+            metadatBuilder.title(oldMetadataDto.getTitle());
+        }
+        if (updateMetadataRequestDto.getRemindAt() != null) {
+            metadatBuilder.remindAt(updateMetadataRequestDto.getRemindAt());
+        } else {
+            metadatBuilder.remindAt(oldMetadataDto.getRemindAt());
+        }
+        if (updateMetadataRequestDto.getPinned() != null) {
+            metadatBuilder.pinned(updateMetadataRequestDto.getPinned());
+        } else {
+            metadatBuilder.pinned(oldMetadataDto.isPinned());
+        }
+        metadatBuilder.id(oldMetadataDto.getId());
+        metadatBuilder.createdAt(oldMetadataDto.getCreatedAt());
+        metadatBuilder.priority(oldMetadataDto.getPriority());
+        metadatBuilder.status(oldMetadataDto.getStatus());
+        metadatBuilder.type(oldMetadataDto.getType());
+
+        metadatBuilder.updatedAt(LocalDateTime.now());
+
+        return metadatBuilder.build();
+    }
+
 
     public void noteMetadataMenu() {
 
@@ -43,6 +75,7 @@ public class DefaultMetadataView implements MetadataView {
                         metadataDto.getStatus().getDescription()
                 );
     }
+
     //todo: type + title не будет больше "текстовая заметка"+"10 символов заголовка", но возможно нужно проверять чтобы это было не больше TABLE_WIDTH
     @Override
     public String getMetadataPreview(MetadataDto metadataDto) {
