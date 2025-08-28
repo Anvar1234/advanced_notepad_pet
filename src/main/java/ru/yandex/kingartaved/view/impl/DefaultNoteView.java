@@ -114,7 +114,7 @@ public class DefaultNoteView {
             System.out.println("3.Удалить заметку");
             System.out.println("4.Выйти из приложения");
 
-            Optional<Integer> optionalChoice = NoteViewUtil.getNumericChoice(scanner, 4,"Ошибка: введите число от 1 до 4!");
+            Optional<Integer> optionalChoice = NoteViewUtil.getNumericChoice(scanner, 4, "Ошибка: введите число от 1 до 4!");
             if (optionalChoice.isEmpty()) continue;
             int choice = optionalChoice.get();
 
@@ -133,7 +133,7 @@ public class DefaultNoteView {
                     if (optionalChoice.isEmpty()) continue;
                     choice = optionalChoice.get();
 
-                    NoteTypeEnum type = typeEnums[choice-1];
+                    NoteTypeEnum type = typeEnums[choice - 1];
 
                     Optional<CreateNewNoteRequestDto> optionalCreateNewNoteRequestDto = createNote(type);
                     if (optionalCreateNewNoteRequestDto.isEmpty()) continue;
@@ -198,11 +198,29 @@ public class DefaultNoteView {
     private Optional<NoteDto> updateNote(NoteDto noteDto) {
         MetadataDto currentMetadataDto = noteDto.metadataDto();
         ContentDto currentContentDto = noteDto.contentDto();
+
+        // Создаем копии для временного хранения изменений
+        String newTitle = currentMetadataDto.getTitle();
+        LocalDateTime newRemindAt = currentMetadataDto.getRemindAt();
+        Boolean newPinned = currentMetadataDto.isPinned();
+        boolean isUpdated = false;
         UpdateMetadataRequestDto updateMetadataRequestDto = new UpdateMetadataRequestDto();
 
         while (true) {
-            System.out.println();
-            renderNote(noteDto);
+            // Создаем временный DTO для отображения
+            MetadataDto tempMetadata = MetadataDto.builder()
+                    .id(currentMetadataDto.getId())
+                    .title(newTitle)
+                    .createdAt(currentMetadataDto.getCreatedAt())
+                    .remindAt(newRemindAt)
+                    .updatedAt(currentMetadataDto.getUpdatedAt())
+                    .pinned(newPinned)
+                    .priority(currentMetadataDto.getPriority())
+                    .status(currentMetadataDto.getStatus())
+                    .type(currentMetadataDto.getType())
+                    .build();
+
+            renderNote(new NoteDto(tempMetadata, currentContentDto));
             System.out.println("Режим редактирования заметки (пустой ввод - выход)");
 
             System.out.println("Что изменить:");
@@ -212,7 +230,7 @@ public class DefaultNoteView {
             System.out.println("4.Изменить содержимое");
             System.out.println("5.Назад");
 
-            Optional<Integer> optionalChoice = NoteViewUtil.getNumericChoice(scanner, 5,"Ошибка: введите число от 1 до 5!");
+            Optional<Integer> optionalChoice = NoteViewUtil.getNumericChoice(scanner, 5, "Ошибка: введите число от 1 до 5!");
             if (optionalChoice.isEmpty()) continue;
             int choice = optionalChoice.get();
 
@@ -227,7 +245,14 @@ public class DefaultNoteView {
                             System.out.println("Ввод отменен.");
                             break;
                         }
+                        if (title.length() > AppConfig.MAX_TITLE_LENGTH) {
+                            System.err.println("Ошибка: длина заголовка превышает максимально допустимую!");
+                            continue;
+                        }
                         updateMetadataRequestDto.setTitle(title);
+                        System.out.println("Название изменено на: " + title);
+                        newTitle = title;
+                        break;
                     }
                 }
                 case 2 -> {
@@ -294,14 +319,18 @@ public class DefaultNoteView {
 
                             if ("да".equalsIgnoreCase(input)) {
                                 updateMetadataRequestDto.setPinned(false);
+                                newPinned = false;
                                 System.out.println("Заметка откреплена.");
+                                break;
                             } else if ("нет".equalsIgnoreCase(input)) {
                                 System.out.println("Заметка остается закрепленной.");
+                                break;
                             } else {
                                 System.out.println("Ошибка: введите да или нет.");
                             }
                         } else {
                             updateMetadataRequestDto.setPinned(true);
+                            newPinned = true;
                             System.out.println("Заметка закреплена.");
                             break;
                         }
@@ -367,20 +396,25 @@ public class DefaultNoteView {
 
     public void renderAllNotesPreview(List<NoteDto> noteDtos) {
         NoteViewUtil.renderHeaderWithDescription("Все заметки");
-        noteDtos.forEach(noteDto -> {
-            renderNotePreview(noteDto);
+        for (int i = 0; i < noteDtos.size(); i++) {
+            renderNotePreview(i, noteDtos.get(i));
             NoteViewUtil.renderGeneralDelimiter();
-        });
+        }
+
+//        noteDtos.forEach(noteDto -> {
+//            renderNotePreview(noteDto);
+//            NoteViewUtil.renderGeneralDelimiter();
+//        });
 //        controller.readAll().forEach(this::renderNotePreview);
     }
 
-    private void renderNotePreview(NoteDto noteDto) {
+    private void renderNotePreview(int index, NoteDto noteDto) {
         MetadataDto metadataDto = noteDto.metadataDto();
         ContentDto contentDto = noteDto.contentDto();
         NoteTypeEnum noteType = metadataDto.getType();
         ContentView<ContentDto> contentView = contentViewRegistry.getContentView(noteType);
 
-        String metadataPreview = metadataView.getMetadataPreview(metadataDto);
+        String metadataPreview = metadataView.getMetadataPreview(index, metadataDto);
         int remainingWidth = TABLE_WIDTH - metadataPreview.length();
         String contentPreview = contentView.getContentPreview(contentDto, remainingWidth);
         String notePreview = metadataPreview + contentPreview;

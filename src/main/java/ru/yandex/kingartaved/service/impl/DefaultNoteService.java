@@ -20,8 +20,8 @@ public class DefaultNoteService implements NoteService {
 
     private final NoteMapper noteMapper;
     private final NoteRepository repository;
-    private final MetadataService metadataService; //todo: возможно удалить
-    private final ContentServiceRegistry contentServiceRegistry; //todo: возможно удалить
+    private final MetadataService metadataService;
+    private final ContentServiceRegistry contentServiceRegistry;
 
     public DefaultNoteService(
             NoteMapper noteMapper,

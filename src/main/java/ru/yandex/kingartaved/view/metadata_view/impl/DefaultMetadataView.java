@@ -85,17 +85,16 @@ public class DefaultMetadataView implements MetadataView {
 
     //todo: type + title не будет больше "текстовая заметка"+"10 символов заголовка", но возможно нужно проверять чтобы это было не больше TABLE_WIDTH
     @Override
-    public String getMetadataPreview(MetadataDto metadataDto) {
+    public String getMetadataPreview(int index, MetadataDto metadataDto) {
         int maxTypeLength = Arrays.stream(NoteTypeEnum.values())
                 .map(NoteTypeEnum::getDescription)
                 .mapToInt(String::length)
                 .max()
                 .orElse(0);
 
-        return String.format("%" + maxTypeLength + "s|%s: ",
+        return String.format("%02d. %-" + maxTypeLength + "s|%s: ",
+                index + 1,
                 metadataDto.getType().getDescription(),
                 metadataDto.getTitle());
     }
-
-
 }

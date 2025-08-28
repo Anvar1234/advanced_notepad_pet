@@ -12,8 +12,6 @@ public class DefaultNoteController implements NoteController {
 
     private final NoteService noteService;
 
-//    private final
-
     public DefaultNoteController(NoteService noteService) {
         this.noteService = noteService;
     }
@@ -22,7 +20,6 @@ public class DefaultNoteController implements NoteController {
     public NoteDto createNote(CreateNewNoteRequestDto createNewNoteRequestDto) {
         //todo: валидация dto и передача валидного entity в сервис после маппинга.
         return noteService.createNote(createNewNoteRequestDto);
-
     }
 
     @Override
@@ -44,6 +41,4 @@ public class DefaultNoteController implements NoteController {
     public void close() {
         noteService.close();
     }
-
-
 }

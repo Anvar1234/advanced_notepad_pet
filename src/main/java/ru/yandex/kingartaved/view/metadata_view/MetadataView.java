@@ -17,5 +17,5 @@ public interface MetadataView {
 
     void renderMetadataForFooter(MetadataDto metadataDto);
 
-    String getMetadataPreview(MetadataDto metadataDto);
+    String getMetadataPreview(int id, MetadataDto metadataDto);
 }

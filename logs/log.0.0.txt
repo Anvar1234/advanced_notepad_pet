@@ -1,4 +1,8 @@
-авг. 28, 2025 6:18:38 PM ru.yandex.kingartaved.view.content_view.ContentViewRegistry lambda$initialize$0
+авг. 28, 2025 9:14:34 PM ru.yandex.kingartaved.data.mapper.content_mapper.ContentMapperRegistry lambda$initialize$0
+INFO: Зарегистрирован маппер для заметок типа: TEXT_NOTE
+авг. 28, 2025 9:14:34 PM ru.yandex.kingartaved.view.content_view.ContentViewRegistry lambda$initialize$0
+INFO: Зарегистрирован экран для заметок типа: TEXT_NOTE
+авг. 28, 2025 9:14:34 PM ru.yandex.kingartaved.view.content_view.ContentViewRegistry lambda$initialize$0
 INFO: Зарегистрирован экран для заметок типа: CHECKLIST
-авг. 28, 2025 6:28:16 PM ru.yandex.kingartaved.util.FileUtil saveAll
+авг. 28, 2025 9:15:39 PM ru.yandex.kingartaved.util.FileUtil saveAll
 INFO: Данные записаны в файл: src\main\resources\note_db.txt

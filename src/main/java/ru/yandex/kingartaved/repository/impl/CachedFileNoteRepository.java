@@ -11,6 +11,7 @@ import ru.yandex.kingartaved.validation.db_line_validator.DbLineValidator;
 
 import java.nio.file.Path;
 import java.util.*;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class CachedFileNoteRepository implements NoteRepository {
@@ -24,9 +25,7 @@ public class CachedFileNoteRepository implements NoteRepository {
 
     private final Path pathToDbFile;
 
-    private final Map<UUID, Note> notes = new LinkedHashMap<>(); //TODO: мне кажется, сохранять в БД нужно только при выборе пользователем решения о выходе из приложения.
-
-//    private final SortingTypeEnum =
+    private final Map<UUID, Note> notes = new LinkedHashMap<>();
 
     public CachedFileNoteRepository(DbConnector dbConnector, DbLineValidator dbLineValidator, NoteSerializer noteSerializer) {
         this.dbConnector = dbConnector;
@@ -42,12 +41,13 @@ public class CachedFileNoteRepository implements NoteRepository {
         dbLines.forEach(dbLineValidator::validateDbLine);
         dbLines.stream().map(noteSerializer::deserialize)
                 .forEach(note -> notes.put(note.getMetadata().getId(), note));
+        LOGGER.log(Level.INFO, "Репозиторий инициализирован");
     }
 
-    @Override
-    public Optional<Note> findById(UUID id) {
-        return Optional.ofNullable(notes.get(id));
-    }
+//    @Override
+//    public Optional<Note> findById(UUID id) {
+//        return Optional.ofNullable(notes.get(id));
+//    }
 
     @Override
     public List<Note> findAll() {
@@ -64,16 +64,12 @@ public class CachedFileNoteRepository implements NoteRepository {
 
         notes.put(id, note);
         return true;
-//        notes.put(note.getMetadata().getId(), note);
-//        saveToDb();//TODO: мне кажется, сохранять в БД нужно только при выборе пользователем решения о выходе из приложения.
     }
-
 
     @Override
     public boolean delete(UUID id) {
         if (!notes.containsKey(id)) return false;
         notes.remove(id);
-//        saveToDb();//TODO: мне кажется, сохранять в БД нужно только при выборе пользователем решения о выходе из приложения.
         return true;
     }
 
@@ -86,15 +82,13 @@ public class CachedFileNoteRepository implements NoteRepository {
         FileUtil.saveAll(pathToDbFile, strings);
     }
 
-    @Override
-    public boolean update(UUID id, Note note) {
-        Optional<Note> optionalNote = findById(id);
-        if (optionalNote.isEmpty()) {
-            return false;
-        }
-        UUID actualId = note.getMetadata().getId();
-        saveToCache(note);
-//        saveToDb();//TODO: мне кажется, сохранять в БД нужно только при выборе пользователем решения о выходе из приложения.
-        return true;
-    }
+//    @Override
+//    public boolean update(UUID id, Note note) {
+//        Optional<Note> optionalNote = findById(id);
+//        if (optionalNote.isEmpty()) {
+//            return false;
+//        }
+//        saveToCache(note);
+//        return true;
+//    }
 }
