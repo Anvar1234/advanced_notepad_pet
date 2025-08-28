@@ -6,12 +6,11 @@ import ru.yandex.kingartaved.dto.request.CreateNewNoteRequestDto;
 import ru.yandex.kingartaved.service.NoteService;
 
 import java.util.List;
+import java.util.UUID;
 
 public class DefaultNoteController implements NoteController {
 
     private final NoteService noteService;
-
-//    private final
 
     public DefaultNoteController(NoteService noteService) {
         this.noteService = noteService;
@@ -19,9 +18,8 @@ public class DefaultNoteController implements NoteController {
 
     @Override
     public NoteDto createNote(CreateNewNoteRequestDto createNewNoteRequestDto) {
-        //todo: валидация, передача валидного ДТО в сервис.
+        //todo: валидация dto и передача валидного entity в сервис после маппинга.
         return noteService.createNote(createNewNoteRequestDto);
-
     }
 
     @Override
@@ -29,5 +27,18 @@ public class DefaultNoteController implements NoteController {
         return noteService.readAllNotes();
     }
 
+    @Override
+    public boolean updateNote(NoteDto updatedNoteDto) {
+        return noteService.updateNote(updatedNoteDto);
+    }
 
+    @Override
+    public boolean deleteNote(UUID id) {
+        return noteService.deleteNote(id);
+    }
+
+    @Override
+    public void close() {
+        noteService.close();
+    }
 }

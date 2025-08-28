@@ -2,8 +2,11 @@ package ru.yandex.kingartaved.view.content_view.impl;
 
 import ru.yandex.kingartaved.config.AppConfig;
 import ru.yandex.kingartaved.data.constant.NoteTypeEnum;
+import ru.yandex.kingartaved.dto.ChecklistContentDto;
 import ru.yandex.kingartaved.dto.TextContentDto;
+import ru.yandex.kingartaved.dto.response.ContentUpdateResult;
 import ru.yandex.kingartaved.dto.response.TextContentUpdateResponse;
+import ru.yandex.kingartaved.view.NoteViewUtil;
 import ru.yandex.kingartaved.view.content_view.ContentView;
 
 import java.util.Optional;
@@ -28,29 +31,40 @@ public class TextContentView implements ContentView<TextContentDto> {
 
     @Override
     public TextContentUpdateResponse updateContent(Scanner scanner, TextContentDto textContentDto) {
-        System.out.println("Меню редактирования текстовой заметки:");
-        System.out.println("1.Изменить текст заметки");
-        System.out.println("2.Назад к заметке");
 
-        int choice = scanner.nextInt();
+        String currentText = textContentDto.text();
 
-//        switch (choice) {
-//            case 1 -> {
-//                System.out.println("Введите новый текст заметки (пустой ввод - отмена): ");
-//                String text = scanner.nextLine().trim();
-//
-//                if (text.isBlank()) {
-//                    return textContentDto; //todo: тогда просто возвращаем то же dto.
-//                }
-//                return new TextContentDto(text);
-//
-//            }
-//            case 2 -> {
-//                return textContentDto;
-//            }
-//            default -> throw new IllegalArgumentException();
-//        }
-        return null;
+        while (true) {
+            System.out.println();
+            renderContent(new TextContentDto(currentText));
+
+            System.out.println("Меню редактирования текстовой заметки:");
+            System.out.println("1.Изменить текст заметки");
+            System.out.println("2.Назад в меню заметки");
+
+            Optional<Integer> optionalChoice = NoteViewUtil.getNumericChoice(scanner, 2, "Ошибка: введите число от 1 до 2!");
+            if (optionalChoice.isEmpty()) continue;
+            int choice = optionalChoice.get();
+
+            switch (choice) {
+                case 1 -> {
+                    System.out.println("Введите новый текст заметки (пустой ввод - отмена): ");
+                    String text = scanner.nextLine().trim();
+
+                    if (text.isBlank()) {
+                        System.out.println("Ввод отменен.");
+                        continue;
+                    }
+                    currentText = text;
+                }
+                case 2 -> {
+                    return new TextContentUpdateResponse(
+                            ContentUpdateResult.CONTENT_UPDATED,
+                            new TextContentDto(currentText));
+                }
+                default -> System.err.println("Ошибка: введите число от 1 до 2!");
+            }
+        }
     }
 
     @Override
@@ -58,12 +72,20 @@ public class TextContentView implements ContentView<TextContentDto> {
         return NoteTypeEnum.TEXT_NOTE;
     }
 
+    protected void renderContentHeader() {
+//        System.out.println("Текст заметки");
+        String textColumnHeaderAndBodyDelimiter = DELIMITER_SYMBOL.repeat(TABLE_WIDTH);
+        System.out.println(textColumnHeaderAndBodyDelimiter);
+
+    }
+
     @Override
     public void renderContent(TextContentDto textContentDto) {
 
+        NoteViewUtil.renderGeneralDelimiter();
         String textColumnHeaderAndBodyDelimiter = DELIMITER_SYMBOL.repeat(TABLE_WIDTH);
 
-        String contentText = textContentDto.text();
+        String contentText = "Текст заметки: " + textContentDto.text();
         String[] words = contentText.split(" ");
         int maxLength = textColumnHeaderAndBodyDelimiter.length();
 
@@ -92,7 +114,7 @@ public class TextContentView implements ContentView<TextContentDto> {
             }
         }
 
-        System.out.println(textColumnHeaderAndBodyDelimiter);
+        NoteViewUtil.renderGeneralDelimiter();
     }
 
     @Override
@@ -163,5 +185,11 @@ public class TextContentView implements ContentView<TextContentDto> {
 //                        .toString();
 //            }
 //        }
+    }
+
+    public static void main(String[] args) {
+        TextContentDto dto = new TextContentDto("Заметка заметку в заметке заметкий заметуся заметолд заметкус заметуська заметище");
+        TextContentView textContentView = new TextContentView();
+        textContentView.renderContent(dto);
     }
 }

@@ -120,7 +120,7 @@ public final class MetadataDto {
         return updatedAt;
     }
 
-    public boolean isPinned() {
+    public Boolean isPinned() {
         return pinned;
     }
 

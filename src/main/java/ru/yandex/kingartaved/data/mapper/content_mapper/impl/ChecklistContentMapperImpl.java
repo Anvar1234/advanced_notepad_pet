@@ -11,7 +11,6 @@ import java.util.stream.Collectors;
 
 public class ChecklistContentMapperImpl implements ContentMapper<ChecklistContent, ChecklistContentDto> {
 
-    //TODO: неужели необходимо делать маппер и для айтемов внутри чеклиста?
     @Override
     public ChecklistContentDto mapEntityToDto(ChecklistContent content) {
         return new ChecklistContentDto(content.tasks().stream()

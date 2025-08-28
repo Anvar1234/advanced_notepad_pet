@@ -12,10 +12,12 @@ public final class ChecklistContentUpdateResponse extends ContentUpdateResponse 
         this.updatedContent = updatedContent;
     }
 
+    @Override
     public ChecklistContentDto getUpdatedContent() {
         return updatedContent;
     }
 
+    @Override
     public ContentUpdateResult getResult() {
         return result;
     }

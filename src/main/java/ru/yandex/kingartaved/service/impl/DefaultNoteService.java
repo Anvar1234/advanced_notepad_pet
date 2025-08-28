@@ -14,14 +14,14 @@ import ru.yandex.kingartaved.service.content_service.ContentServiceRegistry;
 import ru.yandex.kingartaved.service.metadata_service.MetadataService;
 
 import java.util.List;
+import java.util.UUID;
 
 public class DefaultNoteService implements NoteService {
 
     private final NoteMapper noteMapper;
     private final NoteRepository repository;
-    private final MetadataService metadataService; //todo: возможно удалить
-    private final ContentServiceRegistry contentServiceRegistry; //todo: возможно удалить
-
+    private final MetadataService metadataService;
+    private final ContentServiceRegistry contentServiceRegistry;
 
     public DefaultNoteService(
             NoteMapper noteMapper,
@@ -36,12 +36,13 @@ public class DefaultNoteService implements NoteService {
     }
 
     @Override
-    public NoteDto updateNote(ContentDto contentDto) {
-        return null;
+    public boolean updateNote(NoteDto updatedNoteDto) { //todo: в будущем логику перенести из вьюшки
+        Note updatedNote = noteMapper.mapDtoToEntity(updatedNoteDto);
+        return repository.saveToCache(updatedNote);
     }
 
     @Override
-    public NoteDto createNote(CreateNewNoteRequestDto createNewNoteRequestDto) { //todo: верно ли, что из контроллера должен приходить валидный ДТО?
+    public NoteDto createNote(CreateNewNoteRequestDto createNewNoteRequestDto) {
         NoteTypeEnum type = createNewNoteRequestDto.createNewMetadataRequestDto().type();
 
         Metadata metadata = metadataService.createMetadata(createNewNoteRequestDto.createNewMetadataRequestDto());
@@ -60,4 +61,13 @@ public class DefaultNoteService implements NoteService {
                 .toList();
     }
 
+    @Override
+    public boolean deleteNote(UUID id) {
+        return repository.delete(id);
+    }
+
+    @Override
+    public void close() {
+        repository.saveToDB();
+    }
 }

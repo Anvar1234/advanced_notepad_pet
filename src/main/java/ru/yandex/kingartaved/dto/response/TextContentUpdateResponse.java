@@ -12,10 +12,12 @@ public final class TextContentUpdateResponse extends ContentUpdateResponse {
         this.updatedContent = updatedContent;
     }
 
+    @Override
     public ContentUpdateResult getResult() {
         return result;
     }
 
+    @Override
     public TextContentDto getUpdatedContent() {
         return updatedContent;
     }
