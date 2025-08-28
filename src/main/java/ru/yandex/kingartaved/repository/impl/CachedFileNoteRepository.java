@@ -1,5 +1,6 @@
 package ru.yandex.kingartaved.repository.impl;
 
+import ru.yandex.kingartaved.data.model.Metadata;
 import ru.yandex.kingartaved.data.model.Note;
 import ru.yandex.kingartaved.repository.NoteRepository;
 import ru.yandex.kingartaved.repository.db_connector.DbConnector;
@@ -54,33 +55,46 @@ public class CachedFileNoteRepository implements NoteRepository {
     }
 
     @Override
-    public void saveToCache(Note note) {
-        notes.put(note.getMetadata().getId(), note);
+    public boolean saveToCache(Note note) {
+        Objects.requireNonNull(note, "Note is required");
+        Metadata metadata = note.getMetadata();
+        Objects.requireNonNull(metadata, "Note metadata is required");
+        UUID id = metadata.getId();
+        Objects.requireNonNull(id, "Note ID is required");
+
+        notes.put(id, note);
+        return true;
+//        notes.put(note.getMetadata().getId(), note);
 //        saveToDb();//TODO: мне кажется, сохранять в БД нужно только при выборе пользователем решения о выходе из приложения.
     }
 
 
     @Override
     public boolean delete(UUID id) {
-        if(!notes.containsKey(id)) return false;
+        if (!notes.containsKey(id)) return false;
         notes.remove(id);
 //        saveToDb();//TODO: мне кажется, сохранять в БД нужно только при выборе пользователем решения о выходе из приложения.
         return true;
     }
 
     @Override
-    public boolean update(Note note) {
-        UUID actualId = note.getMetadata().getId();
-        notes.put(actualId, note);
-        saveToDb();//TODO: мне кажется, сохранять в БД нужно только при выборе пользователем решения о выходе из приложения.
-        return true;
-    }
-
-    private void saveToDb() { //TODO: мне кажется, сохранять в БД нужно только при выборе пользователем решения о выходе из приложения.
+    public void saveToDB() {
         List<String> strings = notes.values()
                 .stream()
                 .map(noteSerializer::serialize)
                 .toList();
         FileUtil.saveAll(pathToDbFile, strings);
+    }
+
+    @Override
+    public boolean update(UUID id, Note note) {
+        Optional<Note> optionalNote = findById(id);
+        if (optionalNote.isEmpty()) {
+            return false;
+        }
+        UUID actualId = note.getMetadata().getId();
+        saveToCache(note);
+//        saveToDb();//TODO: мне кажется, сохранять в БД нужно только при выборе пользователем решения о выходе из приложения.
+        return true;
     }
 }

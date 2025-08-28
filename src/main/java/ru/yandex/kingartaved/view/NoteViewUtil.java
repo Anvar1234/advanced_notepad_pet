@@ -15,10 +15,10 @@ public class NoteViewUtil {
         throw new UnsupportedOperationException(ErrorMessage.UTILITY_CLASS.getMessage());
     }
 
-    public static Optional<Integer> getNumericChoice(Scanner scanner, String errorMessage) {
+    public static Optional<Integer> getNumericChoice(Scanner scanner, int lastIndex, String errorMessage) {
 
         while (true) {
-            System.out.print("\nВвод (пустой ввод - выход): ");
+            System.out.print("\nВвод (пустой ввод - отмена): ");
             String input = scanner.nextLine().trim();
 
             // Пустая строка - отмена ввода
@@ -28,6 +28,10 @@ public class NoteViewUtil {
             }
 
             try {
+                int choice = Integer.parseInt(input);
+                if (choice < 1 || choice > lastIndex) {
+                    throw new NumberFormatException();
+                }
                 return Optional.of(Integer.parseInt(input));
             } catch (NumberFormatException e) {
                 System.err.println(errorMessage + "\n");

@@ -10,5 +10,7 @@ public interface NoteController {
 
     NoteDto createNote(CreateNewNoteRequestDto noteDto);
     List<NoteDto> readAll();
+    boolean updateNote(NoteDto updatedNoteDto);
     boolean deleteNote(UUID id);
+    void close();
 }

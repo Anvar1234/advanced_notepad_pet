@@ -1,5 +1,6 @@
 package ru.yandex.kingartaved.data.serializer.content_serializer.impl;
 
+import ru.yandex.kingartaved.config.FieldIndex;
 import ru.yandex.kingartaved.data.constant.NoteTypeEnum;
 import ru.yandex.kingartaved.data.model.ChecklistTask;
 import ru.yandex.kingartaved.data.model.Content;
@@ -30,9 +31,11 @@ public class ChecklistContentSerializer implements ContentSerializer {
 
     @Override
     public Content deserializeContent(String[] parts) {
-        List<ChecklistTask> tasks = Arrays.stream(parts)
+        String item = parts[FieldIndex.CONTENT.getIndex()];
+        String[] items = item.split(";", -1);
+        List<ChecklistTask> tasks = Arrays.stream(items)
                 .map(itemPart -> itemPart.split(":"))
-                .map(items -> new ChecklistTask(items[0], Boolean.parseBoolean(items[1])))
+                .map(fields -> new ChecklistTask(fields[0], Boolean.parseBoolean(fields[1])))
                 .toList();
         return new ChecklistContent(tasks);
     }

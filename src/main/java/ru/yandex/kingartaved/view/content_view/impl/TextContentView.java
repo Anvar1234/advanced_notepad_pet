@@ -42,7 +42,7 @@ public class TextContentView implements ContentView<TextContentDto> {
             System.out.println("1.Изменить текст заметки");
             System.out.println("2.Назад в меню заметки");
 
-            Optional<Integer> optionalChoice = NoteViewUtil.getNumericChoice(scanner, "Ошибка: введите число от 1 до 4!");
+            Optional<Integer> optionalChoice = NoteViewUtil.getNumericChoice(scanner, 2, "Ошибка: введите число от 1 до 2!");
             if (optionalChoice.isEmpty()) continue;
             int choice = optionalChoice.get();
 

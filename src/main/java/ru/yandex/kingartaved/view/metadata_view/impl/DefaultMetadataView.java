@@ -14,14 +14,21 @@ import java.util.Scanner;
 public class DefaultMetadataView implements MetadataView {
     @Override
     public CreateNewMetadataRequestDto createMetadataDto(Scanner scanner, NoteTypeEnum type) {
-        System.out.println("Введите заголовок заметки: ");
-        String title = scanner.nextLine(); //todo: если пустой, то в NoteService берет данные из контента.
+        System.out.println("Введите заголовок заметки (пустой ввод - заголовок по умолчанию): ");
+        String title = scanner.nextLine(); //todo: если пустой, то устанавливаем название по умолчанию.
 
+        if (title.isBlank()) {
+            if (type == NoteTypeEnum.TEXT_NOTE) {
+                title = "Текстовая заметка";
+            } else if (type == NoteTypeEnum.CHECKLIST) {
+                title = "Список дел";
+            }
+        }
         return new CreateNewMetadataRequestDto(title, type);
     }
 
     @Override
-    public MetadataDto updateMetadataDto(Scanner scanner, MetadataDto oldMetadataDto, UpdateMetadataRequestDto updateMetadataRequestDto) {
+    public MetadataDto updateMetadataDto(MetadataDto oldMetadataDto, UpdateMetadataRequestDto updateMetadataRequestDto) {
         MetadataDto.Builder metadatBuilder = MetadataDto.builder();
         if (updateMetadataRequestDto.getTitle() != null) {
             metadatBuilder.title(updateMetadataRequestDto.getTitle());

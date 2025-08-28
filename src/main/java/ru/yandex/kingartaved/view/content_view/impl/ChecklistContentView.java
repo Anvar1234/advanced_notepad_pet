@@ -27,17 +27,39 @@ public class ChecklistContentView implements ContentView<ChecklistContentDto> {
 
     @Override
     public Optional<ChecklistContentDto> createContentDto(Scanner scanner) {
+
         List<ChecklistTaskDto> tasks = new ArrayList<>();
 
         System.out.println("Режим создания чек-листа. Пустой ввод - выход из режима.");
+
         while (true) {
             Optional<List<ChecklistTaskDto>> tasksAfterAdd = addTask(scanner, tasks);
-            if (tasksAfterAdd.isEmpty()) break;
+
+            if (tasksAfterAdd.isEmpty()) {
+                // Пользователь прервал ввод
+                if (tasks.isEmpty()) {
+                    return Optional.empty(); // Не создано ни одной задачи
+                } else {
+                    break; // Завершаем с уже добавленными задачами
+                }
+            }
+
             tasks = tasksAfterAdd.get();
-            System.out.println("Введите следующую задачу или пустую строку для выхода.");
+            System.out.println("Задача добавлена. Введите следующую или пустую строку для выхода.");
         }
 
         return Optional.of(new ChecklistContentDto(tasks));
+
+//        List<ChecklistTaskDto> tasks = new ArrayList<>();
+//
+//        System.out.println("Режим создания чек-листа. Пустой ввод - выход из режима.");
+//        while (true) {
+//            Optional<List<ChecklistTaskDto>> tasksAfterAdd = addTask(scanner, tasks);
+//            if (tasksAfterAdd.isEmpty()) break;
+//            tasks = tasksAfterAdd.get();
+//            System.out.println("Введите следующую задачу или пустую строку для выхода.");
+//        }
+//        return Optional.of(new ChecklistContentDto(tasks));
     }
 
     @Override
@@ -55,7 +77,7 @@ public class ChecklistContentView implements ContentView<ChecklistContentDto> {
             System.out.println("3.Удалить задачу");
             System.out.println("4.Назад в меню чек-листа");
 
-            Optional<Integer> optionalChoice = NoteViewUtil.getNumericChoice(scanner, "Ошибка: введите число от 1 до 4!");
+            Optional<Integer> optionalChoice = NoteViewUtil.getNumericChoice(scanner, 4, "Ошибка: введите число от 1 до 4!");
             if(optionalChoice.isEmpty()) continue;
             int choice = optionalChoice.get();
 
@@ -166,7 +188,7 @@ public class ChecklistContentView implements ContentView<ChecklistContentDto> {
             System.out.println("3.Назад");
             System.out.print("Ввод: ");
 
-            Optional<Integer> optionalChoice = NoteViewUtil.getNumericChoice(scanner, "Ошибка: введите число от 1 до 3!");
+            Optional<Integer> optionalChoice = NoteViewUtil.getNumericChoice(scanner, 3, "Ошибка: введите число от 1 до 3!");
             if(optionalChoice.isEmpty()) continue;
             int choice = optionalChoice.get();
 

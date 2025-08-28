@@ -36,12 +36,13 @@ public class DefaultNoteService implements NoteService {
     }
 
     @Override
-    public NoteDto updateNote(ContentDto contentDto) {
-        return null;
+    public boolean updateNote(NoteDto updatedNoteDto) { //todo: в будущем логику перенести из вьюшки
+        Note updatedNote = noteMapper.mapDtoToEntity(updatedNoteDto);
+        return repository.saveToCache(updatedNote);
     }
 
     @Override
-    public NoteDto createNote(CreateNewNoteRequestDto createNewNoteRequestDto) { //todo: верно ли, что из контроллера должен приходить валидный ДТО?
+    public NoteDto createNote(CreateNewNoteRequestDto createNewNoteRequestDto) {
         NoteTypeEnum type = createNewNoteRequestDto.createNewMetadataRequestDto().type();
 
         Metadata metadata = metadataService.createMetadata(createNewNoteRequestDto.createNewMetadataRequestDto());
@@ -63,5 +64,10 @@ public class DefaultNoteService implements NoteService {
     @Override
     public boolean deleteNote(UUID id) {
         return repository.delete(id);
+    }
+
+    @Override
+    public void close() {
+        repository.saveToDB();
     }
 }

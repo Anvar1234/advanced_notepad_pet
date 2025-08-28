@@ -1,24 +1,4 @@
-авг. 24, 2025 1:36:32 AM ru.yandex.kingartaved.data.mapper.content_mapper.ContentMapperRegistry lambda$initialize$0
-INFO: Зарегистрирован маппер для заметок типа: CHECKLIST
-авг. 24, 2025 1:36:32 AM ru.yandex.kingartaved.data.mapper.content_mapper.ContentMapperRegistry lambda$initialize$0
-INFO: Зарегистрирован маппер для заметок типа: TEXT_NOTE
-авг. 24, 2025 1:36:32 AM ru.yandex.kingartaved.view.content_view.ContentViewRegistry lambda$initialize$0
-INFO: Зарегистрирован экран для заметок типа: TEXT_NOTE
-авг. 24, 2025 1:36:32 AM ru.yandex.kingartaved.view.content_view.ContentViewRegistry lambda$initialize$0
+авг. 28, 2025 6:18:38 PM ru.yandex.kingartaved.view.content_view.ContentViewRegistry lambda$initialize$0
 INFO: Зарегистрирован экран для заметок типа: CHECKLIST
-авг. 24, 2025 1:36:51 AM ru.yandex.kingartaved.data.mapper.content_mapper.ContentMapperRegistry lambda$initialize$0
-INFO: Зарегистрирован маппер для заметок типа: CHECKLIST
-авг. 24, 2025 1:36:51 AM ru.yandex.kingartaved.data.mapper.content_mapper.ContentMapperRegistry lambda$initialize$0
-INFO: Зарегистрирован маппер для заметок типа: TEXT_NOTE
-авг. 24, 2025 1:36:51 AM ru.yandex.kingartaved.view.content_view.ContentViewRegistry lambda$initialize$0
-INFO: Зарегистрирован экран для заметок типа: TEXT_NOTE
-авг. 24, 2025 1:36:51 AM ru.yandex.kingartaved.view.content_view.ContentViewRegistry lambda$initialize$0
-INFO: Зарегистрирован экран для заметок типа: CHECKLIST
-авг. 24, 2025 2:23:30 PM ru.yandex.kingartaved.data.mapper.content_mapper.ContentMapperRegistry lambda$initialize$0
-INFO: Зарегистрирован маппер для заметок типа: CHECKLIST
-авг. 24, 2025 2:23:30 PM ru.yandex.kingartaved.data.mapper.content_mapper.ContentMapperRegistry lambda$initialize$0
-INFO: Зарегистрирован маппер для заметок типа: TEXT_NOTE
-авг. 24, 2025 2:23:30 PM ru.yandex.kingartaved.view.content_view.ContentViewRegistry lambda$initialize$0
-INFO: Зарегистрирован экран для заметок типа: TEXT_NOTE
-авг. 24, 2025 2:23:30 PM ru.yandex.kingartaved.view.content_view.ContentViewRegistry lambda$initialize$0
-INFO: Зарегистрирован экран для заметок типа: CHECKLIST
+авг. 28, 2025 6:28:16 PM ru.yandex.kingartaved.util.FileUtil saveAll
+INFO: Данные записаны в файл: src\main\resources\note_db.txt

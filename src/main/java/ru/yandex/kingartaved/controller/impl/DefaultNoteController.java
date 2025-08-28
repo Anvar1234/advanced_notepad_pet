@@ -20,7 +20,7 @@ public class DefaultNoteController implements NoteController {
 
     @Override
     public NoteDto createNote(CreateNewNoteRequestDto createNewNoteRequestDto) {
-        //todo: валидация, передача валидного ДТО в сервис.
+        //todo: валидация dto и передача валидного entity в сервис после маппинга.
         return noteService.createNote(createNewNoteRequestDto);
 
     }
@@ -31,8 +31,18 @@ public class DefaultNoteController implements NoteController {
     }
 
     @Override
+    public boolean updateNote(NoteDto updatedNoteDto) {
+        return noteService.updateNote(updatedNoteDto);
+    }
+
+    @Override
     public boolean deleteNote(UUID id) {
         return noteService.deleteNote(id);
+    }
+
+    @Override
+    public void close() {
+        noteService.close();
     }
 
 

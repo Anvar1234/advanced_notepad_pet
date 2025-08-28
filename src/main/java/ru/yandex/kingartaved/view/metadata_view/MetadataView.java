@@ -11,7 +11,7 @@ public interface MetadataView {
 
     CreateNewMetadataRequestDto createMetadataDto(Scanner scanner, NoteTypeEnum type);
 
-    MetadataDto updateMetadataDto(Scanner scanner, MetadataDto oldMetadataDto, UpdateMetadataRequestDto updateMetadataRequestDto);
+    MetadataDto updateMetadataDto(MetadataDto oldMetadataDto, UpdateMetadataRequestDto updateMetadataRequestDto);
 
     void renderMetadataForHeader(MetadataDto metadataDto);
 
