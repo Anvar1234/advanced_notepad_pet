@@ -8,6 +8,7 @@ public final class AppConfig { //TODO: сделать неизменяемым (
 
     // Пути к файлам базы данных и сопутствующие константы
     public static final String PATH_TO_DB_FILE = "src/main/resources/note_db.txt";
+    public static final String PATH_TO_SORT_SETTINGS_FILE = "src/main/resources/sort.properties";
     public static final String DB_FIELD_DELIMITER = "\\|";
 
     // Требования к контенту

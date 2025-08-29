@@ -9,8 +9,6 @@ import ru.yandex.kingartaved.data.mapper.content_mapper.ContentMapperRegistry;
 import ru.yandex.kingartaved.data.mapper.impl.DefaultNoteMapper;
 import ru.yandex.kingartaved.data.mapper.metadata_mapper.MetadataMapper;
 import ru.yandex.kingartaved.data.mapper.metadata_mapper.impl.DefaultMetadataMapper;
-import ru.yandex.kingartaved.data.model.*;
-import ru.yandex.kingartaved.data.model.ChecklistTask;
 import ru.yandex.kingartaved.data.serializer.NoteSerializer;
 import ru.yandex.kingartaved.data.serializer.content_serializer.ContentSerializerRegistry;
 import ru.yandex.kingartaved.data.serializer.impl.DefaultNoteSerializer;
@@ -32,6 +30,8 @@ import ru.yandex.kingartaved.service.content_service.ContentServiceRegistry;
 import ru.yandex.kingartaved.service.impl.DefaultNoteService;
 import ru.yandex.kingartaved.service.metadata_service.MetadataService;
 import ru.yandex.kingartaved.service.metadata_service.impl.DefaultMetadataService;
+import ru.yandex.kingartaved.service.sorting.SortOrder;
+import ru.yandex.kingartaved.service.sorting.UserSortingSettingsRepository;
 import ru.yandex.kingartaved.validation.db_line_validator.DbLineValidator;
 import ru.yandex.kingartaved.validation.db_line_validator.content_validator.ContentValidatorRegistry;
 import ru.yandex.kingartaved.validation.db_line_validator.impl.DefaultDbLineValidator;
@@ -110,11 +110,11 @@ public class DefaultNoteView {
             System.out.println("\nВыбери действие (пустой ввод - выход):");
             System.out.println("1.Создать заметку");
             System.out.println("2.Редактировать заметку");
-//            System.out.println("3.Отсортировать заметки");
-            System.out.println("3.Удалить заметку");
-            System.out.println("4.Выйти из приложения");
+            System.out.println("3.Отсортировать заметки");
+            System.out.println("4.Удалить заметку");
+            System.out.println("5.Выйти из приложения");
 
-            Optional<Integer> optionalChoice = NoteViewUtil.getNumericChoice(scanner, 4, "Ошибка: введите число от 1 до 4!");
+            Optional<Integer> optionalChoice = NoteViewUtil.getNumericChoice(scanner, 5, "Ошибка: введите число от 1 до 5!");
             if (optionalChoice.isEmpty()) continue;
             int choice = optionalChoice.get();
 
@@ -150,7 +150,7 @@ public class DefaultNoteView {
 
                     if (optionalChoice.isEmpty()) continue;
                     choice = optionalChoice.get();
-                    renderNote(currentNoteDtos.get(choice - 1));
+//                    renderNote(currentNoteDtos.get(choice - 1));
 
                     Optional<NoteDto> optionalNoteDto = updateNote(currentNoteDtos.get(choice - 1));
                     if (optionalNoteDto.isEmpty()) continue;
@@ -163,6 +163,22 @@ public class DefaultNoteView {
                     System.out.println("Заметка не обновлена!");
                 }
                 case 3 -> {
+                    while (true) {
+                        Optional<SortOrder> createdSortingOrder = createSortingConfiguration();
+                        if (createdSortingOrder.isEmpty()) continue;
+                        SortOrder.SortField field = createdSortingOrder.get().field();
+                        SortOrder.SortDirection direction = createdSortingOrder.get().direction();
+
+                        if (controller.setSortOrder(field, direction)) {
+                            System.out.println("Заметки успешно отсортированы!");
+                            break;
+                        } else {
+                            System.out.println("Заметки не отсортированы!");
+                            break;
+                        }
+                    }
+                }
+                case 4 -> {
                     System.out.println("Выберите номер заметки для удаления (пустой ввод - отмена)");
                     int lastIndex = currentNoteDtos.size();
                     String errorMessage = String.format("Ошибка: введите число от 1 до %s!", lastIndex);
@@ -177,7 +193,7 @@ public class DefaultNoteView {
                         System.out.println("Заметка не удалена!");
                     }
                 }
-                case 4 -> {
+                case 5 -> {
                     System.out.println("Выход из приложения.");
                     controller.close();
                     System.exit(0);
@@ -194,6 +210,39 @@ public class DefaultNoteView {
 //    public void previewNote() { //TODO: превью в общем списке
 //
 //    }
+
+    private Optional<SortOrder> createSortingConfiguration() {
+        System.out.println("Выберите сортировку:");
+        System.out.println("1. По названию (A→Z)");
+        System.out.println("2. По названию (Z→A)");
+        System.out.println("3. По дате создания (сначала новые)");
+        System.out.println("4. По дате создания (сначала старые)");
+        System.out.println("5. По дате изменения (сначала новые)");
+        System.out.println("6. По дате изменения (сначала старые)");
+        System.out.println("7. По типу заметки");
+
+        Optional<Integer> optionalChoice = NoteViewUtil.getNumericChoice(scanner, 7, "Ошибка: введите число от 1 до 7!");
+        if (optionalChoice.isEmpty()) {
+            System.out.println("Отмена сортировки.");
+            return Optional.empty();
+        }
+
+        int choice = optionalChoice.get();
+
+        return switch (choice) {
+            case 1 -> Optional.of(new SortOrder(SortOrder.SortField.TITLE, SortOrder.SortDirection.ASC));
+            case 2 -> Optional.of(new SortOrder(SortOrder.SortField.TITLE, SortOrder.SortDirection.DESC));
+            case 3 -> Optional.of(new SortOrder(SortOrder.SortField.CREATED_AT, SortOrder.SortDirection.DESC));
+            case 4 -> Optional.of(new SortOrder(SortOrder.SortField.CREATED_AT, SortOrder.SortDirection.ASC));
+            case 5 -> Optional.of(new SortOrder(SortOrder.SortField.UPDATED_AT, SortOrder.SortDirection.DESC));
+            case 6 -> Optional.of(new SortOrder(SortOrder.SortField.UPDATED_AT, SortOrder.SortDirection.ASC));
+            case 7 -> Optional.of(new SortOrder(SortOrder.SortField.TYPE, SortOrder.SortDirection.ASC));
+            default -> {
+                System.err.println("Чот какато фигня при конфиге сортировки во вьюшке!");
+                yield  Optional.empty();
+            }
+        };
+    }
 
     private Optional<NoteDto> updateNote(NoteDto noteDto) {
         MetadataDto currentMetadataDto = noteDto.metadataDto();
@@ -349,6 +398,7 @@ public class DefaultNoteView {
                         }
                     }
                     currentContentDto = contentUpdateResponse.getUpdatedContent();
+                    updateMetadataRequestDto.setUpdatedAt(LocalDateTime.now());
                 }
                 case 5 -> {
                     currentMetadataDto = metadataView.updateMetadataDto(currentMetadataDto, updateMetadataRequestDto);
@@ -466,11 +516,12 @@ public class DefaultNoteView {
         NoteMapper noteMapper = new DefaultNoteMapper(metadataMapper, contentMapperRegistry);
         MetadataService metadataService = new DefaultMetadataService();
         ContentServiceRegistry contentServiceRegistry = new ContentServiceRegistry();
+        UserSortingSettingsRepository userSortingSettingsRepository = new UserSortingSettingsRepository();
         DbConnector dbConnector = FileDbConnector.INSTANCE;
         DbLineValidator dbLineValidator = new DefaultDbLineValidator(new ContentValidatorRegistry(), new DefaultMetadataValidator());
         NoteSerializer noteSerializer = new DefaultNoteSerializer(new ContentSerializerRegistry(), new DefaultMetadataSerializer(), dbLineValidator);
         NoteRepository noteRepository = new CachedFileNoteRepository(dbConnector, dbLineValidator, noteSerializer);
-        NoteService noteService = new DefaultNoteService(noteMapper, noteRepository, metadataService, contentServiceRegistry);
+        NoteService noteService = new DefaultNoteService(noteMapper, noteRepository, metadataService, contentServiceRegistry, userSortingSettingsRepository);
         NoteController controller = new DefaultNoteController(noteService);
         DefaultNoteView noteView = new DefaultNoteView(new DefaultMetadataView(), new ContentViewRegistry(), new Scanner(System.in), controller);
 

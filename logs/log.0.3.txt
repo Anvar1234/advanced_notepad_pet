@@ -1,35 +1,32 @@
-авг. 28, 2025 9:09:33 PM ru.yandex.kingartaved.util.FileUtil createFile
+авг. 28, 2025 9:09:47 PM ru.yandex.kingartaved.util.FileUtil createFile
 INFO: Файл "note_db.txt" уже существует.
-авг. 28, 2025 9:09:33 PM ru.yandex.kingartaved.util.FileUtil readAll
+авг. 28, 2025 9:09:47 PM ru.yandex.kingartaved.util.FileUtil readAll
 INFO: Информация успешно прочитана из файла: src\main\resources\note_db.txt
-авг. 28, 2025 9:09:33 PM ru.yandex.kingartaved.validation.db_line_validator.content_validator.ContentValidatorRegistry lambda$initialize$0
+авг. 28, 2025 9:09:47 PM ru.yandex.kingartaved.validation.db_line_validator.content_validator.ContentValidatorRegistry lambda$initialize$0
 INFO: Зарегистрирован валидатор для заметок типа: CHECKLIST
-авг. 28, 2025 9:09:33 PM ru.yandex.kingartaved.validation.db_line_validator.content_validator.ContentValidatorRegistry lambda$initialize$0
+авг. 28, 2025 9:09:47 PM ru.yandex.kingartaved.validation.db_line_validator.content_validator.ContentValidatorRegistry lambda$initialize$0
 INFO: Зарегистрирован валидатор для заметок типа: TEXT_NOTE
-авг. 28, 2025 9:09:34 PM ru.yandex.kingartaved.validation.db_line_validator.metadata_validator.impl.DefaultMetadataValidator validateMetadata
-SEVERE: Ошибка валидации метаданных для массива полей: [6d2edb15-fd95-463e-84d8-ee12ecdefda2, Название текстовой заметки, 2025-08-28T17:05:19.958092400, 2025-08-28T21:00:31.702227300, null, false, BASE, ACTIVE, TEXT_NOTE, Содержимое текстовой]
-Причина: Заголовок слишком длинный. Максимальная длина: 20 символов
-java.lang.IllegalArgumentException: Заголовок слишком длинный. Максимальная длина: 20 символов
-	at ru.yandex.kingartaved.validation.db_line_validator.metadata_validator.impl.DefaultMetadataValidator.validateTitle(DefaultMetadataValidator.java:50)
-	at ru.yandex.kingartaved.validation.db_line_validator.metadata_validator.impl.DefaultMetadataValidator.validateMetadata(DefaultMetadataValidator.java:28)
-	at ru.yandex.kingartaved.validation.db_line_validator.impl.DefaultDbLineValidator.validateDbLine(DefaultDbLineValidator.java:67)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-	at ru.yandex.kingartaved.repository.impl.CachedFileNoteRepository.init(CachedFileNoteRepository.java:41)
-	at ru.yandex.kingartaved.repository.impl.CachedFileNoteRepository.<init>(CachedFileNoteRepository.java:35)
-	at ru.yandex.kingartaved.view.impl.DefaultNoteView.main(DefaultNoteView.java:470)
-
-авг. 28, 2025 9:09:34 PM ru.yandex.kingartaved.validation.db_line_validator.impl.DefaultDbLineValidator validateDbLine
-SEVERE: Ошибка при валидации строки из БД: 6d2edb15-fd95-463e-84d8-ee12ecdefda2|Название текстовой заметки|2025-08-28T17:05:19.958092400|2025-08-28T21:00:31.702227300|null|false|BASE|ACTIVE|TEXT_NOTE|Содержимое текстовой'
-Причина: Ошибка валидации метаданных
-ru.yandex.kingartaved.exception.MetadataValidationException: Ошибка валидации метаданных
-	at ru.yandex.kingartaved.validation.db_line_validator.metadata_validator.impl.DefaultMetadataValidator.validateMetadata(DefaultMetadataValidator.java:44)
-	at ru.yandex.kingartaved.validation.db_line_validator.impl.DefaultDbLineValidator.validateDbLine(DefaultDbLineValidator.java:67)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-	at ru.yandex.kingartaved.repository.impl.CachedFileNoteRepository.init(CachedFileNoteRepository.java:41)
-	at ru.yandex.kingartaved.repository.impl.CachedFileNoteRepository.<init>(CachedFileNoteRepository.java:35)
-	at ru.yandex.kingartaved.view.impl.DefaultNoteView.main(DefaultNoteView.java:470)
-Caused by: java.lang.IllegalArgumentException: Заголовок слишком длинный. Максимальная длина: 20 символов
-	at ru.yandex.kingartaved.validation.db_line_validator.metadata_validator.impl.DefaultMetadataValidator.validateTitle(DefaultMetadataValidator.java:50)
-	at ru.yandex.kingartaved.validation.db_line_validator.metadata_validator.impl.DefaultMetadataValidator.validateMetadata(DefaultMetadataValidator.java:28)
-	... 5 more
-
+авг. 28, 2025 9:09:47 PM ru.yandex.kingartaved.data.serializer.content_serializer.ContentSerializerRegistry lambda$initialize$0
+INFO: Зарегистрирован сериалайзер для заметок типа: CHECKLIST
+авг. 28, 2025 9:09:47 PM ru.yandex.kingartaved.data.serializer.content_serializer.ContentSerializerRegistry lambda$initialize$0
+INFO: Зарегистрирован сериалайзер для заметок типа: TEXT_NOTE
+авг. 28, 2025 9:09:47 PM ru.yandex.kingartaved.repository.impl.CachedFileNoteRepository init
+INFO: Репозиторий инициализирован
+авг. 28, 2025 9:09:47 PM ru.yandex.kingartaved.data.mapper.content_mapper.ContentMapperRegistry lambda$initialize$0
+INFO: Зарегистрирован маппер для заметок типа: CHECKLIST
+авг. 28, 2025 9:09:47 PM ru.yandex.kingartaved.data.mapper.content_mapper.ContentMapperRegistry lambda$initialize$0
+INFO: Зарегистрирован маппер для заметок типа: TEXT_NOTE
+авг. 28, 2025 9:09:47 PM ru.yandex.kingartaved.view.content_view.ContentViewRegistry lambda$initialize$0
+INFO: Зарегистрирован экран для заметок типа: TEXT_NOTE
+авг. 28, 2025 9:09:47 PM ru.yandex.kingartaved.view.content_view.ContentViewRegistry lambda$initialize$0
+INFO: Зарегистрирован экран для заметок типа: CHECKLIST
+авг. 28, 2025 9:11:39 PM ru.yandex.kingartaved.util.FileUtil saveAll
+INFO: Данные записаны в файл: src\main\resources\note_db.txt
+авг. 28, 2025 9:12:49 PM ru.yandex.kingartaved.util.FileUtil createFile
+INFO: Файл "note_db.txt" уже существует.
+авг. 28, 2025 9:12:49 PM ru.yandex.kingartaved.util.FileUtil readAll
+INFO: Информация успешно прочитана из файла: src\main\resources\note_db.txt
+авг. 28, 2025 9:12:49 PM ru.yandex.kingartaved.validation.db_line_validator.content_validator.ContentValidatorRegistry lambda$initialize$0
+INFO: Зарегистрирован валидатор для заметок типа: CHECKLIST
+авг. 28, 2025 9:12:49 PM ru.yandex.kingartaved.validation.db_line_validator.content_validator.ContentValidatorRegistry lambda$initialize$0
+INFO: Зарегистрирован валидатор для заметок типа: TEXT_NOTE

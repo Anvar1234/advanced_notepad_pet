@@ -36,7 +36,7 @@ public class TextContentView implements ContentView<TextContentDto> {
 
         while (true) {
             System.out.println();
-            renderContent(new TextContentDto(currentText));
+//            renderContent(new TextContentDto(currentText));
 
             System.out.println("Меню редактирования текстовой заметки:");
             System.out.println("1.Изменить текст заметки");
@@ -187,9 +187,9 @@ public class TextContentView implements ContentView<TextContentDto> {
 //        }
     }
 
-    public static void main(String[] args) {
-        TextContentDto dto = new TextContentDto("Заметка заметку в заметке заметкий заметуся заметолд заметкус заметуська заметище");
-        TextContentView textContentView = new TextContentView();
-        textContentView.renderContent(dto);
-    }
+//    public static void main(String[] args) {
+//        TextContentDto dto = new TextContentDto("Заметка заметку в заметке заметкий заметуся заметолд заметкус заметуська заметище");
+//        TextContentView textContentView = new TextContentView();
+//        textContentView.renderContent(dto);
+//    }
 }

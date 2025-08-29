@@ -69,7 +69,7 @@ public class ChecklistContentView implements ContentView<ChecklistContentDto> {
 
         while (true) {
             System.out.println();
-            renderContent(new ChecklistContentDto(currentTasks));
+//            renderContent(new ChecklistContentDto(currentTasks));
 
             System.out.println("\nМеню редактирования задач чек-листа:");
             System.out.println("1.Добавить задачу");

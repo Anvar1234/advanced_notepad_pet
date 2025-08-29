@@ -5,13 +5,14 @@ import ru.yandex.kingartaved.data.mapper.NoteMapper;
 import ru.yandex.kingartaved.data.model.Content;
 import ru.yandex.kingartaved.data.model.Metadata;
 import ru.yandex.kingartaved.data.model.Note;
-import ru.yandex.kingartaved.dto.ContentDto;
 import ru.yandex.kingartaved.repository.NoteRepository;
 import ru.yandex.kingartaved.dto.NoteDto;
 import ru.yandex.kingartaved.dto.request.CreateNewNoteRequestDto;
 import ru.yandex.kingartaved.service.NoteService;
 import ru.yandex.kingartaved.service.content_service.ContentServiceRegistry;
 import ru.yandex.kingartaved.service.metadata_service.MetadataService;
+import ru.yandex.kingartaved.service.sorting.SortOrder;
+import ru.yandex.kingartaved.service.sorting.UserSortingSettingsRepository;
 
 import java.util.List;
 import java.util.UUID;
@@ -22,17 +23,20 @@ public class DefaultNoteService implements NoteService {
     private final NoteRepository repository;
     private final MetadataService metadataService;
     private final ContentServiceRegistry contentServiceRegistry;
+    private final UserSortingSettingsRepository settingsRepository;
 
     public DefaultNoteService(
             NoteMapper noteMapper,
             NoteRepository repository,
             MetadataService metadataService,
-            ContentServiceRegistry contentServiceRegistry
+            ContentServiceRegistry contentServiceRegistry,
+            UserSortingSettingsRepository settingsRepository
     ) {
         this.noteMapper = noteMapper;
         this.repository = repository;
         this.metadataService = metadataService;
         this.contentServiceRegistry = contentServiceRegistry;
+        this.settingsRepository = settingsRepository;
     }
 
     @Override
@@ -55,7 +59,7 @@ public class DefaultNoteService implements NoteService {
     }
 
     @Override
-    public List<NoteDto> readAllNotes() {
+    public List<NoteDto> readAllNotes() { //todo: здесь добавить сортировку!
         return repository.findAll().stream()
                 .map(noteMapper::mapEntityToDto)
                 .toList();
@@ -69,5 +73,17 @@ public class DefaultNoteService implements NoteService {
     @Override
     public void close() {
         repository.saveToDB();
+    }
+
+
+    public boolean setSortOrder(SortOrder.SortField field, SortOrder.SortDirection direction) {
+        SortOrder order = new SortOrder(field, direction);
+        try {
+            settingsRepository.saveSortOrder(order);
+            return true;
+        } catch (IllegalArgumentException e) {
+            System.out.println("Ошибка при изменении сортировки: " + e.getMessage());
+        }
+        return false;
     }
 }

@@ -4,6 +4,7 @@ import ru.yandex.kingartaved.controller.NoteController;
 import ru.yandex.kingartaved.dto.NoteDto;
 import ru.yandex.kingartaved.dto.request.CreateNewNoteRequestDto;
 import ru.yandex.kingartaved.service.NoteService;
+import ru.yandex.kingartaved.service.sorting.SortOrder;
 
 import java.util.List;
 import java.util.UUID;
@@ -40,5 +41,11 @@ public class DefaultNoteController implements NoteController {
     @Override
     public void close() {
         noteService.close();
+    }
+
+    @Override
+    public boolean setSortOrder(SortOrder.SortField sortField, SortOrder.SortDirection sortDirection) {
+        noteService.setSortOrder(sortField, sortDirection);
+        return true;
     }
 }
