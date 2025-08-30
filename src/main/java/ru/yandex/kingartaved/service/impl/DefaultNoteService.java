@@ -61,6 +61,7 @@ public class DefaultNoteService implements NoteService {
     @Override
     public List<NoteDto> readAllNotes() { //todo: здесь добавить сортировку!
         return repository.findAll().stream()
+                .sorted(settingsRepository.getSortOrder().toComparator())
                 .map(noteMapper::mapEntityToDto)
                 .toList();
     }

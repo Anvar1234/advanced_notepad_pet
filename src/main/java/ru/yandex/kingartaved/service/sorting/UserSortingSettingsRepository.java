@@ -24,17 +24,6 @@ public class UserSortingSettingsRepository {
         }
     }
 
-    public void saveSortOrder(SortOrder order) {
-        properties.setProperty("sort.field", order.field().name());
-        properties.setProperty("sort.direction", order.direction().name());
-
-        try (FileWriter output = new FileWriter(sortSettingsFile)) {
-            properties.store(output, "Настройки сортировки по умолчанию");
-        } catch (IOException e) {
-            System.err.println("Не удалось сохранить настройки сортировки: " + e.getMessage());
-            throw new IllegalArgumentException("Не удалось сохранить настройки сортировки");
-        }
-    }
 
     public SortOrder getSortOrder() {
         String fieldStr = properties.getProperty("sort.field");
@@ -44,6 +33,18 @@ public class UserSortingSettingsRepository {
         SortOrder.SortDirection direction = dirStr != null ? parseDirection(dirStr) : SortOrder.SortDirection.DESC;
 
         return new SortOrder(field, direction);
+    }
+
+    public void saveSortOrder(SortOrder order) {
+        properties.setProperty("sort.field", order.field().name());
+        properties.setProperty("sort.direction", order.direction().name());
+
+        try (FileWriter output = new FileWriter(sortSettingsFile)) {
+            properties.store(output, "Default sorting settings");
+        } catch (IOException e) {
+            System.err.println("Не удалось сохранить настройки сортировки: " + e.getMessage());
+            throw new IllegalArgumentException("Не удалось сохранить настройки сортировки");
+        }
     }
 
     private SortOrder.SortField parseField(String s) {

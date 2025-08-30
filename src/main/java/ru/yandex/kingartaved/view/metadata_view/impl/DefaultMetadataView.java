@@ -63,10 +63,7 @@ public class DefaultMetadataView implements MetadataView {
 
     @Override
     public void renderMetadataForHeader(MetadataDto metadataDto) {
-//        System.out.println("Тип: " + metadataDto.getType().getDescription());
         System.out.println("Название: " + metadataDto.getTitle());
-//        String textHeaderAndBodyDelimiter = delimiterSymbol.repeat(tableWidth);
-//        System.out.println(textHeaderAndBodyDelimiter);
     }
 
     @Override
@@ -75,11 +72,11 @@ public class DefaultMetadataView implements MetadataView {
                 ("""
                                 Создана: %s
                                 Изменена: %s
-                                Статус: %s
+                                Закреп: %s
                                 """,
                         metadataDto.getCreatedAt(),
                         metadataDto.getUpdatedAt(),
-                        metadataDto.getStatus().getDescription()
+                        metadataDto.isPinned() ? "Да" : "Нет"
                 );
     }
 
@@ -92,8 +89,9 @@ public class DefaultMetadataView implements MetadataView {
                 .max()
                 .orElse(0);
 
-        return String.format("%02d. %-" + maxTypeLength + "s|%s: ",
+        return String.format("%02d. |%s| %-" + maxTypeLength + "s|%s: ",
                 index + 1,
+                metadataDto.isPinned() ? "\uD83D\uDCCC" : "❌",
                 metadataDto.getType().getDescription(),
                 metadataDto.getTitle());
     }
