@@ -2,7 +2,7 @@ package ru.yandex.kingartaved.data.serializer.content_serializer.impl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ru.yandex.kingartaved.config.FieldIndex;
+import ru.yandex.kingartaved.data.constant.FieldIndex;
 import ru.yandex.kingartaved.data.constant.NoteTypeEnum;
 import ru.yandex.kingartaved.data.model.Content;
 import ru.yandex.kingartaved.data.model.TextContent;

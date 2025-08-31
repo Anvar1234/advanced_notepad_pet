@@ -1,7 +1,7 @@
 package ru.yandex.kingartaved.validation.db_line_validator.impl;
 
 import ru.yandex.kingartaved.config.AppConfig;
-import ru.yandex.kingartaved.config.FieldIndex;
+import ru.yandex.kingartaved.data.constant.FieldIndex;
 import ru.yandex.kingartaved.data.constant.NoteTypeEnum;
 import ru.yandex.kingartaved.exception.ContentValidationException;
 import ru.yandex.kingartaved.exception.MetadataValidationException;
@@ -19,7 +19,7 @@ import ru.yandex.kingartaved.validation.db_line_validator.metadata_validator.Met
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static ru.yandex.kingartaved.config.FieldIndex.*;
+import static ru.yandex.kingartaved.data.constant.FieldIndex.*;
 
 /**
  * Валидатор структуры строк из базы данных.

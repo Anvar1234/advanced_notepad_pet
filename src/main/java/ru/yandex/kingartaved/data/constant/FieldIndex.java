@@ -1,4 +1,4 @@
-package ru.yandex.kingartaved.config;
+package ru.yandex.kingartaved.data.constant;
 
 public enum FieldIndex {
     ID(0, "id"),

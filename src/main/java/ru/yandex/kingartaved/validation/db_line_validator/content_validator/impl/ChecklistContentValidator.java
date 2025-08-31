@@ -1,7 +1,7 @@
 package ru.yandex.kingartaved.validation.db_line_validator.content_validator.impl;
 
 import ru.yandex.kingartaved.config.AppConfig;
-import ru.yandex.kingartaved.config.FieldIndex;
+import ru.yandex.kingartaved.data.constant.FieldIndex;
 import ru.yandex.kingartaved.data.constant.NoteTypeEnum;
 import ru.yandex.kingartaved.exception.ContentValidationException;
 import ru.yandex.kingartaved.validation.DataValidationUtil;

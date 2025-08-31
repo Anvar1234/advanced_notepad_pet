@@ -55,7 +55,7 @@ public class UserSortingSettingsRepository {
         }
     }
 
-    private SortOrder.SortDirection parseDirection(String s) {
+    private SortOrder.SortDirection parseDirection(String s) throws IllegalArgumentException {
         try {
             return SortOrder.SortDirection.valueOf(s);
         } catch (IllegalArgumentException e) {

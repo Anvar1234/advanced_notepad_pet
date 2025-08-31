@@ -91,7 +91,7 @@ public class DefaultMetadataView implements MetadataView {
 
         return String.format("%02d. |%s| %-" + maxTypeLength + "s|%s: ",
                 index + 1,
-                metadataDto.isPinned() ? "\uD83D\uDCCC" : "❌",
+                metadataDto.isPinned() ? "\uD83D\uDCCC" : "  ",
                 metadataDto.getType().getDescription(),
                 metadataDto.getTitle());
     }

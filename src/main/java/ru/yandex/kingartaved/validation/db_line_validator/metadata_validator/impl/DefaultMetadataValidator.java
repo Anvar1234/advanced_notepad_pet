@@ -14,7 +14,7 @@ import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static ru.yandex.kingartaved.config.FieldIndex.*;
+import static ru.yandex.kingartaved.data.constant.FieldIndex.*;
 import static ru.yandex.kingartaved.validation.FieldValidationUtil.*;
 
 public final class DefaultMetadataValidator implements MetadataValidator {

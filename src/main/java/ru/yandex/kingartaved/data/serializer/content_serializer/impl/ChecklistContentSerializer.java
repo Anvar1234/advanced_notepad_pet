@@ -1,6 +1,6 @@
 package ru.yandex.kingartaved.data.serializer.content_serializer.impl;
 
-import ru.yandex.kingartaved.config.FieldIndex;
+import ru.yandex.kingartaved.data.constant.FieldIndex;
 import ru.yandex.kingartaved.data.constant.NoteTypeEnum;
 import ru.yandex.kingartaved.data.model.ChecklistTask;
 import ru.yandex.kingartaved.data.model.Content;

@@ -16,7 +16,7 @@ import ru.yandex.kingartaved.service.sorting.UserSortingSettingsRepository;
 
 import java.util.List;
 import java.util.UUID;
-
+//todo: в будущем логику перенести из вьюшки
 public class DefaultNoteService implements NoteService {
 
     private final NoteMapper noteMapper;
@@ -40,7 +40,7 @@ public class DefaultNoteService implements NoteService {
     }
 
     @Override
-    public boolean updateNote(NoteDto updatedNoteDto) { //todo: в будущем логику перенести из вьюшки
+    public boolean updateNote(NoteDto updatedNoteDto) {
         Note updatedNote = noteMapper.mapDtoToEntity(updatedNoteDto);
         return repository.saveToCache(updatedNote);
     }
@@ -59,7 +59,7 @@ public class DefaultNoteService implements NoteService {
     }
 
     @Override
-    public List<NoteDto> readAllNotes() { //todo: здесь добавить сортировку!
+    public List<NoteDto> readAllNotes() {
         return repository.findAll().stream()
                 .sorted(settingsRepository.getSortOrder().toComparator())
                 .map(noteMapper::mapEntityToDto)
@@ -75,7 +75,6 @@ public class DefaultNoteService implements NoteService {
     public void close() {
         repository.saveToDB();
     }
-
 
     public boolean setSortOrder(SortOrder.SortField field, SortOrder.SortDirection direction) {
         SortOrder order = new SortOrder(field, direction);

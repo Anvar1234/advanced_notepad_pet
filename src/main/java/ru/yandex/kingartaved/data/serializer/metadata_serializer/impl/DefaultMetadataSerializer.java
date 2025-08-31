@@ -1,6 +1,6 @@
 package ru.yandex.kingartaved.data.serializer.metadata_serializer.impl;
 
-import ru.yandex.kingartaved.config.FieldIndex;
+import ru.yandex.kingartaved.data.constant.FieldIndex;
 import ru.yandex.kingartaved.data.constant.NotePriorityEnum;
 import ru.yandex.kingartaved.data.constant.NoteStatusEnum;
 import ru.yandex.kingartaved.data.constant.NoteTypeEnum;

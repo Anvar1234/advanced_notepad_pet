@@ -2,17 +2,7 @@ package ru.yandex.kingartaved.view.impl;
 
 import ru.yandex.kingartaved.config.AppConfig;
 import ru.yandex.kingartaved.controller.NoteController;
-import ru.yandex.kingartaved.controller.impl.DefaultNoteController;
 import ru.yandex.kingartaved.data.constant.NoteTypeEnum;
-import ru.yandex.kingartaved.data.mapper.NoteMapper;
-import ru.yandex.kingartaved.data.mapper.content_mapper.ContentMapperRegistry;
-import ru.yandex.kingartaved.data.mapper.impl.DefaultNoteMapper;
-import ru.yandex.kingartaved.data.mapper.metadata_mapper.MetadataMapper;
-import ru.yandex.kingartaved.data.mapper.metadata_mapper.impl.DefaultMetadataMapper;
-import ru.yandex.kingartaved.data.serializer.NoteSerializer;
-import ru.yandex.kingartaved.data.serializer.content_serializer.ContentSerializerRegistry;
-import ru.yandex.kingartaved.data.serializer.impl.DefaultNoteSerializer;
-import ru.yandex.kingartaved.data.serializer.metadata_serializer.impl.DefaultMetadataSerializer;
 import ru.yandex.kingartaved.dto.ContentDto;
 import ru.yandex.kingartaved.dto.MetadataDto;
 import ru.yandex.kingartaved.dto.NoteDto;
@@ -21,35 +11,22 @@ import ru.yandex.kingartaved.dto.request.CreateNewNoteRequestDto;
 import ru.yandex.kingartaved.dto.request.UpdateMetadataRequestDto;
 import ru.yandex.kingartaved.dto.response.ContentUpdateResponse;
 import ru.yandex.kingartaved.dto.response.ContentUpdateResult;
-import ru.yandex.kingartaved.repository.NoteRepository;
-import ru.yandex.kingartaved.repository.db_connector.DbConnector;
-import ru.yandex.kingartaved.repository.db_connector.impl.FileDbConnector;
-import ru.yandex.kingartaved.repository.impl.CachedFileNoteRepository;
-import ru.yandex.kingartaved.service.NoteService;
-import ru.yandex.kingartaved.service.content_service.ContentServiceRegistry;
-import ru.yandex.kingartaved.service.impl.DefaultNoteService;
-import ru.yandex.kingartaved.service.metadata_service.MetadataService;
-import ru.yandex.kingartaved.service.metadata_service.impl.DefaultMetadataService;
 import ru.yandex.kingartaved.service.sorting.SortOrder;
-import ru.yandex.kingartaved.service.sorting.UserSortingSettingsRepository;
-import ru.yandex.kingartaved.validation.db_line_validator.DbLineValidator;
-import ru.yandex.kingartaved.validation.db_line_validator.content_validator.ContentValidatorRegistry;
-import ru.yandex.kingartaved.validation.db_line_validator.impl.DefaultDbLineValidator;
-import ru.yandex.kingartaved.validation.db_line_validator.metadata_validator.impl.DefaultMetadataValidator;
 import ru.yandex.kingartaved.view.NoteViewUtil;
 import ru.yandex.kingartaved.view.content_view.ContentView;
 import ru.yandex.kingartaved.view.content_view.ContentViewRegistry;
 import ru.yandex.kingartaved.view.metadata_view.MetadataView;
-import ru.yandex.kingartaved.view.metadata_view.impl.DefaultMetadataView;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
+import java.util.Scanner;
+import java.util.UUID;
 
 public class DefaultNoteView {
     private static final int TABLE_WIDTH = AppConfig.TABLE_WIDTH;
-    private static final String DELIMITER_SYMBOL = AppConfig.DELIMITER_SYMBOL;
     private static final String AROUND_SYMBOL = "=";
 
     MetadataView metadataView;
@@ -64,7 +41,7 @@ public class DefaultNoteView {
         this.scanner = scanner;
     }
 
-    public void start() {
+    public void startMenu() {
 
         while (true) {
             List<NoteDto> currentNoteDtos = controller.readAll();
@@ -159,6 +136,7 @@ public class DefaultNoteView {
                     if (controller.updateNote(createdNoteDto)) {
                         renderNote(createdNoteDto);
                         System.out.println("Заметка успешно обновлена!");
+                        continue;
                     }
                     System.out.println("Заметка не обновлена!");
                 }
@@ -205,11 +183,6 @@ public class DefaultNoteView {
             }
         }
     }
-
-//
-//    public void previewNote() { //TODO: превью в общем списке
-//
-//    }
 
     private Optional<SortOrder> createSortingConfiguration() {
         System.out.println("Выберите сортировку:");
@@ -408,28 +381,6 @@ public class DefaultNoteView {
         }
     }
 
-//    private void serlectNote(NoteDto noteDto) { //todo: этот метод уже отображает заметку полностью, не превью.
-//        while (true) {
-//            System.out.println();
-//            renderNote(noteDto);
-//
-//            System.out.println("Что делать с заметкой:");
-//            System.out.println("1.Редактировать");
-//            System.out.println("2.Отобразить общий список заметок"); //todo: уже с новой заметкой
-//
-//            Optional<Integer> optionalChoice = NoteViewUtil.getNumericChoice(scanner, "Ошибка: введите число от 1 до 2!");
-//            if (optionalChoice.isEmpty()) continue;
-//            int choice = optionalChoice.get();
-//
-//            if (choice == 1) {
-//                updateNote(noteDto);
-//            }
-//            if (choice == 2) {
-//                start();
-//            }
-//        }
-//    }
-
     private Optional<CreateNewNoteRequestDto> createNote(NoteTypeEnum type) {
         CreateNewMetadataRequestDto createNewMetadataRequestDto = metadataView //здесь только title & type
                 .createMetadataDto(scanner, type);
@@ -450,12 +401,6 @@ public class DefaultNoteView {
             renderNotePreview(i, noteDtos.get(i));
             NoteViewUtil.renderGeneralDelimiter();
         }
-
-//        noteDtos.forEach(noteDto -> {
-//            renderNotePreview(noteDto);
-//            NoteViewUtil.renderGeneralDelimiter();
-//        });
-//        controller.readAll().forEach(this::renderNotePreview);
     }
 
     private void renderNotePreview(int index, NoteDto noteDto) {
@@ -472,7 +417,7 @@ public class DefaultNoteView {
         System.out.println(notePreview);
     }
 
-    public void renderNote(NoteDto noteDto) { //TODO: как отображается при выборе конкретной заметки
+    public void renderNote(NoteDto noteDto) {
         MetadataDto metadataDto = noteDto.metadataDto();
         ContentDto contentDto = noteDto.contentDto();
         NoteTypeEnum noteType = metadataDto.getType();
@@ -497,7 +442,6 @@ public class DefaultNoteView {
 
         System.out.println(border + listTitleAndAroundSymbols + border);
         metadataView.renderMetadataForHeader(metadataDto);
-//        renderGeneralDelimiter();
     }
 
     private void renderNoteBody(NoteTypeEnum type, ContentDto contentDto) {
@@ -508,78 +452,4 @@ public class DefaultNoteView {
     public void renderNoteFooter(MetadataDto metadataDto) {
         metadataView.renderMetadataForFooter(metadataDto);
     }
-
-    public static void main(String[] args) {
-
-        MetadataMapper metadataMapper = new DefaultMetadataMapper();
-        ContentMapperRegistry contentMapperRegistry = new ContentMapperRegistry();
-        NoteMapper noteMapper = new DefaultNoteMapper(metadataMapper, contentMapperRegistry);
-        MetadataService metadataService = new DefaultMetadataService();
-        ContentServiceRegistry contentServiceRegistry = new ContentServiceRegistry();
-        UserSortingSettingsRepository userSortingSettingsRepository = new UserSortingSettingsRepository();
-        DbConnector dbConnector = FileDbConnector.INSTANCE;
-        DbLineValidator dbLineValidator = new DefaultDbLineValidator(new ContentValidatorRegistry(), new DefaultMetadataValidator());
-        NoteSerializer noteSerializer = new DefaultNoteSerializer(new ContentSerializerRegistry(), new DefaultMetadataSerializer(), dbLineValidator);
-        NoteRepository noteRepository = new CachedFileNoteRepository(dbConnector, dbLineValidator, noteSerializer);
-        NoteService noteService = new DefaultNoteService(noteMapper, noteRepository, metadataService, contentServiceRegistry, userSortingSettingsRepository);
-        NoteController controller = new DefaultNoteController(noteService);
-        DefaultNoteView noteView = new DefaultNoteView(new DefaultMetadataView(), new ContentViewRegistry(), new Scanner(System.in), controller);
-
-        noteView.start();
-    }
-//        MetadataMapper metadataMapper = new DefaultMetadataMapper();
-//        ContentMapperRegistry contentMapperRegistry = new ContentMapperRegistry();
-//        NoteMapper noteMapper = new DefaultNoteMapper(metadataMapper, contentMapperRegistry);
-//        NoteRepository noteRepository = new CachedFileNoteRepository()
-//        NoteService noteService = new DefaultNoteService(noteMapper, );
-//
-//        Metadata metadata1 = Metadata.builder()
-//                .title("Моя текст. заметка")
-//                .type(NoteTypeEnum.TEXT_NOTE)
-//                .build();
-//
-//        Content content1 = new TextContent("Текст обычной текстовой заметки достаточно большой длины, чтобы посмотреть разделение и вывод.");
-//
-//        Note note1 = new Note(metadata1, content1);
-//
-//        Metadata metadata2 = Metadata.builder()
-//                .title("Мой чек-лист")
-//                .type(NoteTypeEnum.CHECKLIST)
-//                .build();
-//
-//        List<ChecklistTask> items = new ArrayList<>();
-//        items.add(new ChecklistTask("Корот                                                         d", false));
-//        items.add(new ChecklistTask("Короткая подзадачка", true));
-//        items.add(new ChecklistTask("Это новый текст подзадачки чек-листа пробный для посмотреть такой длинный текст вроде бы должен корректно отобразиться", false));
-//
-//
-//        Content content2 = new ChecklistContent(items);
-//
-//        Note note2 = new Note(metadata2, content2);
-//
-//        List<Note> notes = new ArrayList<>();
-//        notes.add(note1);
-//        notes.add(note2);
-//
-//        List<NoteDto> noteDtos = notes.stream()
-//                .map(noteMapper::mapEntityToDto)
-//                .toList();
-//
-//        MetadataView metadataView = new DefaultMetadataView();
-//        ContentViewRegistry contentViewRegistry = new ContentViewRegistry();
-//        NoteController controller = new DefaultNoteController();
-//        Scanner scanner = new Scanner(System.in);
-//
-//        DefaultNoteView noteView = new DefaultNoteView(metadataView, contentViewRegistry, scanner, controller);
-//        for (NoteDto noteDto : noteDtos) {
-//            noteView.renderNote(noteDto);
-//        }
-//
-//        noteView.renderAllNotesPreview(noteDtos);
-//
-//        for (NoteDto dto : noteDtos) {
-//            noteView.renderNote(dto);
-//        }
-//    }
-
 }
